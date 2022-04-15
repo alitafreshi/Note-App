@@ -182,4 +182,7 @@ dependencies {
 
     //lottie animation
     implementation(Lottie.lottie)
+
+    //components module
+    implementation(project(":components"))
 }

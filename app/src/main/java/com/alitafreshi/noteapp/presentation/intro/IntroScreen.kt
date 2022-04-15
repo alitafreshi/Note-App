@@ -1,9 +1,6 @@
 package com.alitafreshi.noteapp.presentation.intro
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -13,11 +10,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.airbnb.lottie.compose.*
+import com.alitafreshi.components.util.spacing
 import com.alitafreshi.noteapp.R
 import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
 @Destination(start = true)
@@ -39,19 +36,23 @@ fun IntroScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(all = 15.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(all = MaterialTheme.spacing.medium),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
     ) {
 
         LottieAnimation(
             composition = lottieCompositionResult.value,
-            progress = lottieAnimationProgress
+            progress = lottieAnimationProgress,
+            modifier = modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.5f)
         )
 
         Text(
             modifier = modifier.fillMaxWidth(),
             text = "خوش آمدید",
-            style = MaterialTheme.typography.h3.copy(
+            style = MaterialTheme.typography.h5.copy(
                 textAlign = TextAlign.Center,
                 color = Color.Black
             )
@@ -63,17 +64,19 @@ fun IntroScreen(
                     " از این بعد هر جا که دلت خواست میتونی\n" +
                     " هرجا که بودی راحت هر چیزی\n" +
                     " رو نوت برداری کنی.",
-            style = MaterialTheme.typography.body1.copy(
+            style = MaterialTheme.typography.subtitle1.copy(
                 textAlign = TextAlign.Center,
-                color = Color.Black.copy(alpha = 0.6f)
+                color = Color.Black.copy(alpha = 0.6f),
+                lineHeight = 30.sp
             )
         )
-
         Button(
-
-            onClick = navigateToMainScreen
+            onClick = navigateToMainScreen,
+            modifier = modifier.fillMaxWidth(0.5f),
+            shape = MaterialTheme.shapes.large
         ) {
             Text(
+                modifier = modifier.padding(vertical = MaterialTheme.spacing.buttonInnerPaddingSmall),
                 text = "شروع کنید",
                 style = MaterialTheme.typography.button.copy(
                     color = Color.Black,
