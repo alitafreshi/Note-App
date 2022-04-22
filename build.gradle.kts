@@ -23,6 +23,7 @@ buildscript {
         classpath(Build.buildTools)
         classpath(Build.kotlinGradlePlugin)
         classpath(Build.hiltGradlePlugin)
+        classpath(Build.kotlinSerializationGradlePlugin)
 //        classpath(Document.dokkaGradleVersion)
     }
 }

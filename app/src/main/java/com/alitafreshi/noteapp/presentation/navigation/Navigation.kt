@@ -1,17 +1,18 @@
 package com.alitafreshi.noteapp.presentation.navigation
 
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.plusAssign
+import com.alitafreshi.components.util.spacing
+import com.alitafreshi.noteapp.presentation.NavGraphs
+import com.alitafreshi.noteapp.presentation.app.AppEvents
+import com.alitafreshi.noteapp.presentation.app.AppViewState
+import com.alitafreshi.noteapp.presentation.destinations.IntroScreenDestination
+import com.alitafreshi.noteapp.presentation.destinations.TaskListDestinationDestination
 import com.alitafreshi.noteapp.presentation.intro.IntroScreen
-import com.alitafreshi.noteapp.presentation.intro.NavGraphs
-import com.alitafreshi.noteapp.presentation.intro.destinations.IntroScreenDestination
+import com.alitafreshi.noteapp.presentation.navigation.destinations.task.task_list.TaskListDestination
 import com.alitafreshi.noteapp.presentation.navigation.util.scaleInEnterTransition
 import com.alitafreshi.noteapp.presentation.navigation.util.scaleInPopEnterTransition
 import com.alitafreshi.noteapp.presentation.navigation.util.scaleOutExitTransition
@@ -28,7 +29,10 @@ import com.ramcosta.composedestinations.manualcomposablecalls.animatedComposable
 @ExperimentalMaterialNavigationApi
 @ExperimentalAnimationApi
 @Composable
-fun Navigation() {
+fun Navigation(
+    appViewState: AppViewState,
+    appEvents: (AppEvents) -> Unit
+) {
 
     val navController = rememberAnimatedNavController()
 
@@ -37,15 +41,16 @@ fun Navigation() {
 
     ModalBottomSheetLayout(
         bottomSheetNavigator = bottomSheetNavigator,
-        /* sheetShape = RoundedCornerShape(
-             topStart = MaterialTheme.spacing.default,
-             topEnd = MaterialTheme.spacing.default
-         )*/
+        sheetShape = RoundedCornerShape(
+            topStart = MaterialTheme.spacing.default,
+            topEnd = MaterialTheme.spacing.default
+        )
     ) {
 
         DestinationsNavHost(
             navController = navController,
             navGraph = NavGraphs.root,
+            startRoute = if (appViewState.introState) TaskListDestinationDestination else IntroScreenDestination,
             engine = rememberAnimatedNavHostEngine(
                 rootDefaultAnimations = RootNavGraphDefaultAnimations(
                     enterTransition = { scaleInEnterTransition() },
@@ -60,9 +65,20 @@ fun Navigation() {
                     content = {
                         IntroScreen(
                             navigateToMainScreen = {
-                                /*TODO Navigate To Main Screen And Save The State To Data Store*/
+                                appEvents(AppEvents.UpdateIntroState(introState = true))
+                                destinationsNavigator.navigate(
+                                    TaskListDestinationDestination,
+                                    onlyIfResumed = true
+                                )
                             })
                     })
+
+                animatedComposable(
+                    destination = TaskListDestinationDestination,
+                    content = {
+                        TaskListDestination()
+                    }
+                )
             }
         )
     }

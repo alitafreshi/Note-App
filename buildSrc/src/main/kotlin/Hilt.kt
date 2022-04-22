@@ -6,4 +6,8 @@ object Hilt {
     private const val hiltNavigationVersion = "1.0.0"
     const val hiltNavigation = "androidx.hilt:hilt-navigation:$hiltNavigationVersion"
     const val hiltComposeNavigation = "androidx.hilt:hilt-navigation-compose:$hiltNavigationVersion"
+
+    private const val javaInjectVersion = "1"
+    const val javaInject = "javax.inject:javax.inject:$javaInjectVersion"
+
 }

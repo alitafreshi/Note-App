@@ -4,4 +4,6 @@ object Build {
     const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Kotlin.version}"
     const val kaptGradlePlugin = "org.jetbrains.kotlin.kapt:${Kotlin.version}"
     const val hiltGradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:${Hilt.version}"
+    const val kotlinSerializationGradlePlugin =
+        "org.jetbrains.kotlin:kotlin-serialization:${Kotlin.version}"
 }

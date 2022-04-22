@@ -1,8 +1,9 @@
-package com.alitafreshi.noteapp.presentation
+package com.alitafreshi.noteapp.presentation.app
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
@@ -10,16 +11,22 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.alitafreshi.noteapp.presentation.navigation.Navigation
 import com.alitafreshi.noteapp.presentation.ui.theme.NoteAppTheme
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
+import dagger.hilt.android.AndroidEntryPoint
 
 @ExperimentalFoundationApi
 @ExperimentalMaterialNavigationApi
 @ExperimentalAnimationApi
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    private val appViewModel: AppViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
         setContent {
-            App()
+            App(
+                appViewState = appViewModel.getCurrentViewStateOrNew(),
+                appEvents = appViewModel::onTriggerEvent
+            )
         }
     }
 }
@@ -28,8 +35,14 @@ class MainActivity : ComponentActivity() {
 @ExperimentalAnimationApi
 @ExperimentalMaterialNavigationApi
 @Composable
-fun App() {
+fun App(
+    appViewState: AppViewState,
+    appEvents: (AppEvents) -> Unit
+) {
     NoteAppTheme {
-        Navigation()
+        Navigation(
+            appViewState = appViewState,
+            appEvents = appEvents
+        )
     }
 }

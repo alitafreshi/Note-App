@@ -4,6 +4,7 @@ plugins {
     id(Plugins.androidApplication)
     kotlin(KotlinPlugins.android)
     kotlin(KotlinPlugins.kapt)
+    kotlin(KotlinPlugins.serialization)
     id(Plugins.hilt)
 //    id(Plugins.dokka)
     id(KotlinPlugins.parcelize)
@@ -171,7 +172,12 @@ dependencies {
     implementation(Accompanist.materialNavigation)
 
     //Data Store
-    implementation(DataStore.dataStore)
+    implementation(DataStore.preferencesDataStore)
+    implementation(DataStore.kotlinCollection)
+    implementation(DataStore.kotlinJsonSerialization)
+
+    //ayan core
+    implementation(ayan.Core.ayanCore)
 
     //Navigation
     implementation(Navigation.navigationAnimationCore)
@@ -184,5 +190,15 @@ dependencies {
     implementation(Lottie.lottie)
 
     //components module
-    implementation(project(":components"))
+    implementation(project(Modules.components))
+
+    //task module
+    implementation(project(Modules.taskList))
+
+    //constance module
+    implementation(project(Modules.constance))
+
+    //data module
+    implementation(project(Modules.data))
+
 }
