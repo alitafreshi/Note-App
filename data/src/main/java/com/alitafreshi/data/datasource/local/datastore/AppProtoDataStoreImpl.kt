@@ -2,9 +2,10 @@ package com.alitafreshi.data.datasource.local.datastore
 
 import androidx.datastore.core.DataStore
 import com.alitafreshi.data.qualifier.IoDispatcher
+import ir.tafreshiali.ayan_core.util.BottomSheetState
+import ir.tafreshiali.ayan_core.util.DataState
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.*
 
 class AppProtoDataStoreImpl<T>(
     private val dataStore: DataStore<ProtoDataStoreObj<T>>,
@@ -17,6 +18,14 @@ class AppProtoDataStoreImpl<T>(
         }
     }
 
-    override fun getValue(): Flow<ProtoDataStoreObj<T>> = dataStore.data.flowOn(ioDispatcher)
+    override fun getValue(): Flow<DataState<T>> =
+        flow<DataState<T>> {
+
+            dataStore.data.onEach {
+                emit(DataState.Data(it.savedObj))
+            }.onStart {
+                emit(DataState.Loading(bottomSheetState = BottomSheetState.Loading))
+            }.flowOn(ioDispatcher).collect()
+        }.flowOn(ioDispatcher)
 
 }
