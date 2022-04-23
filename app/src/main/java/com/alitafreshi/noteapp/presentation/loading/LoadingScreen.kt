@@ -17,8 +17,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.util.fastForEachIndexed
 import com.alitafreshi.components.util.spacing
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootNavGraph
 import kotlinx.coroutines.delay
 
+@RootNavGraph
+@Destination
 @Composable
 fun LoadingAnimation(
     modifier: Modifier = Modifier,

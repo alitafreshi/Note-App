@@ -12,6 +12,7 @@ import com.alitafreshi.noteapp.presentation.navigation.Navigation
 import com.alitafreshi.noteapp.presentation.ui.theme.NoteAppTheme
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import dagger.hilt.android.AndroidEntryPoint
+import ir.tafreshiali.ayan_core.util.BottomSheetState
 
 @ExperimentalFoundationApi
 @ExperimentalMaterialNavigationApi
@@ -21,7 +22,7 @@ class MainActivity : ComponentActivity() {
     private val appViewModel: AppViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        installSplashScreen()
+        installSplashScreen().setKeepOnScreenCondition(condition = { appViewModel.getCurrentViewStateOrNew().loadingState==BottomSheetState.Loading })
         setContent {
             App(
                 appViewState = appViewModel.getCurrentViewStateOrNew(),

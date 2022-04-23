@@ -23,9 +23,13 @@ class AppProtoDataStoreImpl<T>(
 
             dataStore.data.onEach {
                 emit(DataState.Data(it.savedObj))
+                emit(DataState.Loading(bottomSheetState = BottomSheetState.Idle))
             }.onStart {
                 emit(DataState.Loading(bottomSheetState = BottomSheetState.Loading))
             }.flowOn(ioDispatcher).collect()
+
+        }.onStart {
+            emit(DataState.Loading(bottomSheetState = BottomSheetState.Loading))
         }.flowOn(ioDispatcher)
 
 }

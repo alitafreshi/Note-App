@@ -4,8 +4,10 @@ import androidx.lifecycle.viewModelScope
 import com.alitafreshi.data.datasource.local.datastore.AppProtoDataStore
 import com.alitafreshi.data.datasource.local.datastore.AppSettings
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ir.tafreshiali.ayan_core.util.BottomSheetState
 import ir.tafreshiali.ayan_core.util.DataState
 import ir.tafreshiali.ayan_core.util.UIComponent
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -39,7 +41,6 @@ class AppViewModel @Inject constructor(
                 }
                 is DataState.Data -> {
                     dataState.data?.introState?.let { introState ->
-
                         setViewState(
                             viewState = getCurrentViewStateOrNew().copy(
                                 introState = introState
@@ -51,17 +52,7 @@ class AppViewModel @Inject constructor(
                     //TODO Handling Some Exceptions That is happen during the data extraction
                 }
             }
-
         }.launchIn(viewModelScope)
-
-
-        /* appProtoDataStoreImpl.getValue().first().savedObj?.let {
-             setViewState(
-                 viewState = getCurrentViewStateOrNew().copy(
-                     introState = it.introState
-                 )
-             )
-         }*/
     }
 
     private suspend fun updateIntroState(introState: Boolean) {
@@ -71,7 +62,9 @@ class AppViewModel @Inject constructor(
                 is DataState.Loading -> {}
                 is DataState.Data -> {
                     appProtoDataStoreImpl.setValue(
-                        savedObj = dataState.data?.copy(introState = introState) ?: AppSettings(introState = introState)
+                        savedObj = dataState.data?.copy(introState = introState) ?: AppSettings(
+                            introState = introState
+                        )
                     )
                 }
                 is DataState.Error -> {

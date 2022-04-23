@@ -4,6 +4,8 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.plusAssign
 import com.alitafreshi.components.util.spacing
 import com.alitafreshi.noteapp.presentation.NavGraphs
@@ -17,6 +19,7 @@ import com.alitafreshi.noteapp.presentation.navigation.util.scaleInEnterTransiti
 import com.alitafreshi.noteapp.presentation.navigation.util.scaleInPopEnterTransition
 import com.alitafreshi.noteapp.presentation.navigation.util.scaleOutExitTransition
 import com.alitafreshi.noteapp.presentation.navigation.util.scaleOutPopExitTransition
+import com.alitafreshi.noteapp.presentation.navigation.util.states.loading.HandelBottomSheetState
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.ModalBottomSheetLayout
@@ -38,6 +41,9 @@ fun Navigation(
 
     val bottomSheetNavigator = rememberBottomSheetNavigator()
     navController.navigatorProvider += bottomSheetNavigator
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+
 
     ModalBottomSheetLayout(
         bottomSheetNavigator = bottomSheetNavigator,
@@ -82,4 +88,10 @@ fun Navigation(
             }
         )
     }
+
+    HandelBottomSheetState(
+        navController = navController,
+        bottomSheetState = appViewState.loadingState,
+        currentDestination = currentDestination
+    )
 }

@@ -15,9 +15,11 @@ import com.airbnb.lottie.compose.*
 import com.alitafreshi.components.util.spacing
 import com.alitafreshi.noteapp.R
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootNavGraph
 
+@RootNavGraph(start = true)
+@Destination
 @Composable
-@Destination(start = true)
 fun IntroScreen(
     modifier: Modifier = Modifier,
     navigateToMainScreen: () -> Unit
