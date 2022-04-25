@@ -9,8 +9,6 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 dependencies {
-//    implementation(AndroidX.coreKtx)
-//    implementation(Kotlin.kotlinCoroutines)
     implementation(DataStore.preferencesDataStoreCore)
     implementation(DataStore.kotlinCollection)
     implementation(DataStore.kotlinJsonSerialization)
