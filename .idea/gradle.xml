@@ -18,6 +18,8 @@
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/resource" />
             <option value="$PROJECT_DIR$/task" />
+            <option value="$PROJECT_DIR$/task/data" />
+            <option value="$PROJECT_DIR$/task/domain" />
             <option value="$PROJECT_DIR$/task/task-list" />
           </set>
         </option>

@@ -1,4 +1,4 @@
-package com.alitafreshi.task_list.ui
+package com.alitafreshi.task_list.presentation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

@@ -2,6 +2,7 @@ plugins {
     id(Plugins.javaLibrary)
     id(KotlinPlugins.kotlin)
     kotlin(KotlinPlugins.serialization)
+    id(Plugins.googleKspPlugin) version (Plugins.googleKspPluginVersion)
 }
 
 java {
@@ -9,9 +10,14 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 dependencies {
+
+    //proto data store
     implementation(DataStore.preferencesDataStoreCore)
     implementation(DataStore.kotlinCollection)
     implementation(DataStore.kotlinJsonSerialization)
+    //hilt annotations
     implementation(Hilt.javaInject)
+
     implementation(ayan.Core.ayanCore)
+
 }

@@ -6,6 +6,7 @@
       <module name="Note_App.app" target="15" />
       <module name="Note_App.components" target="15" />
       <module name="Note_App.resource" target="15" />
+      <module name="Note_App.task.data" target="15" />
       <module name="Note_App.task.task-list" target="15" />
     </bytecodeTargetLevel>
   </component>

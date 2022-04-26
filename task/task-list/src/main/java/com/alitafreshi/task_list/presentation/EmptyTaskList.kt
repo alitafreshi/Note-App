@@ -1,4 +1,4 @@
-package com.alitafreshi.task_list.ui
+package com.alitafreshi.task_list.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*

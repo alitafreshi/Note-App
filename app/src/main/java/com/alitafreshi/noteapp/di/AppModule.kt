@@ -4,8 +4,11 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.dataStoreFile
-import com.alitafreshi.constance.Constance.APP_DATABASE
+import androidx.room.Room
+import com.alitafreshi.constance.Constance.APP_PROTO_DATASTORE
+import com.alitafreshi.constance.Constance.APP_ROOM_DATABASE
 import com.alitafreshi.data.datasource.local.datastore.*
+import com.alitafreshi.data.datasource.local.room.NoteDatabase
 import com.alitafreshi.data.qualifier.IoDispatcher
 import dagger.Module
 import dagger.Provides
@@ -56,7 +59,7 @@ object AppModule {
     fun provideApplicationProtoDataStore(app: BaseApplication): DataStore<ProtoDataStoreObj<AppSettings>> =
         DataStoreFactory.create(
             serializer = AppSettingsProtoDataStoreSerializer,
-            produceFile = { app.dataStoreFile(APP_DATABASE) },
+            produceFile = { app.dataStoreFile(APP_PROTO_DATASTORE) },
             corruptionHandler = null,
         )
 
@@ -66,7 +69,14 @@ object AppModule {
     fun provideAppProtoDataStore(
         dataStore: DataStore<ProtoDataStoreObj<AppSettings>>,
         @IoDispatcher ioDispatcher: CoroutineDispatcher
-    ): AppProtoDataStore<AppSettings> = AppProtoDataStoreImpl(dataStore = dataStore, ioDispatcher = ioDispatcher)
+    ): AppProtoDataStore<AppSettings> =
+        AppProtoDataStoreImpl(dataStore = dataStore, ioDispatcher = ioDispatcher)
+
+
+    @Singleton
+    @Provides
+    fun provideAppRoomDatabase(app: BaseApplication): NoteDatabase =
+        Room.databaseBuilder(app, NoteDatabase::class.java, APP_ROOM_DATABASE).build()
 
 
 }

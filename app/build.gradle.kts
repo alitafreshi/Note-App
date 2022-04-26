@@ -176,6 +176,11 @@ dependencies {
     implementation(DataStore.kotlinCollection)
     implementation(DataStore.kotlinJsonSerialization)
 
+    //Room
+    implementation(Room.room)
+    ksp(Room.roomCompiler)
+    implementation(Room.roomKtxExtension)
+
     //ayan core
     implementation(ayan.Core.ayanCore)
 
@@ -192,8 +197,13 @@ dependencies {
     //components module
     implementation(project(Modules.components))
 
-    //task module
+    //task modules
     implementation(project(Modules.taskList))
+
+    implementation(project(Modules.taskData))
+
+    implementation(project(Modules.taskDomain))
+
 
     //constance module
     implementation(project(Modules.constance))
