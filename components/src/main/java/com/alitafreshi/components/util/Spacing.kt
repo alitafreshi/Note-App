@@ -21,6 +21,7 @@ data class Spacing(
     val medium: Dp = 15.dp,
     val large: Dp = 20.dp,
     val extraLarge: Dp = 25.dp,
+    val topBar: Dp = 56.dp,
     val buttonInnerPaddingSmall: Dp = 2.dp
 )
 

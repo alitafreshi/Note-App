@@ -1,6 +1,8 @@
 plugins {
     id(Plugins.androidLibrary)
     kotlin(KotlinPlugins.android)
+    kotlin(KotlinPlugins.kapt)
+
 }
 
 android {
@@ -56,8 +58,6 @@ dependencies {
     androidTestImplementation(ComposeUiTest.ComposeUiTest)
 
 
-
-
     //Compose
     implementation(Compose.ui)
     implementation(Compose.material)
@@ -73,8 +73,22 @@ dependencies {
     implementation(Compose.icons)
     implementation(Compose.constraintLayout)
 
+    //Hilt
+    implementation(Hilt.hiltAndroid)
+    kapt(Hilt.hiltCompiler)
+
     //resources module
     implementation(project(Modules.resources))
+
     //components module
     implementation(project(Modules.components))
+
+    //task domain module
+    implementation(project(Modules.taskDomain))
+
+    //task components module
+    implementation(project(Modules.taskComponents))
+
+
+    implementation(ayan.Core.ayanCore)
 }

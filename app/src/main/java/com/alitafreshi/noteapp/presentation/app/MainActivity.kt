@@ -8,6 +8,8 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.alitafreshi.components.util.app.AppEvents
+import com.alitafreshi.components.util.app.AppViewState
 import com.alitafreshi.noteapp.presentation.navigation.Navigation
 import com.alitafreshi.noteapp.presentation.ui.theme.NoteAppTheme
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi

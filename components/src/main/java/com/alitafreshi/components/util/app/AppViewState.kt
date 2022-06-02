@@ -1,4 +1,4 @@
-package com.alitafreshi.noteapp.presentation.app
+package com.alitafreshi.components.util.app
 
 import ir.tafreshiali.ayan_core.util.BottomSheetState
 

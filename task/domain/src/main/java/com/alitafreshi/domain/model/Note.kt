@@ -2,10 +2,11 @@ package com.alitafreshi.domain.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.lang.Exception
 
 @Entity
 data class Note(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
     val title: String,
     //TODO Later on we should save the whole text object with it styles like samsung notes
@@ -13,3 +14,5 @@ data class Note(
     val date: String,
     val color: Int
 )
+
+class InvalidNoteException(message: String) : Exception(message)

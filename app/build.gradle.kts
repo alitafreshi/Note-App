@@ -17,6 +17,7 @@ android {
     defaultConfig {
         applicationId = Application.appId
         minSdk = Application.minSdk
+        multiDexEnabled = true
         targetSdk = Application.targetSdk
         versionCode = Application.versionCode
         versionName = Application.versionName

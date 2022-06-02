@@ -9,8 +9,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.plusAssign
 import com.alitafreshi.components.util.spacing
 import com.alitafreshi.noteapp.presentation.NavGraphs
-import com.alitafreshi.noteapp.presentation.app.AppEvents
-import com.alitafreshi.noteapp.presentation.app.AppViewState
+import com.alitafreshi.components.util.app.AppEvents
+import com.alitafreshi.components.util.app.AppViewState
 import com.alitafreshi.noteapp.presentation.destinations.IntroScreenDestination
 import com.alitafreshi.noteapp.presentation.destinations.TaskListDestinationDestination
 import com.alitafreshi.noteapp.presentation.intro.IntroScreen

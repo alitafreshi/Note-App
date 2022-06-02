@@ -64,4 +64,6 @@ dependencies {
     implementation(Compose.animations)
     implementation(Compose.icons)
     implementation(Compose.constraintLayout)
+
+    implementation(ayan.Core.ayanCore)
 }

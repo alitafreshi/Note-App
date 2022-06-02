@@ -5,6 +5,6 @@ import com.alitafreshi.domain.repository.NoteRepository
 
 class DeleteNoteUseCase(private val noteRepository: NoteRepository) {
 
-    suspend operator fun invoke(note: Note) = noteRepository.deleteNote(note = note)
+    suspend operator fun invoke(notes: List<Note>) = noteRepository.deleteNotes(notes = notes)
 
 }

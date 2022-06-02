@@ -1,4 +1,4 @@
-package com.alitafreshi.noteapp.presentation.app
+package com.alitafreshi.components.util.app
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -33,6 +33,12 @@ abstract class BaseViewModel<ViewState, Events, UiComponent> :
     fun emitAppEvent(event: AppEvents) {
         viewModelScope.launch {
             _events.emit(value = event)
+        }
+    }
+
+    fun handleSuspendEvent(suspendBlock: (suspend () -> Unit)) {
+        viewModelScope.launch {
+            suspendBlock()
         }
     }
 

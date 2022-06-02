@@ -1,7 +1,9 @@
 package com.alitafreshi.noteapp.presentation.navigation.destinations.task.task_list
 
 import androidx.compose.runtime.Composable
-import com.alitafreshi.task_list.presentation.TaskList
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.alitafreshi.task_list.presentation.TaskListScreen
+import com.alitafreshi.task_list.presentation.TaskListViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 
@@ -9,7 +11,10 @@ import com.ramcosta.composedestinations.annotation.RootNavGraph
 @Destination
 @Composable
 fun TaskListDestination() {
-    TaskList(taskList = emptyList()) {
-
-    }
+    val taskListViewState: TaskListViewModel = hiltViewModel()
+    TaskListScreen(
+        taskListViewState = taskListViewState.getCurrentViewStateOrNew(),
+        taskListStateEvents = taskListViewState::onTriggerEvent,
+        navigateToAddNewTask = {}
+    )
 }

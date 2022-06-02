@@ -1,13 +1,14 @@
 package com.alitafreshi.noteapp.presentation.app
 
 import androidx.lifecycle.viewModelScope
+import com.alitafreshi.components.util.app.AppEvents
+import com.alitafreshi.components.util.app.AppViewState
+import com.alitafreshi.components.util.app.BaseViewModel
 import com.alitafreshi.data.datasource.local.datastore.AppProtoDataStore
 import com.alitafreshi.data.datasource.local.datastore.AppSettings
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ir.tafreshiali.ayan_core.util.BottomSheetState
 import ir.tafreshiali.ayan_core.util.DataState
 import ir.tafreshiali.ayan_core.util.UIComponent
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch

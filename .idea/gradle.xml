@@ -17,13 +17,15 @@
             <option value="$PROJECT_DIR$/core/constance" />
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/resource" />
+            <option value="$PROJECT_DIR$/state-manager" />
             <option value="$PROJECT_DIR$/task" />
             <option value="$PROJECT_DIR$/task/data" />
             <option value="$PROJECT_DIR$/task/domain" />
+            <option value="$PROJECT_DIR$/task/task-add-edit" />
+            <option value="$PROJECT_DIR$/task/task-components" />
             <option value="$PROJECT_DIR$/task/task-list" />
           </set>
         </option>
-        <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>
   </component>

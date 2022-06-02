@@ -2,9 +2,7 @@ package com.alitafreshi.noteapp.di
 
 import com.alitafreshi.data.datasource.local.room.NoteDatabase
 import com.alitafreshi.data.datasource.local.room.repository.NoteRepositoryImpl
-import com.alitafreshi.domain.interactors.DeleteNoteUseCase
-import com.alitafreshi.domain.interactors.GetNotesUseCase
-import com.alitafreshi.domain.interactors.NoteUseCases
+import com.alitafreshi.domain.interactors.*
 import com.alitafreshi.domain.repository.NoteRepository
 import dagger.Module
 import dagger.Provides
@@ -26,6 +24,9 @@ object NoteModule {
     fun provideNoteUseCases(noteRepository: NoteRepository): NoteUseCases =
         NoteUseCases(
             getNotesUseCase = GetNotesUseCase(noteRepository = noteRepository),
-            deleteNoteUseCase = DeleteNoteUseCase(noteRepository = noteRepository)
+            getNoteByIdUseCase = GetNoteByIdUseCase(noteRepository = noteRepository),
+            deleteNoteUseCase = DeleteNoteUseCase(noteRepository = noteRepository),
+            insertNewNoteUseCase = InsertNewNoteUseCase(noteRepository = noteRepository),
+            restoreDeletedNotesUseCase = RestoreDeletedNotesUseCase(noteRepository = noteRepository)
         )
 }

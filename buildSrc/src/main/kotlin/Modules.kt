@@ -12,4 +12,5 @@ object Modules {
     const val taskList = ":task:task-list"
     const val taskDomain=":task:domain"
     const val taskData=":task:data"
+    const val taskComponents=":task:task-components"
 }

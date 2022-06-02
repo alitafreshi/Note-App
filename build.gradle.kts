@@ -24,6 +24,7 @@ buildscript {
         classpath(Build.kotlinGradlePlugin)
         classpath(Build.hiltGradlePlugin)
         classpath(Build.kotlinSerializationGradlePlugin)
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21")
 //        classpath(Document.dokkaGradleVersion)
     }
 }
