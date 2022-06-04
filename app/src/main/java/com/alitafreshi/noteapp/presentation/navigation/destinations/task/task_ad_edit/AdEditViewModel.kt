@@ -13,7 +13,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.tafreshiali.ayan_core.util.UIComponent
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import saman.zamani.persiandate.PersianDate
+import saman.zamani.persiandate.PersianDateFormat
 import javax.inject.Inject
+
 
 @HiltViewModel
 class AdEditViewModel @Inject constructor(
@@ -25,7 +28,6 @@ class AdEditViewModel @Inject constructor(
     val eventFlow = _eventFlow.asSharedFlow()
 
     init {
-        //TODO Update The Note Id With Navigation Arguments And SavedStateHandle
         TaskAdEditDestinationDestination.argsFrom(savedStateHandle).taskId?.let { taskId ->
 
             if (taskId != -1) {
@@ -83,13 +85,19 @@ class AdEditViewModel @Inject constructor(
             is AdEditEvents.SaveNote -> {
                 handleSuspendEvent {
                     try {
+                        val pdate = PersianDate()
+                        val pdformater1 = PersianDateFormat(
+                            "m/Y/d",
+                            PersianDateFormat.PersianDateNumberCharacter.FARSI
+                        )
+
                         noteUseCases.insertNewNoteUseCase.invoke(
                             //TODO Date And Color should Be completed Later on
                             note = Note(
                                 id = getCurrentViewStateOrNew().noteId,
                                 title = getCurrentViewStateOrNew().taskAdEditTitleTextFieldState.text,
                                 description = getCurrentViewStateOrNew().taskAdEditDescriptionTextFieldState.text,
-                                date = "",
+                                date = pdformater1.format(pdate),
                                 color = 0
 
                             )

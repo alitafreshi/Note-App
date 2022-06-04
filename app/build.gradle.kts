@@ -195,6 +195,9 @@ dependencies {
     //lottie animation
     implementation(Lottie.lottie)
 
+    //Persian Date Time
+    implementation(DateTime.persianDateTime)
+
     //components module
     implementation(project(Modules.components))
 
