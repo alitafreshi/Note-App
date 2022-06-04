@@ -1,6 +1,7 @@
 package com.alitafreshi.task.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
@@ -11,10 +12,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import com.alitafreshi.components.util.spacing
-import com.alitafreshi.domain.model.Note
 
 
 @Composable
@@ -28,12 +27,14 @@ fun TaskItem(
     descriptionTextStyle: TextStyle = MaterialTheme.typography.subtitle1,
     noteDate: String,
     dateTextStyle: TextStyle = MaterialTheme.typography.caption,
-    noteColor: Int
+    noteColor: Int,
+    onItemClick: () -> Unit
 ) {
 
     Card(
-        modifier = modifier.background(color = backgroundColor),
-        shape = shape
+        modifier = modifier.clickable(onClick = onItemClick),
+        shape = shape,
+        backgroundColor = backgroundColor
     ) {
         Column(
             modifier = Modifier.padding(MaterialTheme.spacing.small),
@@ -56,7 +57,11 @@ fun TaskItem(
                     modifier = Modifier
                         .background(
                             shape = CircleShape,
-                            color = colorResource(id = noteColor)
+                            //TODO MUST BE DONE
+
+                            // color = colorResource(id = noteColor)
+
+                            color = MaterialTheme.colors.primary
                         )
                         .size(MaterialTheme.spacing.small)
                 )

@@ -201,10 +201,11 @@ dependencies {
     //task modules
     implementation(project(Modules.taskList))
 
+    implementation(project(Modules.taskAdEdit))
+
     implementation(project(Modules.taskData))
 
     implementation(project(Modules.taskDomain))
-
 
     //constance module
     implementation(project(Modules.constance))

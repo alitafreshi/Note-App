@@ -1,6 +1,7 @@
 package com.alitafreshi.noteapp.presentation.navigation
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -12,8 +13,10 @@ import com.alitafreshi.noteapp.presentation.NavGraphs
 import com.alitafreshi.components.util.app.AppEvents
 import com.alitafreshi.components.util.app.AppViewState
 import com.alitafreshi.noteapp.presentation.destinations.IntroScreenDestination
+import com.alitafreshi.noteapp.presentation.destinations.TaskAdEditDestinationDestination
 import com.alitafreshi.noteapp.presentation.destinations.TaskListDestinationDestination
 import com.alitafreshi.noteapp.presentation.intro.IntroScreen
+import com.alitafreshi.noteapp.presentation.navigation.destinations.task.task_ad_edit.TaskAdEditDestination
 import com.alitafreshi.noteapp.presentation.navigation.destinations.task.task_list.TaskListDestination
 import com.alitafreshi.noteapp.presentation.navigation.util.scaleInEnterTransition
 import com.alitafreshi.noteapp.presentation.navigation.util.scaleInPopEnterTransition
@@ -29,6 +32,7 @@ import com.ramcosta.composedestinations.animations.defaults.RootNavGraphDefaultA
 import com.ramcosta.composedestinations.animations.rememberAnimatedNavHostEngine
 import com.ramcosta.composedestinations.manualcomposablecalls.animatedComposable
 
+@ExperimentalFoundationApi
 @ExperimentalMaterialNavigationApi
 @ExperimentalAnimationApi
 @Composable
@@ -82,7 +86,16 @@ fun Navigation(
                 animatedComposable(
                     destination = TaskListDestinationDestination,
                     content = {
-                        TaskListDestination()
+                        TaskListDestination(navigator = destinationsNavigator)
+                    }
+                )
+
+                animatedComposable(
+                    destination = TaskAdEditDestinationDestination,
+                    content = {
+                        TaskAdEditDestination(navigateBack = {
+                            destinationsNavigator.navigateUp()
+                        })
                     }
                 )
             }

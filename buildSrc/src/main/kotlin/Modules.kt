@@ -10,7 +10,9 @@ object Modules {
 
     //task
     const val taskList = ":task:task-list"
-    const val taskDomain=":task:domain"
-    const val taskData=":task:data"
-    const val taskComponents=":task:task-components"
+    const val taskDomain = ":task:domain"
+    const val taskData = ":task:data"
+    const val taskComponents = ":task:task-components"
+    const val taskAdEdit = ":task:task-add-edit"
+
 }

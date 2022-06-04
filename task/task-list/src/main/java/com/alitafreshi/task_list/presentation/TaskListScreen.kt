@@ -1,5 +1,7 @@
 package com.alitafreshi.task_list.presentation
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -12,20 +14,25 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.alitafreshi.components.DefaultCentralizeTopBar
+import com.alitafreshi.components.util.spacing
 import com.alitafreshi.task.components.floatingActionButtonState
 import com.alitafreshi.domain.model.Note
+import com.alitafreshi.resource.R
 import kotlin.math.roundToInt
 
+@ExperimentalFoundationApi
 @Composable
 fun TaskListScreen(
     modifier: Modifier = Modifier,
     taskListViewState: TaskListViewState,
     taskListStateEvents: (TaskListEvents) -> Unit,
-    topBarTitle: String = "Note",
-    navigateToAddNewTask: () -> Unit
+    topBarTitle: String = "Noto",
+    taskBackGroundColor: Color,
+    navigateToAddNewTask: (id: Int?) -> Unit
 ) {
     var fabOffsetHeightPx by rememberSaveable { mutableStateOf(0f) }
 
@@ -44,18 +51,28 @@ fun TaskListScreen(
                         })
                 ),
             topBar = {
-                DefaultCentralizeTopBar(toolbarTitle = topBarTitle)
+                DefaultCentralizeTopBar(
+                    toolbarTitle = topBarTitle,
+                    actionIcon = {
+                        Image(
+                            modifier = it.size(MaterialTheme.spacing.menuIconMedium),
+                            painter = painterResource(id = R.drawable.ic_app),
+                            contentDescription = "img app"
+                        )
+                    }
+                )
             },
             content = {
                 TaskListScreenContent(
                     taskList = taskListViewState.taskList,
+                    taskBackGroundColor = taskBackGroundColor,
                     navigateToAddNewTask = navigateToAddNewTask
                 )
             },
             floatingActionButton = {
                 if (taskListViewState.taskList.isNotEmpty()) {
                     FloatingActionButton(
-                        onClick = navigateToAddNewTask,
+                        onClick = { navigateToAddNewTask(null) },
                         shape = CircleShape,
                         backgroundColor = MaterialTheme.colors.primary,
                         modifier = Modifier
@@ -84,18 +101,24 @@ fun TaskListScreen(
 
 }
 
+@ExperimentalFoundationApi
 @Composable
 private fun TaskListScreenContent(
     modifier: Modifier = Modifier,
     taskList: List<Note>,
-    navigateToAddNewTask: () -> Unit
+    taskBackGroundColor: Color,
+    navigateToAddNewTask: (id: Int?) -> Unit
 ) {
     Box(
         modifier = modifier
             .fillMaxSize()
             .background(color = MaterialTheme.colors.surface)
     ) {
-        TaskList(taskList = taskList, navigateToAddNewTask = navigateToAddNewTask)
+        TaskList(
+            taskList = taskList,
+            backgroundColor = taskBackGroundColor,
+            navigateToAddNewTask = navigateToAddNewTask
+        )
     }
 }
 

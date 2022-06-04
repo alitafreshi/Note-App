@@ -89,5 +89,8 @@ dependencies {
     //task domain module
     implementation(project(Modules.taskDomain))
 
+    //task components module
+    implementation(project(Modules.taskComponents))
+
     implementation(ayan.Core.ayanCore)
 }

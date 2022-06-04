@@ -22,13 +22,17 @@ fun DefaultCentralizeTopBar(
     toolbarTitleTextStyle: TextStyle = MaterialTheme.typography.h6,
     backgroundColor: Color = MaterialTheme.colors.background,
     elevation: Dp = MaterialTheme.spacing.extraSmall,
+    contentPadding: PaddingValues = PaddingValues(
+        horizontal = MaterialTheme.spacing.default,
+        vertical = MaterialTheme.spacing.extraSmall
+    ),
     navigationIcon: @Composable (modifier: Modifier) -> Unit = {},
     actionIcon: @Composable (modifier: Modifier) -> Unit = {},
 ) {
 
     TopAppBar(
         backgroundColor = backgroundColor,
-        contentPadding = PaddingValues(0.dp),
+        contentPadding = contentPadding,
         elevation = elevation
     ) {
         Box(

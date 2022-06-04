@@ -8,4 +8,6 @@ sealed class AdEditEvents {
     data class UpdateDescriptionContent(val value: String) : AdEditEvents()
     data class ChangeDescriptionState(val focusState: FocusState) : AdEditEvents()
     object SaveNote : AdEditEvents()
+
+    data class GetTaskById(val taskId: Int) : AdEditEvents()
 }

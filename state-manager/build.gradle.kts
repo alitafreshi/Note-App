@@ -73,15 +73,15 @@ dependencies {
     implementation(Compose.icons)
     implementation(Compose.constraintLayout)
 
-    //Hilt
-//    implementation(Hilt.hiltAndroid)
-//    kapt(Hilt.hiltCompiler)
+    //javax
+    implementation(Hilt.javaInject)
+
 
     //resources module
     implementation(project(Modules.resources))
 
     //components module
     implementation(project(Modules.components))
-    
+
     implementation(ayan.Core.ayanCore)
 }

@@ -1,14 +1,18 @@
-package com.alitafreshi.task_add_edit
+package com.alitafreshi.noteapp.presentation.navigation.destinations.task.task_ad_edit
 
 import androidx.lifecycle.SavedStateHandle
 import com.alitafreshi.components.util.app.BaseViewModel
 import com.alitafreshi.domain.interactors.NoteUseCases
 import com.alitafreshi.domain.model.InvalidNoteException
 import com.alitafreshi.domain.model.Note
+import com.alitafreshi.noteapp.presentation.destinations.TaskAdEditDestinationDestination
+import com.alitafreshi.task_add_edit.UiEvents
 import com.alitafreshi.task_add_edit.view_event.AdEditEvents
 import com.alitafreshi.task_add_edit.view_state.AdEditViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.tafreshiali.ayan_core.util.UIComponent
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,11 +21,25 @@ class AdEditViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : BaseViewModel<AdEditViewState, AdEditEvents, UIComponent>() {
 
+    private val _eventFlow = MutableSharedFlow<UiEvents>()
+    val eventFlow = _eventFlow.asSharedFlow()
+
+    init {
+        //TODO Update The Note Id With Navigation Arguments And SavedStateHandle
+        TaskAdEditDestinationDestination.argsFrom(savedStateHandle).taskId?.let { taskId ->
+
+            if (taskId != -1) {
+                onTriggerEvent(event = AdEditEvents.GetTaskById(taskId = taskId))
+            }
+        }
+    }
+
     override fun initNewViewState(): AdEditViewState = AdEditViewState()
 
 
     override fun onTriggerEvent(event: AdEditEvents) {
         when (event) {
+
             is AdEditEvents.UpdateTitleContent -> {
                 setViewState(
                     viewState = getCurrentViewStateOrNew().copy(
@@ -76,11 +94,38 @@ class AdEditViewModel @Inject constructor(
 
                             )
                         )
+                        _eventFlow.emit(UiEvents.SaveNote)
                     } catch (e: InvalidNoteException) {
-                        //TODO CONTINUE FROM TASK STATE MANAGER MODULE
+                        _eventFlow.emit(
+                            UiEvents.ShowSnackBar(
+                                message = e.message ?: "Unknown Message Cant save note"
+                            )
+                        )
+                    }
+                }
+            }
+
+            is AdEditEvents.GetTaskById -> {
+                handleSuspendEvent {
+                    noteUseCases.getNoteByIdUseCase(id = event.taskId)?.also { note ->
+                        setViewState(
+                            viewState = getCurrentViewStateOrNew().copy(
+                                noteId = note.id,
+                                taskAdEditTitleTextFieldState = getCurrentViewStateOrNew().taskAdEditTitleTextFieldState.copy(
+                                    text = note.title,
+                                    isHintEnabled = false
+                                ),
+                                taskAdEditDescriptionTextFieldState = getCurrentViewStateOrNew().taskAdEditDescriptionTextFieldState.copy(
+                                    text = note.description,
+                                    isHintEnabled = false
+                                )
+                            )
+                        )
+
                     }
                 }
             }
         }
     }
+
 }
