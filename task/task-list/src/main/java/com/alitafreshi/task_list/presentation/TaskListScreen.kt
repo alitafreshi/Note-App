@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.alitafreshi.components.DefaultCentralizeTopBar
@@ -32,6 +33,7 @@ fun TaskListScreen(
     taskListStateEvents: (TaskListEvents) -> Unit,
     topBarTitle: String = "Noto",
     taskBackGroundColor: Color,
+    descriptionTextStyle: TextStyle = MaterialTheme.typography.subtitle1,
     navigateToAddNewTask: (id: Int?) -> Unit
 ) {
     var fabOffsetHeightPx by rememberSaveable { mutableStateOf(0f) }
@@ -66,6 +68,7 @@ fun TaskListScreen(
                 TaskListScreenContent(
                     taskList = taskListViewState.taskList,
                     taskBackGroundColor = taskBackGroundColor,
+                    descriptionTextStyle=descriptionTextStyle,
                     navigateToAddNewTask = navigateToAddNewTask
                 )
             },
@@ -107,6 +110,7 @@ private fun TaskListScreenContent(
     modifier: Modifier = Modifier,
     taskList: List<Note>,
     taskBackGroundColor: Color,
+    descriptionTextStyle: TextStyle = MaterialTheme.typography.subtitle1,
     navigateToAddNewTask: (id: Int?) -> Unit
 ) {
     Box(
@@ -117,6 +121,7 @@ private fun TaskListScreenContent(
         TaskList(
             taskList = taskList,
             backgroundColor = taskBackGroundColor,
+            descriptionTextStyle=descriptionTextStyle,
             navigateToAddNewTask = navigateToAddNewTask
         )
     }

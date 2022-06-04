@@ -51,7 +51,13 @@ fun TaskItem(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
 
-                Text(text = noteDate, style = dateTextStyle)
+                Text(
+                    text = noteDate, style = dateTextStyle.copy(
+                        color = MaterialTheme.colors.onBackground.copy(
+                            alpha = 0.5f
+                        )
+                    )
+                )
 
                 Box(
                     modifier = Modifier

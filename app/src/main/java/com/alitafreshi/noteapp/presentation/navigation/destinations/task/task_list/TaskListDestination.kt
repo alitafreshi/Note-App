@@ -1,10 +1,12 @@
 package com.alitafreshi.noteapp.presentation.navigation.destinations.task.task_list
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.alitafreshi.noteapp.presentation.destinations.TaskAdEditDestinationDestination
 import com.alitafreshi.noteapp.presentation.ui.theme.taskBackGroundColor
+import com.alitafreshi.noteapp.presentation.ui.theme.taskDescriptionColor
 import com.alitafreshi.task_list.presentation.TaskListScreen
 import com.alitafreshi.task_list.presentation.TaskListViewModel
 import com.ramcosta.composedestinations.annotation.Destination
@@ -23,6 +25,9 @@ fun TaskListDestination(
         taskListViewState = taskListViewState.getCurrentViewStateOrNew(),
         taskListStateEvents = taskListViewState::onTriggerEvent,
         taskBackGroundColor = taskBackGroundColor,
+        descriptionTextStyle = MaterialTheme.typography.subtitle1.copy(
+            color = taskDescriptionColor
+        ),
         navigateToAddNewTask = { noteId ->
             navigator.navigate(
                 direction = TaskAdEditDestinationDestination(taskId = noteId),
