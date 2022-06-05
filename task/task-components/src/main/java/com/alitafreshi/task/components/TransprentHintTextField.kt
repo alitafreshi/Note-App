@@ -16,23 +16,24 @@ import com.alitafreshi.components.LogCompositions
 
 @Composable
 fun TransparentHintTextField(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     text: String,
     hint: String,
     isHintVisible: Boolean = true,
     onValueChange: (String) -> Unit,
     textStyle: TextStyle = TextStyle(),
+    hintTextStyle: TextStyle = TextStyle(),
     singleLine: Boolean = false,
-    recompositionDebugTitle:String,
+    recompositionDebugTitle: String,
     onFocusChangeListener: (FocusState) -> Unit
 ) {
-    LogCompositions(msg = recompositionDebugTitle)
 
     Box(
         modifier = modifier,
         contentAlignment = Alignment.CenterStart
     ) {
 
+        LogCompositions(msg = recompositionDebugTitle)
         BasicTextField(
             value = text,
             onValueChange = onValueChange,
@@ -43,9 +44,7 @@ fun TransparentHintTextField(
                 .onFocusChanged(onFocusChanged = onFocusChangeListener)
         )
 
-
         if (isHintVisible)
-            Text(text = hint, style = textStyle, color = Color.DarkGray)
-
+            Text(text = hint, style = hintTextStyle, color = Color.DarkGray)
     }
 }
