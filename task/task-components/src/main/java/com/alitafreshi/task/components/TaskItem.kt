@@ -1,21 +1,28 @@
 package com.alitafreshi.task.components
 
+import androidx.compose.animation.*
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.border
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.RadioButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.dp
 import com.alitafreshi.components.util.spacing
 
 
+@ExperimentalFoundationApi
 @Composable
 fun TaskItem(
     modifier: Modifier = Modifier,
@@ -28,11 +35,17 @@ fun TaskItem(
     noteDate: String,
     dateTextStyle: TextStyle = MaterialTheme.typography.caption,
     noteColor: Int,
-    onItemClick: () -> Unit
+    isInSelectionMode: Boolean = false,
+    isSelected: Boolean = false,
+    onItemClick: () -> Unit,
+    activeSelectionMode: () -> Unit
 ) {
 
     Card(
-        modifier = modifier.clickable(onClick = onItemClick),
+        modifier = modifier.combinedClickable(
+            onClick = onItemClick,
+            onLongClick = activeSelectionMode
+        ),
         shape = shape,
         backgroundColor = backgroundColor
     ) {
@@ -41,7 +54,33 @@ fun TaskItem(
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.default)
         ) {
 
-            Text(text = noteTitle, style = titleTextStyle)
+            Row(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .border(1.dp, Color.Red),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
+            ) {
+
+                AnimatedVisibility(
+                    visible = isInSelectionMode,
+                    enter = fadeIn() + expandHorizontally(),
+                    exit = fadeOut() + shrinkHorizontally()
+                ) {
+
+                    RadioButton(
+                        modifier = Modifier
+                            .size(MaterialTheme.spacing.large),
+                        selected = isSelected,
+                        onClick = onItemClick
+                    )
+                }
+
+
+
+                Text(text = noteTitle, style = titleTextStyle)
+            }
+
 
             Text(text = noteDescription, style = descriptionTextStyle)
 

@@ -25,12 +25,14 @@ import com.alitafreshi.domain.model.Note
 fun TaskList(
     modifier: Modifier = Modifier,
     taskList: List<Note>,
+    selectedTaskList: List<Note>,
     shape: Shape = MaterialTheme.shapes.medium,
     backgroundColor: Color = MaterialTheme.colors.surface,
     titleTextStyle: TextStyle = MaterialTheme.typography.subtitle1,
     descriptionTextStyle: TextStyle = MaterialTheme.typography.subtitle1,
     dateTextStyle: TextStyle = MaterialTheme.typography.caption,
-    navigateToAddNewTask: (id: Int?) -> Unit
+    navigateToAddNewTask: (id: Int?) -> Unit,
+    activeSelectionMode: (Note) -> Unit
 ) {
     if (taskList.isEmpty()) {
 
@@ -56,8 +58,16 @@ fun TaskList(
                     noteDate = note.date,
                     dateTextStyle = dateTextStyle,
                     noteColor = note.color,
+                    isInSelectionMode = selectedTaskList.isNotEmpty(),
+                    isSelected = selectedTaskList.isNotEmpty() && selectedTaskList.contains(note),
                     onItemClick = {
-                        navigateToAddNewTask(note.id)
+                        if (selectedTaskList.isEmpty())
+                            navigateToAddNewTask(note.id)
+                        else
+                            activeSelectionMode(note)
+                    },
+                    activeSelectionMode = {
+                        activeSelectionMode(note)
                     }
                 )
             }

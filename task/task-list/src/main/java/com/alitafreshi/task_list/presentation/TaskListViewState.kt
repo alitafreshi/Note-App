@@ -6,6 +6,7 @@ import com.alitafreshi.domain.uti.OrderType
 
 data class TaskListViewState(
     val taskList: List<Note> = emptyList(),
+    val selectedTaskList: List<Note> = emptyList(),
     val noteOrder: NoteOrder = NoteOrder.Date(OrderType.Descending),
     val isAddButtonVisible: Boolean = true,
 )

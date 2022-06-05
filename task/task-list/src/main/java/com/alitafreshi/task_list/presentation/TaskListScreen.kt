@@ -10,7 +10,6 @@ import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -25,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import com.alitafreshi.components.DefaultCentralizeTopBar
 import com.alitafreshi.components.LogCompositions
 import com.alitafreshi.components.util.spacing
-import com.alitafreshi.task.components.floatingActionButtonState
 import com.alitafreshi.domain.model.Note
 import com.alitafreshi.resource.R
 import kotlin.math.roundToInt
@@ -91,9 +89,13 @@ fun TaskListScreen(
             content = {
                 TaskListScreenContent(
                     taskList = taskListViewState.taskList,
+                    selectedTaskList = taskListViewState.selectedTaskList,
                     taskBackGroundColor = taskBackGroundColor,
                     descriptionTextStyle = descriptionTextStyle,
-                    navigateToAddNewTask = navigateToAddNewTask
+                    navigateToAddNewTask = navigateToAddNewTask,
+                    activeSelectionMode = {
+                        taskListStateEvents(TaskListEvents.AddToSelectionList(note = it))
+                    }
                 )
             },
             floatingActionButton = {
@@ -135,9 +137,11 @@ fun TaskListScreen(
 private fun TaskListScreenContent(
     modifier: Modifier = Modifier,
     taskList: List<Note>,
+    selectedTaskList: List<Note>,
     taskBackGroundColor: Color,
     descriptionTextStyle: TextStyle = MaterialTheme.typography.subtitle1,
-    navigateToAddNewTask: (id: Int?) -> Unit
+    navigateToAddNewTask: (id: Int?) -> Unit,
+    activeSelectionMode: (Note) -> Unit
 ) {
     LogCompositions(msg = "TaskListScreenContent")
     Box(
@@ -147,9 +151,11 @@ private fun TaskListScreenContent(
     ) {
         TaskList(
             taskList = taskList,
+            selectedTaskList = selectedTaskList,
             backgroundColor = taskBackGroundColor,
             descriptionTextStyle = descriptionTextStyle,
-            navigateToAddNewTask = navigateToAddNewTask
+            navigateToAddNewTask = navigateToAddNewTask,
+            activeSelectionMode = activeSelectionMode
         )
     }
 }
