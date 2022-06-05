@@ -1,6 +1,5 @@
 package com.alitafreshi.noteapp.presentation.navigation.destinations.task.task_ad_edit
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -48,8 +47,14 @@ fun TaskAdEditDestination(
     ) {
         TaskAdEditScreen(
             modifier = Modifier.padding(MaterialTheme.spacing.default),
-            taskAdEditTitleTextFieldState = taskAdEditViewModel.getCurrentViewStateOrNew().taskAdEditTitleTextFieldState,
-            taskAdEditDescriptionTextFieldState = taskAdEditViewModel.getCurrentViewStateOrNew().taskAdEditDescriptionTextFieldState,
+//            taskAdEditTitleTextFieldState = taskAdEditViewModel.getCurrentViewStateOrNew().taskAdEditTitleTextFieldState,
+//            taskAdEditDescriptionTextFieldState = taskAdEditViewModel.getCurrentViewStateOrNew().taskAdEditDescriptionTextFieldState,
+            taskAdEditTitleText = taskAdEditViewModel.getCurrentViewStateOrNew().taskAdEditTitleTextFieldState.text,
+            taskAdEditTitleHintText = taskAdEditViewModel.getCurrentViewStateOrNew().taskAdEditTitleTextFieldState.hint,
+            taskAdEditTitleIsHintVisible = taskAdEditViewModel.getCurrentViewStateOrNew().taskAdEditTitleTextFieldState.isHintEnabled,
+            taskAdEditDescriptionText = taskAdEditViewModel.getCurrentViewStateOrNew().taskAdEditDescriptionTextFieldState.text,
+            taskAdEditDescriptionHintText = taskAdEditViewModel.getCurrentViewStateOrNew().taskAdEditDescriptionTextFieldState.hint,
+            taskAdEditDescriptionIsHintVisible = taskAdEditViewModel.getCurrentViewStateOrNew().taskAdEditDescriptionTextFieldState.isHintEnabled,
             adEditEvents = taskAdEditViewModel::onTriggerEvent,
             navigateBack = {
                 if (taskAdEditViewModel.getCurrentViewStateOrNew().taskAdEditTitleTextFieldState.text.isNotEmpty() && taskAdEditViewModel.getCurrentViewStateOrNew().taskAdEditDescriptionTextFieldState.text.isNotEmpty()) taskAdEditViewModel.onTriggerEvent(

@@ -92,7 +92,7 @@ class AdEditViewModel @Inject constructor(
                         )
 
                         noteUseCases.insertNewNoteUseCase.invoke(
-                            //TODO Date And Color should Be completed Later on
+                            //TODO Color should Be completed Later on
                             note = Note(
                                 id = getCurrentViewStateOrNew().noteId,
                                 title = getCurrentViewStateOrNew().taskAdEditTitleTextFieldState.text,

@@ -12,13 +12,18 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.alitafreshi.components.DefaultCentralizeTopBar
+import com.alitafreshi.components.LogCompositions
 import com.alitafreshi.components.util.spacing
 import com.alitafreshi.task.components.floatingActionButtonState
 import com.alitafreshi.domain.model.Note
@@ -36,23 +41,42 @@ fun TaskListScreen(
     descriptionTextStyle: TextStyle = MaterialTheme.typography.subtitle1,
     navigateToAddNewTask: (id: Int?) -> Unit
 ) {
-    var fabOffsetHeightPx by rememberSaveable { mutableStateOf(0f) }
 
+    LogCompositions(msg = "TaskListScreen")
 
+    val fabHeight by remember {
+        mutableStateOf(72.dp)
+    }
+
+    val fabHeightPx = with(
+        LocalDensity.current
+    ) {
+        fabHeight.roundToPx().toFloat()
+    }
+    val fabOffsetHeightPx = remember { mutableStateOf(0f) }
+
+    val nestedScrollConnection = remember {
+        object : NestedScrollConnection {
+            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+
+                val delta = available.y
+                val newOffset = fabOffsetHeightPx.value + delta
+                fabOffsetHeightPx.value = newOffset.coerceIn(-fabHeightPx, 0f)
+
+                return Offset.Zero
+            }
+        }
+    }
 
     BoxWithConstraints(modifier = modifier.fillMaxSize()) {
         Scaffold(
             modifier =
             modifier
                 .fillMaxSize()
-                .nestedScroll(
-                    connection = floatingActionButtonState(
-                        fabOffsetHeightPx = fabOffsetHeightPx,
-                        fabYAxisOffsetPx = {
-                            fabOffsetHeightPx = it
-                        })
-                ),
+                .nestedScroll(connection = nestedScrollConnection),
             topBar = {
+                LogCompositions(msg = "TaskListTopBar")
+
                 DefaultCentralizeTopBar(
                     toolbarTitle = topBarTitle,
                     actionIcon = {
@@ -68,11 +92,13 @@ fun TaskListScreen(
                 TaskListScreenContent(
                     taskList = taskListViewState.taskList,
                     taskBackGroundColor = taskBackGroundColor,
-                    descriptionTextStyle=descriptionTextStyle,
+                    descriptionTextStyle = descriptionTextStyle,
                     navigateToAddNewTask = navigateToAddNewTask
                 )
             },
             floatingActionButton = {
+                LogCompositions(msg = "floatingActionButton")
+
                 if (taskListViewState.taskList.isNotEmpty()) {
                     FloatingActionButton(
                         onClick = { navigateToAddNewTask(null) },
@@ -83,7 +109,7 @@ fun TaskListScreen(
                                 IntOffset(
                                     //TODO CALCULATION OF X IS WRONG
                                     x = (((-((minWidth).roundToPx())).toDp() + 90.dp).roundToPx()) / 2,
-                                    y = -fabOffsetHeightPx.roundToInt()
+                                    y = -fabOffsetHeightPx.value.roundToInt()
 
                                 )
                             }
@@ -113,6 +139,7 @@ private fun TaskListScreenContent(
     descriptionTextStyle: TextStyle = MaterialTheme.typography.subtitle1,
     navigateToAddNewTask: (id: Int?) -> Unit
 ) {
+    LogCompositions(msg = "TaskListScreenContent")
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -121,7 +148,7 @@ private fun TaskListScreenContent(
         TaskList(
             taskList = taskList,
             backgroundColor = taskBackGroundColor,
-            descriptionTextStyle=descriptionTextStyle,
+            descriptionTextStyle = descriptionTextStyle,
             navigateToAddNewTask = navigateToAddNewTask
         )
     }
