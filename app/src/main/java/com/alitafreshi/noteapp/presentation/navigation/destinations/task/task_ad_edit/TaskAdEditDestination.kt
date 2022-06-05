@@ -3,6 +3,7 @@ package com.alitafreshi.noteapp.presentation.navigation.destinations.task.task_a
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -12,6 +13,7 @@ import com.alitafreshi.components.util.spacing
 import com.alitafreshi.task_add_edit.TaskAdEditScreen
 import com.alitafreshi.task_add_edit.UiEvents
 import com.alitafreshi.task_add_edit.view_event.AdEditEvents
+import com.alitafreshi.task_add_edit.view_state.TaskAdEditTextFieldState
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import kotlinx.coroutines.flow.collectLatest
@@ -42,23 +44,35 @@ fun TaskAdEditDestination(
         }
     }
 
+    TaskAdEditMainContent(
+        scaffoldState =scaffoldState ,
+        taskAdEditTitleTextFieldState =taskAdEditViewModel.getCurrentViewStateOrNew().taskAdEditTitleTextFieldState ,
+        taskAdEditDescriptionTextFieldState = taskAdEditViewModel.getCurrentViewStateOrNew().taskAdEditDescriptionTextFieldState,
+        adEditEvents = taskAdEditViewModel::onTriggerEvent,
+        navigateBack = navigateBack
+    )
+
+}
+
+@Composable
+fun TaskAdEditMainContent(
+    scaffoldState: ScaffoldState,
+    taskAdEditTitleTextFieldState: TaskAdEditTextFieldState,
+    taskAdEditDescriptionTextFieldState: TaskAdEditTextFieldState,
+    adEditEvents: (AdEditEvents) -> Unit,
+    navigateBack: () -> Unit,
+) {
     Scaffold(
         scaffoldState = scaffoldState
     ) {
         TaskAdEditScreen(
             modifier = Modifier.padding(MaterialTheme.spacing.default),
-//            taskAdEditTitleTextFieldState = taskAdEditViewModel.getCurrentViewStateOrNew().taskAdEditTitleTextFieldState,
-//            taskAdEditDescriptionTextFieldState = taskAdEditViewModel.getCurrentViewStateOrNew().taskAdEditDescriptionTextFieldState,
-            taskAdEditTitleText = taskAdEditViewModel.getCurrentViewStateOrNew().taskAdEditTitleTextFieldState.text,
-            taskAdEditTitleHintText = taskAdEditViewModel.getCurrentViewStateOrNew().taskAdEditTitleTextFieldState.hint,
-            taskAdEditTitleIsHintVisible = taskAdEditViewModel.getCurrentViewStateOrNew().taskAdEditTitleTextFieldState.isHintEnabled,
-            taskAdEditDescriptionText = taskAdEditViewModel.getCurrentViewStateOrNew().taskAdEditDescriptionTextFieldState.text,
-            taskAdEditDescriptionHintText = taskAdEditViewModel.getCurrentViewStateOrNew().taskAdEditDescriptionTextFieldState.hint,
-            taskAdEditDescriptionIsHintVisible = taskAdEditViewModel.getCurrentViewStateOrNew().taskAdEditDescriptionTextFieldState.isHintEnabled,
-            adEditEvents = taskAdEditViewModel::onTriggerEvent,
+            taskAdEditTitleTextFieldState = taskAdEditTitleTextFieldState,
+            taskAdEditDescriptionTextFieldState = taskAdEditDescriptionTextFieldState,
+            adEditEvents = adEditEvents,
             navigateBack = {
-                if (taskAdEditViewModel.getCurrentViewStateOrNew().taskAdEditTitleTextFieldState.text.isNotEmpty() && taskAdEditViewModel.getCurrentViewStateOrNew().taskAdEditDescriptionTextFieldState.text.isNotEmpty()) taskAdEditViewModel.onTriggerEvent(
-                    event = AdEditEvents.SaveNote
+                if (taskAdEditTitleTextFieldState.text.isNotEmpty() && taskAdEditDescriptionTextFieldState.text.isNotEmpty()) adEditEvents(
+                      AdEditEvents.SaveNote
                 ) else navigateBack()
             }
         )

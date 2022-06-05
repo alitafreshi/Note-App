@@ -22,14 +22,8 @@ import com.alitafreshi.task_add_edit.view_state.TaskAdEditTextFieldState
 @Composable
 fun TaskAdEditScreen(
     modifier: Modifier = Modifier,
-//    taskAdEditTitleTextFieldState: TaskAdEditTextFieldState,
-//    taskAdEditDescriptionTextFieldState: TaskAdEditTextFieldState,
-    taskAdEditTitleText: String,
-    taskAdEditTitleHintText: String,
-    taskAdEditTitleIsHintVisible: Boolean,
-    taskAdEditDescriptionText: String,
-    taskAdEditDescriptionHintText: String,
-    taskAdEditDescriptionIsHintVisible: Boolean,
+    taskAdEditTitleTextFieldState: TaskAdEditTextFieldState,
+    taskAdEditDescriptionTextFieldState: TaskAdEditTextFieldState,
     adEditEvents: (AdEditEvents) -> Unit,
     navigateBack: () -> Unit,
 ) {
@@ -41,23 +35,41 @@ fun TaskAdEditScreen(
     ) {
 
         item {
-            TitleTextFieldContainer(
-                taskAdEditTitleText = taskAdEditTitleText,
-                taskAdEditTitleHintText = taskAdEditTitleHintText,
-                taskAdEditTitleIsHintVisible = taskAdEditTitleIsHintVisible,
-                adEditEvents = adEditEvents,
-                navigateBack = navigateBack
+
+            TransparentHintTextField(
+                modifier = Modifier.fillMaxWidth(),
+                text = taskAdEditTitleTextFieldState.text,
+                hint = taskAdEditTitleTextFieldState.hint,
+                recompositionDebugTitle = "TaskAdEditTitle",
+                isHintVisible = taskAdEditTitleTextFieldState.isHintEnabled,
+                singleLine = true,
+                textStyle = MaterialTheme.typography.h5,
+                onValueChange = { value ->
+                    adEditEvents(AdEditEvents.UpdateTitleContent(value = value))
+                },
+                onFocusChangeListener = { focusState ->
+                    adEditEvents(AdEditEvents.ChangeTitleFocusState(focusState = focusState))
+                }
             )
         }
 
         item {
-            DescriptionTextFieldContainer(
-                taskAdEditDescriptionText = taskAdEditDescriptionText,
-                taskAdEditDescriptionHintText = taskAdEditDescriptionHintText,
-                taskAdEditDescriptionIsHintVisible = taskAdEditDescriptionIsHintVisible,
-                adEditEvents = adEditEvents
+            TransparentHintTextField(
+                modifier = modifier.fillMaxWidth(),
+                text = taskAdEditDescriptionTextFieldState.text,
+                hint = taskAdEditDescriptionTextFieldState.hint,
+                isHintVisible = taskAdEditDescriptionTextFieldState.isHintEnabled,
+                recompositionDebugTitle = "TaskAdEditDescription",
+                textStyle = MaterialTheme.typography.body1,
+                onValueChange = { value ->
+                    adEditEvents(AdEditEvents.UpdateDescriptionContent(value = value))
+                },
+                onFocusChangeListener = { focusState ->
+                    adEditEvents(AdEditEvents.ChangeDescriptionState(focusState = focusState))
+                }
             )
         }
+
     }
 }
 
@@ -70,13 +82,9 @@ fun TitleTextFieldContainer(
     adEditEvents: (AdEditEvents) -> Unit,
     navigateBack: () -> Unit,
 ) {
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
+
         TransparentHintTextField(
-            modifier = Modifier.weight(3f),
+            modifier = Modifier.fillMaxWidth(),
             text = taskAdEditTitleText,
             hint = taskAdEditTitleHintText,
             recompositionDebugTitle = "TaskAdEditTitle",
@@ -91,14 +99,6 @@ fun TitleTextFieldContainer(
             }
         )
 
-        Icon(
-            modifier = Modifier
-                .weight(0.5f)
-                .clickable(onClick = navigateBack),
-            painter = painterResource(id = R.drawable.ic_back),
-            contentDescription = "btn back"
-        )
-    }
 }
 
 
