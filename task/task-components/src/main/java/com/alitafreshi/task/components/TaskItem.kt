@@ -3,25 +3,22 @@ package com.alitafreshi.task.components
 import androidx.compose.animation.*
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.RadioButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.unit.dp
 import com.alitafreshi.components.util.spacing
 
 
+@ExperimentalAnimationApi
 @ExperimentalFoundationApi
 @Composable
 fun TaskItem(
@@ -56,27 +53,22 @@ fun TaskItem(
 
             Row(
                 modifier = modifier
-                    .fillMaxWidth()
-                    .border(1.dp, Color.Red),
+                    .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
 
                 AnimatedVisibility(
                     visible = isInSelectionMode,
-                    enter = fadeIn() + expandHorizontally(),
-                    exit = fadeOut() + shrinkHorizontally()
+                    enter = fadeIn() + expandHorizontally() + scaleIn(),
+                    exit = fadeOut() + shrinkHorizontally()+ scaleOut()
                 ) {
-
-                    RadioButton(
-                        modifier = Modifier
-                            .size(MaterialTheme.spacing.large),
+                    CustomRadioButton(
                         selected = isSelected,
-                        onClick = onItemClick
+                        onClick = onItemClick,
+                        colors = RadioButtonDefaults.colors(selectedColor = MaterialTheme.colors.primaryVariant)
                     )
                 }
-
-
 
                 Text(text = noteTitle, style = titleTextStyle)
             }

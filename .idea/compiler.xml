@@ -8,14 +8,14 @@
       <module name="note.buildSrc" target="11" />
       <module name="note.buildSrc.main" target="11" />
       <module name="note.buildSrc.test" target="11" />
-      <module name="Note_App.app" target="11" />
-      <module name="Note_App.components" target="11" />
-      <module name="Note_App.resource" target="11" />
-      <module name="Note_App.state-manager" target="11" />
-      <module name="Note_App.task.data" target="11" />
-      <module name="Note_App.task.task-add-edit" target="11" />
-      <module name="Note_App.task.task-components" target="11" />
-      <module name="Note_App.task.task-list" target="11" />
+      <module name="Note_App.app" target="15" />
+      <module name="Note_App.components" target="15" />
+      <module name="Note_App.resource" target="15" />
+      <module name="Note_App.state-manager" target="15" />
+      <module name="Note_App.task.data" target="15" />
+      <module name="Note_App.task.task-add-edit" target="15" />
+      <module name="Note_App.task.task-components" target="15" />
+      <module name="Note_App.task.task-list" target="15" />
     </bytecodeTargetLevel>
   </component>
 </project>

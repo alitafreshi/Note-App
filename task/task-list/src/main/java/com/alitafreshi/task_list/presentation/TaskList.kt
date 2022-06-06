@@ -1,5 +1,6 @@
 package com.alitafreshi.task_list.presentation
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -20,6 +21,7 @@ import com.alitafreshi.task.components.TaskItem
 import com.alitafreshi.domain.model.Note
 
 
+@ExperimentalAnimationApi
 @ExperimentalFoundationApi
 @Composable
 fun TaskList(

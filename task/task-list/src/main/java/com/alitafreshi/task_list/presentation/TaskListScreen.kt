@@ -1,5 +1,9 @@
 package com.alitafreshi.task_list.presentation
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -9,6 +13,8 @@ import androidx.compose.material.*
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.RestoreFromTrash
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -28,6 +34,7 @@ import com.alitafreshi.domain.model.Note
 import com.alitafreshi.resource.R
 import kotlin.math.roundToInt
 
+@ExperimentalAnimationApi
 @ExperimentalFoundationApi
 @Composable
 fun TaskListScreen(
@@ -83,6 +90,39 @@ fun TaskListScreen(
                             painter = painterResource(id = R.drawable.ic_app),
                             contentDescription = "img app"
                         )
+                    },
+                    navigationIcon = {
+                        AnimatedVisibility(
+                            modifier = it,
+                            visible = taskListViewState.selectedTaskList.isNotEmpty(),
+                            enter = fadeIn() ,
+                            exit = fadeOut()
+                        ) {
+
+                            BadgedBox(
+                                modifier = it,
+                                badge = {
+                                    AnimatedVisibility(
+                                        modifier = it,
+                                        visible = taskListViewState.selectedTaskList.isNotEmpty(),
+                                        enter = fadeIn() ,
+                                        exit = fadeOut()
+                                    ) {
+                                        Badge {
+                                            Text(
+                                                taskListViewState.selectedTaskList.count().toString()
+                                            )
+                                        }
+
+                                    }
+                                }
+                            ) {
+                                Icon(
+                                    Icons.Filled.RestoreFromTrash,
+                                    contentDescription = "Favorite"
+                                )
+                            }
+                        }
                     }
                 )
             },
@@ -100,8 +140,7 @@ fun TaskListScreen(
             },
             floatingActionButton = {
                 LogCompositions(msg = "floatingActionButton")
-
-                if (taskListViewState.taskList.isNotEmpty()) {
+                if (taskListViewState.taskList.isNotEmpty() && taskListViewState.selectedTaskList.isEmpty()) {
                     FloatingActionButton(
                         onClick = { navigateToAddNewTask(null) },
                         shape = CircleShape,
@@ -132,6 +171,7 @@ fun TaskListScreen(
 
 }
 
+@ExperimentalAnimationApi
 @ExperimentalFoundationApi
 @Composable
 private fun TaskListScreenContent(
