@@ -1,12 +1,9 @@
-//import org.jetbrains.dokka.gradle.DokkaTaskPartial
-
 plugins {
     id(Plugins.androidApplication)
     kotlin(KotlinPlugins.android)
     kotlin(KotlinPlugins.kapt)
     kotlin(KotlinPlugins.serialization)
     id(Plugins.hilt)
-//    id(Plugins.dokka)
     id(KotlinPlugins.parcelize)
     id(Plugins.googleKspPlugin) version (Plugins.googleKspPluginVersion)
 }
@@ -31,7 +28,8 @@ android {
 
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -50,21 +48,6 @@ android {
 
     flavorDimensions += "store"
     productFlavors {
-        /* create("playstore") {
-             dimension = "store"
-             buildConfigField(type = "String", name = "category", value = "\"playstore\"")
-             kotlin {
-                 sourceSets {
-                     debug {
-                         kotlin.srcDir("build/generated/ksp/playstoredebug/kotlin")
-                     }
-                     release {
-                         kotlin.srcDir("build/generated/ksp/playstorerelease/kotlin")
-                     }
-                 }
-             }
-         }*/
-
         create("cafebazaar") {
             dimension = "store"
             buildConfigField(type = "String", name = "category", value = "\"cafebazaar\"")
@@ -79,21 +62,6 @@ android {
                 }
             }
         }
-
-        /*create("myket") {
-            dimension = "store"
-            buildConfigField(type = "String", name = "category", value = "\"myket\"")
-            kotlin {
-                sourceSets {
-                    debug {
-                        kotlin.srcDir("build/generated/ksp/myketdebug/kotlin")
-                    }
-                    release {
-                        kotlin.srcDir("build/generated/ksp/myketrelease/kotlin")
-                    }
-                }
-            }
-        }*/
     }
 
 

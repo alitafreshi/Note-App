@@ -95,25 +95,17 @@ fun TaskListScreen(
                         AnimatedVisibility(
                             modifier = it,
                             visible = taskListViewState.selectedTaskList.isNotEmpty(),
-                            enter = fadeIn() ,
+                            enter = fadeIn(),
                             exit = fadeOut()
                         ) {
 
                             BadgedBox(
                                 modifier = it,
                                 badge = {
-                                    AnimatedVisibility(
-                                        modifier = it,
-                                        visible = taskListViewState.selectedTaskList.isNotEmpty(),
-                                        enter = fadeIn() ,
-                                        exit = fadeOut()
-                                    ) {
-                                        Badge {
-                                            Text(
-                                                taskListViewState.selectedTaskList.count().toString()
-                                            )
-                                        }
-
+                                    Badge {
+                                        Text(
+                                            taskListViewState.selectedTaskList.count().toString()
+                                        )
                                     }
                                 }
                             ) {

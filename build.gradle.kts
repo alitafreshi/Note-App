@@ -2,14 +2,6 @@
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }
-/*plugins {
-    id(Plugins.dokka)
-}
-
-tasks.dokkaHtmlMultiModule.configure {
-    outputDirectory.set(file("../documentation/html"))
-    includes.from("Readme.md")
-}*/
 
 buildscript {
     repositories {
@@ -24,7 +16,6 @@ buildscript {
         classpath(Build.kotlinGradlePlugin)
         classpath(Build.hiltGradlePlugin)
         classpath(Build.kotlinSerializationGradlePlugin)
-//        classpath(Document.dokkaGradleVersion)
     }
 }
 
