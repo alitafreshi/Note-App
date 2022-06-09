@@ -34,6 +34,7 @@ class TaskListViewModel @Inject constructor(
                 noteUseCases.deleteNoteUseCase(
                     notes = event.deletedNotes
                 )
+                setViewState(viewState = getCurrentViewStateOrNew().copy(selectedTaskList = emptyList()))
             }
 
             is TaskListEvents.RestoreNote -> handleSuspendEvent {

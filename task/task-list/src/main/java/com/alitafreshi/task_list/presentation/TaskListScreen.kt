@@ -1,9 +1,7 @@
 package com.alitafreshi.task_list.presentation
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
+import androidx.compose.animation.*
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -13,10 +11,9 @@ import androidx.compose.material.*
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.RestoreFromTrash
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
@@ -43,6 +40,7 @@ fun TaskListScreen(
     taskListStateEvents: (TaskListEvents) -> Unit,
     topBarTitle: String = "Noto",
     taskBackGroundColor: Color,
+    fabBackGroundColor: Color = MaterialTheme.colors.primary,
     descriptionTextStyle: TextStyle = MaterialTheme.typography.subtitle1,
     navigateToAddNewTask: (id: Int?) -> Unit
 ) {
@@ -58,7 +56,23 @@ fun TaskListScreen(
     ) {
         fabHeight.roundToPx().toFloat()
     }
+
     val fabOffsetHeightPx = remember { mutableStateOf(0f) }
+
+    val fabBackgroundColor by animateColorAsState(
+        targetValue = if (taskListViewState.selectedTaskList.isEmpty()) fabBackGroundColor else MaterialTheme.colors.error,
+        animationSpec = keyframes {
+            durationMillis = 600
+            fabBackGroundColor.at(300).with(easing = LinearEasing)
+        }
+    )
+
+    val animatedRotateAngle by
+    animateFloatAsState(
+        targetValue = if (taskListViewState.selectedTaskList.isEmpty()) 0.0f else 135.0f,
+        animationSpec = tween(durationMillis = 600)
+    )
+
 
     val nestedScrollConnection = remember {
         object : NestedScrollConnection {
@@ -90,31 +104,6 @@ fun TaskListScreen(
                             painter = painterResource(id = R.drawable.ic_app),
                             contentDescription = "img app"
                         )
-                    },
-                    navigationIcon = {
-                        AnimatedVisibility(
-                            modifier = it,
-                            visible = taskListViewState.selectedTaskList.isNotEmpty(),
-                            enter = fadeIn(),
-                            exit = fadeOut()
-                        ) {
-
-                            BadgedBox(
-                                modifier = it,
-                                badge = {
-                                    Badge {
-                                        Text(
-                                            taskListViewState.selectedTaskList.count().toString()
-                                        )
-                                    }
-                                }
-                            ) {
-                                Icon(
-                                    Icons.Filled.RestoreFromTrash,
-                                    contentDescription = "Favorite"
-                                )
-                            }
-                        }
                     }
                 )
             },
@@ -132,35 +121,39 @@ fun TaskListScreen(
             },
             floatingActionButton = {
                 LogCompositions(msg = "floatingActionButton")
-                if (taskListViewState.taskList.isNotEmpty() && taskListViewState.selectedTaskList.isEmpty()) {
+                if (taskListViewState.taskList.isNotEmpty())
                     FloatingActionButton(
-                        onClick = { navigateToAddNewTask(null) },
+                        onClick = {
+                            if (taskListViewState.selectedTaskList.isNotEmpty())
+                                taskListStateEvents(
+                                    TaskListEvents.DeleteNotes(
+                                        deletedNotes = taskListViewState.selectedTaskList
+                                    )
+                                )
+                            else
+                                navigateToAddNewTask(null)
+                        },
                         shape = CircleShape,
-                        backgroundColor = MaterialTheme.colors.primary,
+                        backgroundColor = fabBackgroundColor,
                         modifier = Modifier
                             .offset {
                                 IntOffset(
                                     //TODO CALCULATION OF X IS WRONG
                                     x = (((-((minWidth).roundToPx())).toDp() + 90.dp).roundToPx()) / 2,
                                     y = -fabOffsetHeightPx.value.roundToInt()
-
                                 )
                             }
                     ) {
                         Icon(
-                            Icons.Filled.Add,
+                            modifier = Modifier.rotate(animatedRotateAngle),
+                            imageVector = Icons.Filled.Add,
                             tint = Color.White,
                             contentDescription = "Add Items"
                         )
                     }
-                }
             }
         )
-
-
     }
-
-
 }
 
 @ExperimentalAnimationApi

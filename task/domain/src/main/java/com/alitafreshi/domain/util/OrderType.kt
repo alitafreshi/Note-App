@@ -1,4 +1,4 @@
-package com.alitafreshi.domain.uti
+package com.alitafreshi.domain.util
 
 sealed class OrderType{
     object Ascending:OrderType()

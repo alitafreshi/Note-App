@@ -19,3 +19,52 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+
+#----------<RoomDb>-----------
+-keep class * extends androidx.room.RoomDatabase
+-dontwarn androidx.room.paging.**
+
+#----------</RoomDb>-----------
+
+
+#-------------<Data Store>------------------
+
+-keep class androidx.datastore.*.** {*;}
+
+-keepclassmembers class * extends androidx.datastore.preferences.protobuf.GeneratedMessageLite {
+    <fields>;
+}
+
+#-------------</Data Store>------------------
+
+
+#--------------<Hilt>------------------------------
+
+
+-keepnames @dagger.hilt.android.lifecycle.HiltViewModel class * extends androidx.lifecycle.ViewModel
+
+
+#--------------</Hilt>------------------------------
+
+
+#------------<Models>------------------
+
+-keep class com.alitafreshi.data.datasource.local.room.NoteDao{ *; }
+-keep class com.alitafreshi.domain.model.**{ *; }
+-keep class com.alitafreshi.domain.util.**{ *; }
+
+#------------</Models>------------------
+
+
+#------------<Ayan Models>------------------
+
+-keep class ir.tafreshiali.ayan_core.util.**{ *; }
+
+#------------</Ayan Models>------------------
+
+
+
+
+
+
