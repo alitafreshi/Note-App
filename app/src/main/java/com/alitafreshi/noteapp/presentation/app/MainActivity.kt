@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
     private val appViewModel: AppViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        installSplashScreen().setKeepOnScreenCondition(condition = { appViewModel.getCurrentViewStateOrNew().loadingState==BottomSheetState.Loading })
+        installSplashScreen()
         setContent {
             App(
                 appViewState = appViewModel.getCurrentViewStateOrNew(),
