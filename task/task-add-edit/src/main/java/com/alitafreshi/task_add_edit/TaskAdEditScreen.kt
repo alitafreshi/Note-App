@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import com.alitafreshi.components.LogCompositions
+import com.alitafreshi.components.util.noRippleClickable
 import com.alitafreshi.components.util.spacing
 import com.alitafreshi.resource.R
 import com.alitafreshi.task.components.TransparentHintTextField
@@ -90,7 +91,7 @@ fun TitleTextFieldContainer(
         Icon(
             modifier = Modifier
                 .weight(0.1f)
-                .clickable(onClick = navigateBack),
+                .noRippleClickable(onClick = navigateBack),
             painter = painterResource(id = R.drawable.ic_back),
             contentDescription = "btn back"
         )
