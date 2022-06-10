@@ -74,6 +74,7 @@ fun TaskListScreen(
     )
 
 
+
     val nestedScrollConnection = remember {
         object : NestedScrollConnection {
             override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
@@ -81,16 +82,16 @@ fun TaskListScreen(
                 val delta = available.y
                 val newOffset = fabOffsetHeightPx.value + delta
                 fabOffsetHeightPx.value = newOffset.coerceIn(-fabHeightPx, 0f)
-
                 return Offset.Zero
             }
         }
     }
 
+
     BoxWithConstraints(modifier = modifier.fillMaxSize()) {
         Scaffold(
             modifier =
-            modifier
+            Modifier
                 .fillMaxSize()
                 .nestedScroll(connection = nestedScrollConnection),
             topBar = {
@@ -109,6 +110,7 @@ fun TaskListScreen(
             },
             content = {
                 TaskListScreenContent(
+
                     taskList = taskListViewState.taskList,
                     selectedTaskList = taskListViewState.selectedTaskList,
                     taskBackGroundColor = taskBackGroundColor,
@@ -141,6 +143,7 @@ fun TaskListScreen(
                                     //TODO CALCULATION OF X IS WRONG
                                     x = (((-((minWidth).roundToPx())).toDp() + 90.dp).roundToPx()) / 2,
                                     y = -fabOffsetHeightPx.value.roundToInt()
+
                                 )
                             }
                     ) {
