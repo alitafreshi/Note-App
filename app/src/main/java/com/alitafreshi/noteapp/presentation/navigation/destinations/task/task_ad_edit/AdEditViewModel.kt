@@ -1,5 +1,7 @@
 package com.alitafreshi.noteapp.presentation.navigation.destinations.task.task_ad_edit
 
+import android.util.Log
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.lifecycle.SavedStateHandle
 import com.alitafreshi.components.util.app.BaseViewModel
 import com.alitafreshi.domain.interactors.NoteUseCases
@@ -18,6 +20,7 @@ import saman.zamani.persiandate.PersianDateFormat
 import javax.inject.Inject
 
 
+@ExperimentalComposeUiApi
 @HiltViewModel
 class AdEditViewModel @Inject constructor(
     private val noteUseCases: NoteUseCases,
@@ -86,13 +89,12 @@ class AdEditViewModel @Inject constructor(
                 handleSuspendEvent {
                     try {
                         val pdate = PersianDate()
-                        val pdformater1 = PersianDateFormat(
-                            "m/Y/d",
-                            PersianDateFormat.PersianDateNumberCharacter.FARSI
-                        )
+                        val pdformater1 = PersianDateFormat("Y/m/d")
 
-                        noteUseCases.insertNewNoteUseCase.invoke(
+                        noteUseCases.insertNewNoteUseCase(
+
                             //TODO Color should Be completed Later on
+
                             note = Note(
                                 id = getCurrentViewStateOrNew().noteId,
                                 title = getCurrentViewStateOrNew().taskAdEditTitleTextFieldState.text,

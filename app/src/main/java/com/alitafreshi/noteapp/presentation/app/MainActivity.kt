@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.alitafreshi.components.util.app.AppEvents
 import com.alitafreshi.components.util.app.AppViewState
@@ -14,8 +15,8 @@ import com.alitafreshi.noteapp.presentation.navigation.Navigation
 import com.alitafreshi.noteapp.presentation.ui.theme.NoteAppTheme
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import dagger.hilt.android.AndroidEntryPoint
-import ir.tafreshiali.ayan_core.util.BottomSheetState
 
+@ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @ExperimentalMaterialNavigationApi
 @ExperimentalAnimationApi
@@ -34,6 +35,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
 @ExperimentalMaterialNavigationApi

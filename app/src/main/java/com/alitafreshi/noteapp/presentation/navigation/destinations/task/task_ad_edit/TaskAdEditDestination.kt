@@ -7,7 +7,10 @@ import androidx.compose.material.ScaffoldState
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.alitafreshi.components.util.spacing
 import com.alitafreshi.task_add_edit.TaskAdEditScreen
@@ -18,6 +21,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import kotlinx.coroutines.flow.collectLatest
 
+@ExperimentalComposeUiApi
 @RootNavGraph
 @Destination(navArgsDelegate = AdEditNavArgs::class)
 @Composable
@@ -48,20 +52,23 @@ fun TaskAdEditDestination(
         scaffoldState =scaffoldState ,
         taskAdEditTitleTextFieldState =taskAdEditViewModel.getCurrentViewStateOrNew().taskAdEditTitleTextFieldState ,
         taskAdEditDescriptionTextFieldState = taskAdEditViewModel.getCurrentViewStateOrNew().taskAdEditDescriptionTextFieldState,
-        adEditEvents = taskAdEditViewModel::onTriggerEvent,
-        navigateBack = navigateBack
+        adEditEvents = taskAdEditViewModel::onTriggerEvent
     )
 
 }
 
+@ExperimentalComposeUiApi
 @Composable
 fun TaskAdEditMainContent(
     scaffoldState: ScaffoldState,
     taskAdEditTitleTextFieldState: TaskAdEditTextFieldState,
     taskAdEditDescriptionTextFieldState: TaskAdEditTextFieldState,
     adEditEvents: (AdEditEvents) -> Unit,
-    navigateBack: () -> Unit,
 ) {
+
+    val focusManager = LocalFocusManager.current
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     Scaffold(
         scaffoldState = scaffoldState
     ) {
@@ -71,9 +78,9 @@ fun TaskAdEditMainContent(
             taskAdEditDescriptionTextFieldState = taskAdEditDescriptionTextFieldState,
             adEditEvents = adEditEvents,
             navigateBack = {
-                if (taskAdEditTitleTextFieldState.text.isNotEmpty() && taskAdEditDescriptionTextFieldState.text.isNotEmpty()) adEditEvents(
-                      AdEditEvents.SaveNote
-                ) else navigateBack()
+                focusManager.clearFocus()
+                keyboardController?.hide()
+                adEditEvents(AdEditEvents.SaveNote)
             }
         )
     }
