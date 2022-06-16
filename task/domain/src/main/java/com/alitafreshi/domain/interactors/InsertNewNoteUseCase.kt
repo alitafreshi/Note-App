@@ -9,7 +9,7 @@ class InsertNewNoteUseCase(private val noteRepository: NoteRepository) {
 
     @Throws(InvalidNoteException::class)
     suspend operator fun invoke(note: Note) {
-        if(note.title.isEmpty()||note.description.isEmpty())
+        if (note.title.isEmpty() || note.description.isEmpty())
             throw InvalidNoteException("لطفا اطلاعات یادداشت رو کامل وارد کنید")
 
         val insertedNoteId = noteRepository.insertNote(note = note)
