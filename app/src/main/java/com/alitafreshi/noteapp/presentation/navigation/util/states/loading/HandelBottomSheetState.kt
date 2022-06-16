@@ -4,10 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.navigation.NavOptionsBuilder
 import com.alitafreshi.noteapp.presentation.destinations.LoadingAnimationDestination
-import com.ramcosta.composedestinations.navigation.navigateTo
+import com.ramcosta.composedestinations.navigation.navigate
 import ir.tafreshiali.ayan_core.util.BottomSheetState
-import kotlinx.coroutines.delay
 
 @Composable
 fun HandelBottomSheetState(
@@ -18,11 +18,11 @@ fun HandelBottomSheetState(
     LaunchedEffect(key1 = bottomSheetState) {
         when (bottomSheetState) {
             is BottomSheetState.Loading -> {
-                navController.navigateTo(
-                    LoadingAnimationDestination()
-                ) {
-                    launchSingleTop = true
-                }
+                navController.navigate(
+                    LoadingAnimationDestination(),
+                    fun NavOptionsBuilder.() {
+                        launchSingleTop = true
+                    })
             }
 
             is BottomSheetState.Idle -> {

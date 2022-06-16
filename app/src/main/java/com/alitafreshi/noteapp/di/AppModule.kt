@@ -1,6 +1,7 @@
 package com.alitafreshi.noteapp.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.dataStoreFile
@@ -71,6 +72,13 @@ object AppModule {
         @IoDispatcher ioDispatcher: CoroutineDispatcher
     ): AppProtoDataStore<AppSettings> =
         AppProtoDataStoreImpl(dataStore = dataStore, ioDispatcher = ioDispatcher)
+
+
+
+    @Singleton
+    @Provides
+    fun provideSharedPreference(app: BaseApplication): SharedPreferences =
+        app.getSharedPreferences("preferences_app_db", Context.MODE_PRIVATE)
 
 
     @Singleton

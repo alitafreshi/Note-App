@@ -1,80 +1,64 @@
 package com.alitafreshi.noteapp.presentation.app
 
-import androidx.lifecycle.viewModelScope
+import android.content.SharedPreferences
+import android.util.Log
+import androidx.core.content.edit
 import com.alitafreshi.components.util.app.AppEvents
 import com.alitafreshi.components.util.app.AppViewState
 import com.alitafreshi.components.util.app.BaseViewModel
-import com.alitafreshi.data.datasource.local.datastore.AppProtoDataStore
-import com.alitafreshi.data.datasource.local.datastore.AppSettings
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ir.tafreshiali.ayan_core.util.DataState
+import ir.tafreshiali.ayan_core.util.BottomSheetState
 import ir.tafreshiali.ayan_core.util.UIComponent
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @HiltViewModel
 class AppViewModel @Inject constructor(
-    private val appProtoDataStoreImpl: AppProtoDataStore<AppSettings>
+    private val sharedPreferences: SharedPreferences
 ) : BaseViewModel<AppViewState, AppEvents, UIComponent>() {
+
     init {
-        readIntroState()
+        readIntroState(introState = sharedPreferences.getBoolean("IntroKey", false))
     }
 
     override fun initNewViewState(): AppViewState = AppViewState()
 
     override fun onTriggerEvent(event: AppEvents) {
         when (event) {
+
             is AppEvents.UpdateIntroState -> {
-                viewModelScope.launch {
-                    updateIntroState(introState = event.introState)
+                updateIntroState(introState = event.introState)
+            }
+
+            is AppEvents.UpdateLoadingState -> {
+                Log.d("AppEvents", "AppViewModel = ${event.bottomSheetState}")
+                handleSuspendEvent {
+                    delay(1000L)
+                    setViewState(viewState = getCurrentViewStateOrNew().copy(loadingState = event.bottomSheetState))
                 }
             }
         }
+
     }
 
-    private fun readIntroState() {
-        appProtoDataStoreImpl.getValue().onEach { dataState ->
-            when (dataState) {
-                is DataState.Loading -> {
-                    setViewState(viewState = getCurrentViewStateOrNew().copy(loadingState = dataState.bottomSheetState))
-                }
-                is DataState.Data -> {
-                    dataState.data?.introState?.let { introState ->
-                        setViewState(
-                            viewState = getCurrentViewStateOrNew().copy(
-                                introState = introState
-                            )
-                        )
-                    }
-                }
-                is DataState.Error -> {
-                    //TODO Handling Some Exceptions That is happen during the data extraction
-                }
-            }
-        }.launchIn(viewModelScope)
+
+
+    private fun readIntroState(introState: Boolean) {
+
+        setViewState(
+            viewState = getCurrentViewStateOrNew().copy(
+                //loadingState = if (!introState)BottomSheetState.Loading else BottomSheetState.Idle,
+                introState = introState
+            )
+        )
     }
 
-    private suspend fun updateIntroState(introState: Boolean) {
 
-        appProtoDataStoreImpl.getValue().onEach { dataState ->
-            when (dataState) {
-                is DataState.Loading -> {}
-                is DataState.Data -> {
-                    appProtoDataStoreImpl.setValue(
-                        savedObj = dataState.data?.copy(introState = introState) ?: AppSettings(
-                            introState = introState
-                        )
-                    )
-                }
-                is DataState.Error -> {
-                    //TODO Handling Some Exceptions That is happen during the data extraction
-                }
-            }
+    private fun updateIntroState(introState: Boolean) {
 
-        }.launchIn(viewModelScope)
-
+        sharedPreferences.edit {
+            putBoolean("IntroKey", introState).apply()
+        }
         setViewState(
             viewState = getCurrentViewStateOrNew().copy(
                 introState = introState
