@@ -16,6 +16,7 @@ buildscript {
         classpath(Build.kotlinGradlePlugin)
         classpath(Build.hiltGradlePlugin)
         classpath(Build.kotlinSerializationGradlePlugin)
+        classpath(Navigation.navigation_gradle_safe_args)
     }
 }
 

@@ -11,7 +11,7 @@ object Plugins {
     const val googleGmsPlugin = "com.google.gms.google-services"
 
     //ksp
-    const val googleKspPluginVersion="1.6.10-1.0.4"
+    const val googleKspPluginVersion="1.8.0-1.0.9"
     const val googleKspPlugin = "com.google.devtools.ksp"
 
 }

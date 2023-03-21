@@ -82,6 +82,7 @@ dependencies {
 
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.lifecycleRuntimeKtx)
+    implementation(AndroidX.livedateLifcycleRuntime)
     implementation(AndroidX.appCompatActivity)
     testImplementation(Junit.junit)
     androidTestImplementation(Junit.junitTestExt)
@@ -100,7 +101,6 @@ dependencies {
     implementation(Compose.compose_compiler)
     implementation(Compose.compose_constraint_layout)
     implementation(Compose.compose_viewModel)
-
 
 
     //leak canary
@@ -131,9 +131,9 @@ dependencies {
     //ayan core
     implementation(ayan.Core.ayanCore)
 
-    //Navigation
-    implementation(Navigation.navigationAnimationCore)
-    ksp(Navigation.navigationDestinationKsp)
+    //JETPACK-NAVIGATION
+    implementation(Navigation.navigation_fragments)
+    implementation(Navigation.navigation_kotlin_ui)
 
     //splash screen
     implementation(Splash.splashScreen)

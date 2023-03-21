@@ -4,6 +4,8 @@ object AndroidX {
     private const val lifecycleRuntimeKtxVersion = "2.6.0"
     const val lifecycleRuntimeKtx =
         "androidx.lifecycle:lifecycle-runtime-ktx:${lifecycleRuntimeKtxVersion}"
+    const val livedateLifcycleRuntime =
+        "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleRuntimeKtxVersion"
     private const val appCompatActivityVersion = "1.6.1"
     const val appCompatActivity = "androidx.appcompat:appcompat:${appCompatActivityVersion}"
 
