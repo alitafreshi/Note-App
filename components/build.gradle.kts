@@ -35,7 +35,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Compose.composeVersion
+        kotlinCompilerExtensionVersion = Compose.compose_compiler_version
     }
     packagingOptions {
         resources {
@@ -51,19 +51,16 @@ dependencies {
     implementation(AndroidX.androidxAnnotation)
 
     //Compose
-    implementation(Compose.ui)
-    implementation(Compose.material)
-    implementation(Compose.preview)
-    implementation(Compose.activity)
-    debugImplementation(Compose.uiTooling)
-    implementation(Compose.uiUtils)
-    implementation(Compose.runtime)
-    implementation(Compose.runtimeLiveData)
-    implementation(Compose.foundation)
-    implementation(Compose.compiler)
-    implementation(Compose.animations)
-    implementation(Compose.icons)
-    implementation(Compose.constraintLayout)
+    implementation(platform(Compose.composeBoom))
+    androidTestImplementation(Compose.composeBoom)
+
+    implementation(Compose.compose_activity)
+    implementation(Compose.compose_material_2)
+    implementation(Compose.compose_preview)
+    implementation(Compose.compose_ui_tooling)
+    implementation(Compose.compose_compiler)
+    implementation(Compose.compose_constraint_layout)
+    implementation(Compose.compose_viewModel)
 
     implementation(ayan.Core.ayanCore)
 }

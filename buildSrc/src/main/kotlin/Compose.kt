@@ -1,6 +1,42 @@
 object Compose {
+    //COMPOSE BOOM DEPENDENCY
+    private const val compose_boom_version = "2023.01.00"
+    const val composeBoom = "androidx.compose:compose-bom:$compose_boom_version"
 
-    const val composeVersion = "1.1.1"
+    //COMPOSE DEPENDENCIES
+    const val compose_material_2 = "androidx.compose.material:material"
+    const val compose_preview = "androidx.compose.ui:ui-tooling-preview"
+    const val compose_ui_tooling = "androidx.compose.ui:ui-tooling"
+
+    private const val compose_activity_version = "1.6.1"
+    const val compose_activity = "androidx.activity:activity-compose:$compose_activity_version"
+
+    private const val compose_viewMode_version = "2.6.0"
+    const val compose_viewModel =
+        "androidx.lifecycle:lifecycle-viewmodel-compose:$compose_viewMode_version"
+
+    private const val compose_constraint_layout_version = "1.0.1"
+    const val compose_constraint_layout =
+        "androidx.constraintlayout:constraintlayout-compose:$compose_constraint_layout_version"
+
+
+    //COMPOSE COMPILER DEPENDENCY
+    const val compose_compiler_version = "1.4.1"
+    const val compose_compiler = "androidx.compose.compiler:compiler:$compose_compiler_version"
+}
+
+
+
+
+
+
+/*object Compose {
+
+    const val composeBoomVersion = "2023.01.00"
+    const val composeBoom = "androidx.compose:compose-bom:$composeBoomVersion"
+
+
+    const val composeVersion = "1.3.2"
     const val runtime = "androidx.compose.runtime:runtime:${composeVersion}"
     const val runtimeLiveData = "androidx.compose.runtime:runtime-livedata:${composeVersion}"
     const val ui = "androidx.compose.ui:ui:${composeVersion}"
@@ -24,7 +60,8 @@ object Compose {
     private const val composeNavigationVersion = "2.4.1"
     const val navigation = "androidx.navigation:navigation-compose:${composeNavigationVersion}"
 
-    private const val composeViewModelVersion="2.4.1"
-    const val composeViewModel="androidx.lifecycle:lifecycle-viewmodel-compose:${composeViewModelVersion}"
+    private const val composeViewModelVersion = "2.4.1"
+    const val composeViewModel =
+        "androidx.lifecycle:lifecycle-viewmodel-compose:${composeViewModelVersion}"
 
-}
+}*/

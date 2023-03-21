@@ -69,7 +69,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Compose.composeVersion
+        kotlinCompilerExtensionVersion = Compose.compose_compiler_version
     }
     packagingOptions {
         resources {
@@ -78,52 +78,30 @@ android {
     }
 }
 
-
-/*
-tasks.dokkaHtml.configure {
-    failOnWarning.set(true)
-    outputDirectory.set(file("../documentation/html"))
-}
-
-tasks.withType<DokkaTaskPartial>().configureEach {
-    dokkaSourceSets {
-        named("main") {
-            moduleName.set("Subvention Inquiry - app module")
-            suppressInheritedMembers.set(true)
-            skipEmptyPackages.set(true)
-            jdkVersion.set(8)
-            includes.from("AppModule.md")
-        }
-    }
-}
-*/
-
-
 dependencies {
 
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.lifecycleRuntimeKtx)
+    implementation(AndroidX.appCompatActivity)
     testImplementation(Junit.junit)
     androidTestImplementation(Junit.junitTestExt)
     androidTestImplementation(Junit.junitTestExtKtx)
     androidTestImplementation(Espresso.espresso)
-    androidTestImplementation(ComposeUiTest.ComposeUiTest)
+
 
     //Compose
-    implementation(Compose.ui)
-    implementation(Compose.material)
-    implementation(Compose.preview)
-    implementation(Compose.activity)
-    debugImplementation(Compose.uiTooling)
-    implementation(Compose.uiUtils)
-    implementation(Compose.runtime)
-    implementation(Compose.runtimeLiveData)
-    implementation(Compose.foundation)
-    implementation(Compose.compiler)
-    implementation(Compose.animations)
-    implementation(Compose.icons)
-    implementation(Compose.constraintLayout)
-    implementation(Compose.navigation)
+    implementation(platform(Compose.composeBoom))
+    androidTestImplementation(Compose.composeBoom)
+
+    implementation(Compose.compose_activity)
+    implementation(Compose.compose_material_2)
+    implementation(Compose.compose_preview)
+    implementation(Compose.compose_ui_tooling)
+    implementation(Compose.compose_compiler)
+    implementation(Compose.compose_constraint_layout)
+    implementation(Compose.compose_viewModel)
+
+
 
     //leak canary
     debugImplementation(LeakCanary.leakCanary)

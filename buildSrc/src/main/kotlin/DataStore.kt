@@ -12,7 +12,7 @@ object DataStore {
     const val kotlinCollection =
         "org.jetbrains.kotlinx:kotlinx-collections-immutable:$kotlinCollectionVersion"
 
-    private const val kotlinJsonSerializationVersion = "1.3.2"
+    private const val kotlinJsonSerializationVersion = "1.5.0"
 
     const val kotlinJsonSerialization =
         "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinJsonSerializationVersion"
