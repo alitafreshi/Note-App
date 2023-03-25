@@ -1,6 +1,6 @@
 object Compose {
     //COMPOSE BOOM DEPENDENCY
-    private const val compose_boom_version = "2023.01.00"
+    private const val compose_boom_version = "2023.03.00"
     const val composeBoom = "androidx.compose:compose-bom:$compose_boom_version"
 
     //COMPOSE DEPENDENCIES
