@@ -1,5 +1,6 @@
 package com.alitafreshi.noteapp.presentation.navigation
 
+/*
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -110,3 +111,4 @@ fun Navigation(
         currentDestination = currentDestination
     )
 }
+*/

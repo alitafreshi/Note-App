@@ -21,13 +21,14 @@ object Compose {
 
 
     //COMPOSE COMPILER DEPENDENCY
-    const val compose_compiler_version = "1.4.1"
+    const val compose_compiler_version = "1.3.2"
     const val compose_compiler = "androidx.compose.compiler:compiler:$compose_compiler_version"
+
+    //COMPOSE VIEWBINDING
+    const val compose_view_binding_version = "1.4.0"
+    const val compose_view_binding =
+        "androidx.compose.ui:ui-viewbinding:$compose_view_binding_version"
 }
-
-
-
-
 
 
 /*object Compose {

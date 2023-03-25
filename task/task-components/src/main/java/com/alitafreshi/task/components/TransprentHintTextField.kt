@@ -5,14 +5,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import com.alitafreshi.components.LogCompositions
 
 @Composable
 fun TransparentHintTextField(
@@ -24,7 +22,6 @@ fun TransparentHintTextField(
     textStyle: TextStyle = TextStyle(),
     hintTextStyle: TextStyle = TextStyle(),
     singleLine: Boolean = false,
-    recompositionDebugTitle: String,
     onFocusChangeListener: (FocusState) -> Unit
 ) {
 
@@ -33,7 +30,6 @@ fun TransparentHintTextField(
         contentAlignment = Alignment.CenterStart
     ) {
 
-        LogCompositions(msg = recompositionDebugTitle)
         BasicTextField(
             value = text,
             onValueChange = onValueChange,

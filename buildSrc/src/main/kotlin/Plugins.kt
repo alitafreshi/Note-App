@@ -11,7 +11,10 @@ object Plugins {
     const val googleGmsPlugin = "com.google.gms.google-services"
 
     //ksp
-    const val googleKspPluginVersion="1.8.0-1.0.9"
+    const val googleKspPluginVersion = "1.7.20-1.0.8"
     const val googleKspPlugin = "com.google.devtools.ksp"
+
+    //Navigation
+    const val safeArgsNavigationPlugin = "androidx.navigation.safeargs.kotlin"
 
 }

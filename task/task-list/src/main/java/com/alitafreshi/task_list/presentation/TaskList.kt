@@ -5,7 +5,9 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,8 +15,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import com.alitafreshi.components.util.spacing
-import com.alitafreshi.task.components.TaskItem
 import com.alitafreshi.domain.model.Note
+import com.alitafreshi.task.components.TaskItem
 
 
 @ExperimentalAnimationApi
@@ -29,17 +31,17 @@ fun TaskList(
     titleTextStyle: TextStyle = MaterialTheme.typography.subtitle1,
     descriptionTextStyle: TextStyle = MaterialTheme.typography.subtitle1,
     dateTextStyle: TextStyle = MaterialTheme.typography.caption,
-    navigateToAddNewTask: (id: Int?) -> Unit,
+    navigateToAddNewTask: (id: Int) -> Unit,
     activeSelectionMode: (Note) -> Unit
 ) {
     if (taskList.isEmpty()) {
 
-        EmptyTaskList(navigateToAddNewTask = { navigateToAddNewTask(null) })
+        EmptyTaskList(navigateToAddNewTask = { navigateToAddNewTask(-1) })
     } else {
 
         LazyVerticalGrid(
             modifier = modifier.fillMaxSize(),
-            cells = GridCells.Fixed(count = 2),
+            columns = GridCells.Fixed(count = 2),
             contentPadding = PaddingValues(MaterialTheme.spacing.default),
             horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
@@ -60,7 +62,7 @@ fun TaskList(
                     isSelected = selectedTaskList.isNotEmpty() && selectedTaskList.contains(note),
                     onItemClick = {
                         if (selectedTaskList.isEmpty())
-                            navigateToAddNewTask(note.id)
+                            navigateToAddNewTask(note.id ?: -1)
                         else
                             activeSelectionMode(note)
                     },

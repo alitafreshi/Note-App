@@ -1,14 +1,20 @@
 package com.alitafreshi.task_list.presentation
 
-import androidx.compose.animation.*
-import androidx.compose.animation.core.*
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.keyframes
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.*
 import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.*
@@ -20,12 +26,13 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.alitafreshi.components.DefaultCentralizeTopBar
-import com.alitafreshi.components.LogCompositions
 import com.alitafreshi.components.util.spacing
 import com.alitafreshi.domain.model.Note
 import com.alitafreshi.resource.R
@@ -42,10 +49,9 @@ fun TaskListScreen(
     taskBackGroundColor: Color,
     fabBackGroundColor: Color = MaterialTheme.colors.primary,
     descriptionTextStyle: TextStyle = MaterialTheme.typography.subtitle1,
-    navigateToAddNewTask: (id: Int?) -> Unit
+    navigateToAddNewTask: (id: Int) -> Unit
 ) {
 
-    LogCompositions(msg = "TaskListScreen")
 
     val fabHeight by remember {
         mutableStateOf(72.dp)
@@ -74,7 +80,6 @@ fun TaskListScreen(
     )
 
 
-
     val nestedScrollConnection = remember {
         object : NestedScrollConnection {
             override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
@@ -95,22 +100,25 @@ fun TaskListScreen(
                 .fillMaxSize()
                 .nestedScroll(connection = nestedScrollConnection),
             topBar = {
-                LogCompositions(msg = "TaskListTopBar")
-
-                DefaultCentralizeTopBar(
-                    toolbarTitle = topBarTitle,
-                    actionIcon = {
-                        Image(
-                            modifier = it.size(MaterialTheme.spacing.menuIconMedium),
-                            painter = painterResource(id = R.drawable.ic_app),
-                            contentDescription = "img app"
-                        )
-                    }
-                )
+                CompositionLocalProvider(
+                    LocalLayoutDirection provides LayoutDirection.Rtl
+                ) {
+                    DefaultCentralizeTopBar(
+                        toolbarTitle = topBarTitle,
+                        actionIcon = {
+                            Image(
+                                modifier = it.size(MaterialTheme.spacing.menuIconMedium).rotate(270F),
+                                painter = painterResource(id = R.drawable.ic_app),
+                                contentDescription = "img app"
+                            )
+                        }
+                    )
+                }
             },
             content = {
                 TaskListScreenContent(
-
+                    //TODO WHAT THIS LINE DO
+                    modifier = Modifier.padding(it),
                     taskList = taskListViewState.taskList,
                     selectedTaskList = taskListViewState.selectedTaskList,
                     taskBackGroundColor = taskBackGroundColor,
@@ -122,7 +130,6 @@ fun TaskListScreen(
                 )
             },
             floatingActionButton = {
-                LogCompositions(msg = "floatingActionButton")
                 if (taskListViewState.taskList.isNotEmpty())
                     FloatingActionButton(
                         onClick = {
@@ -133,7 +140,7 @@ fun TaskListScreen(
                                     )
                                 )
                             else
-                                navigateToAddNewTask(null)
+                                navigateToAddNewTask(-1)
                         },
                         shape = CircleShape,
                         backgroundColor = fabBackgroundColor,
@@ -168,10 +175,9 @@ private fun TaskListScreenContent(
     selectedTaskList: List<Note>,
     taskBackGroundColor: Color,
     descriptionTextStyle: TextStyle = MaterialTheme.typography.subtitle1,
-    navigateToAddNewTask: (id: Int?) -> Unit,
+    navigateToAddNewTask: (id: Int) -> Unit,
     activeSelectionMode: (Note) -> Unit
 ) {
-    LogCompositions(msg = "TaskListScreenContent")
     Box(
         modifier = modifier
             .fillMaxSize()

@@ -1,7 +1,9 @@
 package com.alitafreshi.task_add_edit
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -9,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import com.alitafreshi.components.LogCompositions
 import com.alitafreshi.components.util.noRippleClickable
 import com.alitafreshi.components.util.spacing
 import com.alitafreshi.resource.R
@@ -25,7 +26,6 @@ fun TaskAdEditScreen(
     adEditEvents: (AdEditEvents) -> Unit,
     navigateBack: () -> Unit,
 ) {
-    LogCompositions(msg = "TaskAdEditScreen")
 
     LazyColumn(
         modifier = modifier.fillMaxSize(),
@@ -71,7 +71,6 @@ fun TitleTextFieldContainer(
             modifier = Modifier.weight(1f),
             text = taskAdEditTitleText,
             hint = taskAdEditTitleHintText,
-            recompositionDebugTitle = "TaskAdEditTitle",
             isHintVisible = taskAdEditTitleIsHintVisible,
             singleLine = true,
             textStyle = MaterialTheme.typography.h5,
@@ -111,7 +110,6 @@ fun DescriptionTextFieldContainer(
         text = taskAdEditDescriptionText,
         hint = taskAdEditDescriptionHintText,
         isHintVisible = taskAdEditDescriptionIsHintVisible,
-        recompositionDebugTitle = "TaskAdEditDescription",
         textStyle = MaterialTheme.typography.body1,
         hintTextStyle = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onBackground.copy(alpha = 0.4f)),
         onValueChange = { value ->

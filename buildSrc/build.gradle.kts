@@ -1,9 +1,9 @@
 repositories{
-    maven(url = "https://jitpack.io")
-    mavenLocal()
-    mavenCentral()
     google()
+    mavenCentral()
+    mavenLocal()
     gradlePluginPortal()
+    maven(url = "https://jitpack.io")
 }
 plugins{
     `kotlin-dsl`

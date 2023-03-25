@@ -3,9 +3,7 @@ plugins {
     kotlin(KotlinPlugins.android)
     id(Plugins.kotlinAndroid)
     kotlin(KotlinPlugins.serialization)
-
     id(Plugins.googleKspPlugin) version (Plugins.googleKspPluginVersion)
-
 }
 
 android {
@@ -42,6 +40,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    namespace = "com.alitafreshi.data"
 }
 
 dependencies {

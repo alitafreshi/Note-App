@@ -2,7 +2,8 @@ plugins {
     id(Plugins.androidLibrary)
     kotlin(KotlinPlugins.android)
     kotlin(KotlinPlugins.kapt)
-
+    id(Plugins.safeArgsNavigationPlugin)
+    id(Plugins.hilt)
 }
 
 android {
@@ -44,6 +45,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    namespace = "com.alitafreshi.task_list"
 }
 
 dependencies {
@@ -69,9 +71,18 @@ dependencies {
     implementation(Compose.compose_constraint_layout)
     implementation(Compose.compose_viewModel)
 
-    //Hilt
+    //JETPACK-NAVIGATION
+    implementation(Navigation.navigation_fragments)
+    implementation(Navigation.navigation_kotlin_ui)
+
+
+    //Hilt - Core
     implementation(Hilt.hiltAndroid)
     kapt(Hilt.hiltCompiler)
+
+    //Hilt - Navigation
+    implementation(Hilt.hiltNavigation)
+    implementation(Hilt.hiltFragmentsNavigation)
 
     //resources module
     implementation(project(Modules.resources))

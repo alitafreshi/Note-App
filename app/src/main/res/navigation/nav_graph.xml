@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    >
+
+    <fragment
+        android:id="@+id/introFragment"
+        android:name="com.alitafreshi.noteapp.presentation.intro.IntroFragment"
+        android:label="IntroFragment" >
+        <action
+            android:id="@+id/action_introFragment_to_task_list_nav_graph"
+            app:destination="@id/task_list_nav_graph" />
+    </fragment>
+
+    <include app:graph="@navigation/task_list_nav_graph" />
+
+    <include app:graph="@navigation/task_add_edit_nav_graph" />
+
+
+</navigation>

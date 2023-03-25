@@ -4,6 +4,7 @@ plugins {
     kotlin(KotlinPlugins.kapt)
     kotlin(KotlinPlugins.serialization)
     id(Plugins.hilt)
+    id(Plugins.safeArgsNavigationPlugin)
     id(KotlinPlugins.parcelize)
     id(Plugins.googleKspPlugin) version (Plugins.googleKspPluginVersion)
 }
@@ -46,27 +47,9 @@ android {
         jvmTarget = "1.8"
     }
 
-    flavorDimensions += "store"
-    productFlavors {
-        create("cafebazaar") {
-            dimension = "store"
-            buildConfigField(type = "String", name = "category", value = "\"cafebazaar\"")
-            kotlin {
-                sourceSets {
-                    debug {
-                        kotlin.srcDir("build/generated/ksp/cafebazaardebug/kotlin")
-                    }
-                    release {
-                        kotlin.srcDir("build/generated/ksp/cafebazaarrelease/kotlin")
-                    }
-                }
-            }
-        }
-    }
-
-
     buildFeatures {
         compose = true
+        viewBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = Compose.compose_compiler_version
@@ -76,6 +59,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    namespace = "com.alitafreshi.noteapp"
 }
 
 dependencies {
@@ -101,6 +85,7 @@ dependencies {
     implementation(Compose.compose_compiler)
     implementation(Compose.compose_constraint_layout)
     implementation(Compose.compose_viewModel)
+    implementation(Compose.compose_view_binding)
 
 
     //leak canary
@@ -112,7 +97,7 @@ dependencies {
 
     //Hilt - Navigation
     implementation(Hilt.hiltNavigation)
-    implementation(Hilt.hiltComposeNavigation)
+    implementation(Hilt.hiltFragmentsNavigation)
 
     //Accompanist
     implementation(Accompanist.animationNavigation)
@@ -140,9 +125,6 @@ dependencies {
 
     //lottie animation
     implementation(Lottie.lottie)
-
-    //Persian Date Time
-    implementation(DateTime.persianDateTime)
 
     //components module
     implementation(project(Modules.components))

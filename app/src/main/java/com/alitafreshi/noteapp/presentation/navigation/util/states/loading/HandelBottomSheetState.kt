@@ -1,5 +1,6 @@
 package com.alitafreshi.noteapp.presentation.navigation.util.states.loading
 
+/*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavController
@@ -36,3 +37,4 @@ fun HandelBottomSheetState(
         }
     }
 }
+*/

@@ -1,7 +1,7 @@
 package com.alitafreshi.noteapp.presentation.ui.theme
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.gestures.LocalOverScrollConfiguration
+import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
@@ -45,7 +45,7 @@ fun NoteAppTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composabl
 
     CompositionLocalProvider(
         LocalLayoutDirection provides LayoutDirection.Rtl,
-        LocalOverScrollConfiguration provides null,
+        LocalOverscrollConfiguration provides null,
         localSpacing provides Spacing()
     ) {
         MaterialTheme(

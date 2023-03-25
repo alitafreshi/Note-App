@@ -14,11 +14,8 @@ import androidx.compose.ui.unit.sp
 import com.airbnb.lottie.compose.*
 import com.alitafreshi.components.util.spacing
 import com.alitafreshi.noteapp.R
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.annotation.RootNavGraph
 
-@RootNavGraph(start = true)
-@Destination
+
 @Composable
 fun IntroScreen(
     modifier: Modifier = Modifier,
