@@ -1,10 +1,6 @@
 package com.alitafreshi.data.datasource.local.room
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy.REPLACE
-import androidx.room.Query
+import androidx.room.*
 import com.alitafreshi.domain.model.Note
 import kotlinx.coroutines.flow.Flow
 
@@ -17,10 +13,10 @@ interface NoteDao {
     @Query("SELECT * FROM note WHERE id = :id")
     suspend fun getNoteById(id: Int): Note?
 
-    @Insert(onConflict = REPLACE)
+    @Upsert
     suspend fun insertNewNote(note: Note): Long
 
-    @Insert(onConflict = REPLACE)
+    @Upsert
     suspend fun insertNewNoteList(notes: List<Note>): List<Long>
 
     @Delete
