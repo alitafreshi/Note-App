@@ -14,14 +14,3 @@ object Navigation {
     const val navigation_testing =
         "androidx.navigation:navigation-testing:$jetpack_navigation_version"
 }
-
-
-/*
-object Navigation {
-
-    private const val navigationVersion = "1.5.8-beta"
-    const val navigationAnimationCore =
-        "io.github.raamcosta.compose-destinations:animations-core:${navigationVersion}"
-    const val navigationDestinationKsp =
-        "io.github.raamcosta.compose-destinations:ksp:${navigationVersion}"
-}*/

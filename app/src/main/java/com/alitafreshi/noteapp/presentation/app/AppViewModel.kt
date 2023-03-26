@@ -7,7 +7,6 @@ import com.alitafreshi.components.util.app.AppEvents
 import com.alitafreshi.components.util.app.AppViewState
 import com.alitafreshi.components.util.app.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ir.tafreshiali.ayan_core.util.BottomSheetState
 import ir.tafreshiali.ayan_core.util.UIComponent
 import kotlinx.coroutines.delay
 import javax.inject.Inject

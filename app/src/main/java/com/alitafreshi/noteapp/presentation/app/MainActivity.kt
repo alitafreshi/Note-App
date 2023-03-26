@@ -47,14 +47,14 @@ class MainActivity : AppCompatActivity() {
                             height = Dimension.fillToConstraints
 
                         }, update = {
-                            detectStartDestination(fragmentContainerLayoutBinding = this)
+                            detectStartDestination()
                         })
                 }
             }
         }
     }
 
-    private fun detectStartDestination(fragmentContainerLayoutBinding: FragmentContainerLayoutBinding) {
+    private fun detectStartDestination() {
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
 
