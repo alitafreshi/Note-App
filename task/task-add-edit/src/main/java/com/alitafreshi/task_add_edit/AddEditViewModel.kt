@@ -5,12 +5,12 @@ import com.alitafreshi.components.util.app.BaseViewModel
 import com.alitafreshi.domain.interactors.NoteUseCases
 import com.alitafreshi.domain.model.InvalidNoteException
 import com.alitafreshi.domain.model.Note
+import com.alitafreshi.state_manager.AppEvents
+import com.alitafreshi.state_manager.AppStateManager
 import com.alitafreshi.task_add_edit.view_event.AdEditEvents
 import com.alitafreshi.task_add_edit.view_state.AdEditViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.tafreshiali.ayan_core.util.UIComponent
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import saman.zamani.persiandate.PersianDate
 import saman.zamani.persiandate.PersianDateFormat
 import javax.inject.Inject
@@ -19,14 +19,12 @@ import javax.inject.Inject
 @HiltViewModel
 class AddEditViewModel @Inject constructor(
     private val noteUseCases: NoteUseCases,
+    private val applicationStateManager: AppStateManager,
     savedStateHandle: SavedStateHandle
 ) : BaseViewModel<AdEditViewState, AdEditEvents, UIComponent>() {
 
-    private val _eventFlow = MutableSharedFlow<UiEvents>()
-    val eventFlow = _eventFlow.asSharedFlow()
-
     init {
-        savedStateHandle.get<Int>("taskId")?.let {taskId ->
+        savedStateHandle.get<Int>("taskId")?.let { taskId ->
             if (taskId != -1) {
                 onTriggerEvent(event = AdEditEvents.GetTaskById(taskId = taskId))
             }
@@ -98,10 +96,10 @@ class AddEditViewModel @Inject constructor(
 
                             )
                         )
-                        _eventFlow.emit(UiEvents.SaveNote)
+                        applicationStateManager.emitSuspendAppEvent(event = AppEvents.Navigation.NavigateBack)
                     } catch (e: InvalidNoteException) {
-                        _eventFlow.emit(
-                            UiEvents.ShowSnackBar(
+                        applicationStateManager.emitSuspendAppEvent(
+                            event = AppEvents.ShowSnackBar(
                                 message = e.message ?: "Unknown Message Cant save note"
                             )
                         )

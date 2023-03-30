@@ -1,8 +1,11 @@
 package com.alitafreshi.task_list.presentation
 
+import android.net.Uri
 import androidx.lifecycle.viewModelScope
 import com.alitafreshi.components.util.app.BaseViewModel
 import com.alitafreshi.domain.interactors.NoteUseCases
+import com.alitafreshi.state_manager.AppEvents
+import com.alitafreshi.state_manager.AppStateManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.tafreshiali.ayan_core.util.UIComponent
 import kotlinx.coroutines.flow.launchIn
@@ -11,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TaskListViewModel @Inject constructor(
-    private val noteUseCases: NoteUseCases
+    private val noteUseCases: NoteUseCases,
+    private var applicationStateManager: AppStateManager
 ) : BaseViewModel<TaskListViewState, TaskListEvents, UIComponent>() {
 
 
@@ -61,6 +65,11 @@ class TaskListViewModel @Inject constructor(
                     )
                 )
             }
+            is TaskListEvents.NavigateToNoteAddEditFragment -> applicationStateManager.emitSuspendAppEvent(
+                event = AppEvents.Navigation.Navigate(
+                    deepLink = Uri.parse("https://tafreshiali.ir/tasks/${event.noteId}")
+                )
+            )
         }
     }
 }

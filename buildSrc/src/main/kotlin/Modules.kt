@@ -8,6 +8,9 @@ object Modules {
     //core
     const val constance = ":core:constance"
 
+    //state manager
+    const val stateManager=":state-manager"
+
     //task
     const val taskList = ":task:task-list"
     const val taskDomain = ":task:domain"

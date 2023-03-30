@@ -7,11 +7,15 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import com.alitafreshi.components.util.app.AppEvents
 import com.alitafreshi.noteapp.presentation.app.AppViewModel
+import com.alitafreshi.state_manager.AppStateManager
+import javax.inject.Inject
 
 class IntroFragment : Fragment() {
+
+    @Inject
+    lateinit var applicationStateManager: AppStateManager
 
     private val appViewModel: AppViewModel by activityViewModels()
 
@@ -24,8 +28,11 @@ class IntroFragment : Fragment() {
             IntroScreen(navigateToMainScreen = {
                 //TODO NAVIGATE TO THE TASK LIST SCREEN AND POP THIS SCREEN FROM THE BACK STACK
                 appViewModel.onTriggerEvent(event = AppEvents.UpdateIntroState(introState = true))
-                val uri = Uri.parse("https://tafreshiali.ir/taskList")
-                findNavController().navigate(uri)
+                applicationStateManager.emitSuspendAppEvent(
+                    event = com.alitafreshi.state_manager.AppEvents.Navigation.Navigate(
+                        deepLink = Uri.parse("https://tafreshiali.ir/taskList")
+                    )
+                )
             })
         }
     }

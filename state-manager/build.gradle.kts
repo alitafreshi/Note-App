@@ -69,6 +69,12 @@ dependencies {
     implementation(Compose.compose_constraint_layout)
     implementation(Compose.compose_viewModel)
 
+
+    //JETPACK-NAVIGATION
+    implementation(Navigation.navigation_fragments)
+    implementation(Navigation.navigation_kotlin_ui)
+
+
     //javax
     implementation(Hilt.javaInject)
 
@@ -80,4 +86,7 @@ dependencies {
     implementation(project(Modules.components))
 
     implementation(ayan.Core.ayanCore)
+
+    //data module
+    implementation(project(Modules.data))
 }

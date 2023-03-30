@@ -144,4 +144,7 @@ dependencies {
     //data module
     implementation(project(Modules.data))
 
+    //state manager module
+    implementation(project(Modules.stateManager))
+
 }

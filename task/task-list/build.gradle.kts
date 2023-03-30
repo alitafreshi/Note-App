@@ -98,4 +98,7 @@ dependencies {
 
 
     implementation(ayan.Core.ayanCore)
+
+    //state manager module
+    implementation(project(Modules.stateManager))
 }

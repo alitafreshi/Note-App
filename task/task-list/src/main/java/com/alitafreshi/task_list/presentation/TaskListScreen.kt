@@ -48,8 +48,7 @@ fun TaskListScreen(
     topBarTitle: String = "Noto",
     taskBackGroundColor: Color,
     fabBackGroundColor: Color = MaterialTheme.colors.primary,
-    descriptionTextStyle: TextStyle = MaterialTheme.typography.subtitle1,
-    navigateToAddNewTask: (id: Int) -> Unit
+    descriptionTextStyle: TextStyle = MaterialTheme.typography.subtitle1
 ) {
 
 
@@ -107,7 +106,9 @@ fun TaskListScreen(
                         toolbarTitle = topBarTitle,
                         actionIcon = {
                             Image(
-                                modifier = it.size(MaterialTheme.spacing.menuIconMedium).rotate(270F),
+                                modifier = it
+                                    .size(MaterialTheme.spacing.menuIconMedium)
+                                    .rotate(270F),
                                 painter = painterResource(id = R.drawable.ic_app),
                                 contentDescription = "img app"
                             )
@@ -123,7 +124,9 @@ fun TaskListScreen(
                     selectedTaskList = taskListViewState.selectedTaskList,
                     taskBackGroundColor = taskBackGroundColor,
                     descriptionTextStyle = descriptionTextStyle,
-                    navigateToAddNewTask = navigateToAddNewTask,
+                    navigateToAddNewTask = { noteId ->
+                        taskListStateEvents(TaskListEvents.NavigateToNoteAddEditFragment(noteId = noteId))
+                    },
                     activeSelectionMode = {
                         taskListStateEvents(TaskListEvents.AddToSelectionList(note = it))
                     }
@@ -140,7 +143,11 @@ fun TaskListScreen(
                                     )
                                 )
                             else
-                                navigateToAddNewTask(-1)
+                                taskListStateEvents(
+                                    TaskListEvents.NavigateToNoteAddEditFragment(
+                                        noteId = -1
+                                    )
+                                )
                         },
                         shape = CircleShape,
                         backgroundColor = fabBackgroundColor,
@@ -193,11 +200,3 @@ private fun TaskListScreenContent(
         )
     }
 }
-
-
-//TODO CONTINUE FROM HERE AND CREATE CUSTOM ADD BUTTON
-@Composable
-fun AddNewTaskActionButton() {
-
-}
-
