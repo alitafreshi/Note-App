@@ -13,12 +13,12 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/buildSrc" />
-            <option value="$PROJECT_DIR$/components" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/core/components" />
             <option value="$PROJECT_DIR$/core/constance" />
-            <option value="$PROJECT_DIR$/data" />
-            <option value="$PROJECT_DIR$/resource" />
-            <option value="$PROJECT_DIR$/state-manager" />
+            <option value="$PROJECT_DIR$/core/data" />
+            <option value="$PROJECT_DIR$/core/resource" />
+            <option value="$PROJECT_DIR$/core/state-manager" />
             <option value="$PROJECT_DIR$/task" />
             <option value="$PROJECT_DIR$/task/data" />
             <option value="$PROJECT_DIR$/task/domain" />
