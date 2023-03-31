@@ -22,9 +22,10 @@
             <option value="$PROJECT_DIR$/task" />
             <option value="$PROJECT_DIR$/task/data" />
             <option value="$PROJECT_DIR$/task/domain" />
-            <option value="$PROJECT_DIR$/task/task-add-edit" />
-            <option value="$PROJECT_DIR$/task/task-components" />
-            <option value="$PROJECT_DIR$/task/task-list" />
+            <option value="$PROJECT_DIR$/task/presentation" />
+            <option value="$PROJECT_DIR$/task/presentation/task-add-edit" />
+            <option value="$PROJECT_DIR$/task/presentation/task-components" />
+            <option value="$PROJECT_DIR$/task/presentation/task-list" />
           </set>
         </option>
       </GradleProjectSettings>

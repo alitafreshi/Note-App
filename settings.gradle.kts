@@ -1,14 +1,19 @@
 rootProject.name = "Note App"
-include (":app")
-include(":core:components")
-include(":task")
-include(":task:task-list")
-include(":core:resource")
+include(":app")
+
+//CORE-MODULES
 include(":core")
+include(":core:components")
+include(":core:resource")
 include(":core:constance")
 include(":core:data")
+include(":core:state-manager")
+
+//TASK-MODULES
+include(":task")
 include(":task:data")
 include(":task:domain")
-include(":task:task-components")
-include(":task:task-add-edit")
-include(":core:state-manager")
+include(":task:presentation")
+include(":task:presentation:task-list")
+include(":task:presentation:task-components")
+include(":task:presentation:task-add-edit")

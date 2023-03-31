@@ -5,6 +5,9 @@
       <module name="Note_App.components" target="11" />
       <module name="Note_App.resource" target="11" />
       <module name="Note_App.state-manager" target="11" />
+      <module name="Note_App.task.task-add-edit" target="11" />
+      <module name="Note_App.task.task-components" target="11" />
+      <module name="Note_App.task.task-list" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
