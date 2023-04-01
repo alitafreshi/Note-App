@@ -12,10 +12,10 @@ class InsertNewNoteUseCase(private val noteRepository: NoteRepository) {
         if (note.title.isEmpty() || note.description.isEmpty())
             throw InvalidNoteException("لطفا اطلاعات یادداشت رو کامل وارد کنید")
 
-        val insertedNoteId = noteRepository.insertNote(note = note)
-
-        if (insertedNoteId < 0)
+        try {
+            noteRepository.insertNote(note = note)
+        } catch (e: Exception) {
             throw InvalidNoteException("عملیات افزودن آیتم مورد نظر به مشکل خورد")
+        }
     }
-
 }

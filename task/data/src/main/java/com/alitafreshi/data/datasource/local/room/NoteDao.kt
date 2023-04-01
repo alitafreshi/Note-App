@@ -14,7 +14,7 @@ interface NoteDao {
     suspend fun getNoteById(id: Int): Note?
 
     @Upsert
-    suspend fun insertNewNote(note: Note): Long
+    suspend fun insertNewNote(note: Note)
 
     @Upsert
     suspend fun insertNewNoteList(notes: List<Note>): List<Long>
