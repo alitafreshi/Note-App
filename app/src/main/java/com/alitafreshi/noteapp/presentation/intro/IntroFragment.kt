@@ -10,8 +10,10 @@ import androidx.fragment.app.activityViewModels
 import com.alitafreshi.components.util.app.AppEvents
 import com.alitafreshi.noteapp.presentation.app.AppViewModel
 import com.alitafreshi.state_manager.AppStateManager
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class IntroFragment : Fragment() {
 
     @Inject

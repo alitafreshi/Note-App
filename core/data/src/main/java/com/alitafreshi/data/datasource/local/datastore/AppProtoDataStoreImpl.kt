@@ -3,33 +3,26 @@ package com.alitafreshi.data.datasource.local.datastore
 import androidx.datastore.core.DataStore
 import com.alitafreshi.data.qualifier.IoDispatcher
 import ir.tafreshiali.ayan_core.util.BottomSheetState
-import ir.tafreshiali.ayan_core.util.DataState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
 
 class AppProtoDataStoreImpl<T>(
-    private val dataStore: DataStore<ProtoDataStoreObj<T>>,
+    private val dataStore: DataStore<T>,
     @IoDispatcher val ioDispatcher: CoroutineDispatcher
 ) : AppProtoDataStore<T> {
 
     override suspend fun setValue(savedObj: T) {
-        dataStore.updateData {
-            it.copy(savedObj = savedObj)
-        }
+        dataStore.updateData { savedObj }
     }
 
     override fun getValue(): Flow<DataState<T>> =
-        flow<DataState<T>> {
-
-            dataStore.data.onEach {
-                emit(DataState.Data(it.savedObj))
+        dataStore.data // Use dataStore.data directly as a flow
+            .transform { value ->
+                emit(DataState.Data(value))
                 emit(DataState.Loading(bottomSheetState = BottomSheetState.Idle))
-            }.onStart {
-                emit(DataState.Loading(bottomSheetState = BottomSheetState.Loading))
-            }.flowOn(ioDispatcher).collect()
-
-        }.onStart {
-            emit(DataState.Loading(bottomSheetState = BottomSheetState.Loading))
-        }.flowOn(ioDispatcher)
+            }// Emit DataState.Data and DataState.Loading elements for each value emitted by dataStore.data
+            .flowOn(ioDispatcher)
+            .onStart { emit(DataState.Loading(bottomSheetState = BottomSheetState.Loading)) } // Emit Loading state when the flow starts
+            .catch { emit(DataState.Error(errorMessage = "Cant Read Value From ProtoDataStore")) } // Catch any exceptions thrown during the flow and emit an error state
 
 }
