@@ -8,14 +8,15 @@ sealed class AppEvents {
     data class UpdateLoadingState(val state: Boolean) : AppEvents()
     data class UpdateErrorState(val state: Boolean) : AppEvents()
     data class ShowSnackBar(val message: String) : AppEvents()
-    sealed class Navigation {
+    sealed class Navigation:AppEvents() {
 
-        data class Navigate(val deepLink: Uri) : AppEvents()
-        object NavigateBack : AppEvents()
+        object DetectStartGraph:Navigation()
+        data class Navigate(val deepLink: Uri) : Navigation()
+        object NavigateBack : Navigation()
         data class NavigateWithNavOptions(
             val deepLink: Uri,
             val navOptions: NavOptions?
-        ) : AppEvents()
+        ) : Navigation()
 
     }
 }

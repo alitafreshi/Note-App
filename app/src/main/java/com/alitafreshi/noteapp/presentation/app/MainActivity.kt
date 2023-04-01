@@ -68,13 +68,17 @@ class MainActivity : AppCompatActivity() {
                                 width = Dimension.fillToConstraints
                                 height = Dimension.fillToConstraints
 
-                            }, update = {
-                                detectStartDestination()
                             })
                     }
                     LaunchedEffect(key1 = true) {
+
+                        appViewModel.init()
+
                         applicationStateManager.appEvents.onEach { appEvents ->
                             when (appEvents) {
+
+                                AppEvents.Navigation.DetectStartGraph -> detectStartDestination()
+
                                 is AppEvents.Navigation.Navigate -> findNavController(viewId = R.id.nav_host_fragment).navigate(
                                     appEvents.deepLink
                                 )
