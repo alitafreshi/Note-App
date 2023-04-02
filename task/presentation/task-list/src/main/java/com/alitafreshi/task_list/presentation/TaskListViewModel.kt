@@ -18,7 +18,7 @@ import javax.inject.Inject
 class TaskListViewModel @Inject constructor(
     private val noteUseCases: NoteUseCases,
     private var applicationStateManager: AppStateManager
-) : BaseViewModel<TaskListViewState, TaskListEvents>() {
+) : BaseViewModel<TaskListViewState, TaskListEvents, Unit>() {
 
 
     init {

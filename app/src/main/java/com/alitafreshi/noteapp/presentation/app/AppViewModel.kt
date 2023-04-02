@@ -10,7 +10,6 @@ import com.alitafreshi.data.datasource.local.datastore.AppSettings
 import com.alitafreshi.domain.DataState
 import com.alitafreshi.state_manager.AppStateManager
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ir.tafreshiali.ayan_core.util.UIComponent
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -20,7 +19,7 @@ import javax.inject.Inject
 class AppViewModel @Inject constructor(
     private val applicationStateManager: AppStateManager,
     private val appProtoDataStore: AppProtoDataStore<AppSettings>
-) : BaseViewModel<AppViewState, AppEvents>() {
+) : BaseViewModel<AppViewState, AppEvents, Unit>() {
 
     fun init() {
         readIntroState()

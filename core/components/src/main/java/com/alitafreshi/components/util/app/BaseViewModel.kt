@@ -11,15 +11,15 @@ import kotlinx.coroutines.launch
 
 /**
  * GOAL = TO HAVE GENERIC PATTERN THAT CONTAINS ALL SCENARIOS
- * @param [ViewState] [Events]  these are generic unique types for each screen
+ * @param [ViewState] [Events] [UiEffects] these are generic unique types for each screen
  * also all the related states for the whole app handles here (like canceling requests / retrying requests etc) */
 
-abstract class BaseViewModel<ViewState, Events> :
+abstract class BaseViewModel<ViewState, Events, UiEffects> :
     ViewModel() {
 
     private val _viewState: MutableState<ViewState> = mutableStateOf(this.initNewViewState())
 
-    private val _events = MutableSharedFlow<Events>()
+    private val _events = MutableSharedFlow<UiEffects>()
     private val events = _events.asSharedFlow()
 
     fun getCurrentViewStateOrNew(): ViewState = _viewState.value ?: initNewViewState()
@@ -28,9 +28,9 @@ abstract class BaseViewModel<ViewState, Events> :
         _viewState.value = viewState
     }
 
-    fun observeEvents(): SharedFlow<Events> = events
+    fun observeEvents(): SharedFlow<UiEffects> = events
 
-    fun emitSuspendEvent(event: Events) {
+    fun emitSuspendEvent(event: UiEffects) {
         viewModelScope.launch {
             _events.emit(value = event)
         }

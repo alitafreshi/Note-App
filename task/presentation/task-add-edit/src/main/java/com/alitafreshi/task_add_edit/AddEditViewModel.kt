@@ -10,7 +10,6 @@ import com.alitafreshi.state_manager.AppStateManager
 import com.alitafreshi.task_add_edit.view_event.AdEditEvents
 import com.alitafreshi.task_add_edit.view_state.AdEditViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ir.tafreshiali.ayan_core.util.UIComponent
 import saman.zamani.persiandate.PersianDate
 import saman.zamani.persiandate.PersianDateFormat
 import javax.inject.Inject
@@ -21,7 +20,7 @@ class AddEditViewModel @Inject constructor(
     private val noteUseCases: NoteUseCases,
     private val applicationStateManager: AppStateManager,
     savedStateHandle: SavedStateHandle
-) : BaseViewModel<AdEditViewState, AdEditEvents>() {
+) : BaseViewModel<AdEditViewState, AdEditEvents, Unit>() {
 
     init {
         savedStateHandle.get<Int>("taskId")?.let { taskId ->
