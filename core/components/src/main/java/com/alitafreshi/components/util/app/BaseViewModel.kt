@@ -11,10 +11,10 @@ import kotlinx.coroutines.launch
 
 /**
  * GOAL = TO HAVE GENERIC PATTERN THAT CONTAINS ALL SCENARIOS
- * @param [ViewState] [Events] [UiComponent] these are generic unique types for each screen
+ * @param [ViewState] [Events]  these are generic unique types for each screen
  * also all the related states for the whole app handles here (like canceling requests / retrying requests etc) */
 
-abstract class BaseViewModel<ViewState, Events, UiComponent> :
+abstract class BaseViewModel<ViewState, Events> :
     ViewModel() {
 
     private val _viewState: MutableState<ViewState> = mutableStateOf(this.initNewViewState())

@@ -21,7 +21,7 @@ class AddEditViewModel @Inject constructor(
     private val noteUseCases: NoteUseCases,
     private val applicationStateManager: AppStateManager,
     savedStateHandle: SavedStateHandle
-) : BaseViewModel<AdEditViewState, AdEditEvents, UIComponent>() {
+) : BaseViewModel<AdEditViewState, AdEditEvents>() {
 
     init {
         savedStateHandle.get<Int>("taskId")?.let { taskId ->

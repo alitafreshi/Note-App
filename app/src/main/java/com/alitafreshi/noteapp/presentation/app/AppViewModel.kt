@@ -20,7 +20,7 @@ import javax.inject.Inject
 class AppViewModel @Inject constructor(
     private val applicationStateManager: AppStateManager,
     private val appProtoDataStore: AppProtoDataStore<AppSettings>
-) : BaseViewModel<AppViewState, AppEvents, UIComponent>() {
+) : BaseViewModel<AppViewState, AppEvents>() {
 
     fun init() {
         readIntroState()
