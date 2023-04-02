@@ -8,9 +8,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.LayoutDirection
 import com.alitafreshi.components.util.noRippleClickable
 import com.alitafreshi.components.util.spacing
 import com.alitafreshi.resource.R
@@ -26,29 +29,32 @@ fun TaskAdEditScreen(
     adEditEvents: (AdEditEvents) -> Unit,
     navigateBack: () -> Unit,
 ) {
-
-    LazyColumn(
-        modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.default)
+    CompositionLocalProvider(
+        LocalLayoutDirection provides LayoutDirection.Rtl
     ) {
+        LazyColumn(
+            modifier = modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.default)
+        ) {
 
-        item {
-            TitleTextFieldContainer(
-                taskAdEditTitleText = taskAdEditTitleTextFieldState.text,
-                taskAdEditTitleHintText = taskAdEditTitleTextFieldState.hint,
-                taskAdEditTitleIsHintVisible = taskAdEditTitleTextFieldState.isHintEnabled,
-                adEditEvents = adEditEvents,
-                navigateBack = navigateBack
-            )
-        }
+            item {
+                TitleTextFieldContainer(
+                    taskAdEditTitleText = taskAdEditTitleTextFieldState.text,
+                    taskAdEditTitleHintText = taskAdEditTitleTextFieldState.hint,
+                    taskAdEditTitleIsHintVisible = taskAdEditTitleTextFieldState.isHintEnabled,
+                    adEditEvents = adEditEvents,
+                    navigateBack = navigateBack
+                )
+            }
 
-        item {
-            DescriptionTextFieldContainer(
-                taskAdEditDescriptionText = taskAdEditDescriptionTextFieldState.text,
-                taskAdEditDescriptionHintText = taskAdEditDescriptionTextFieldState.hint,
-                taskAdEditDescriptionIsHintVisible = taskAdEditDescriptionTextFieldState.isHintEnabled,
-                adEditEvents = adEditEvents
-            )
+            item {
+                DescriptionTextFieldContainer(
+                    taskAdEditDescriptionText = taskAdEditDescriptionTextFieldState.text,
+                    taskAdEditDescriptionHintText = taskAdEditDescriptionTextFieldState.hint,
+                    taskAdEditDescriptionIsHintVisible = taskAdEditDescriptionTextFieldState.isHintEnabled,
+                    adEditEvents = adEditEvents
+                )
+            }
         }
     }
 }

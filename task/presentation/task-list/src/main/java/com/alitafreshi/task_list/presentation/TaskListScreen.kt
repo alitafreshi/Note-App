@@ -118,21 +118,25 @@ fun TaskListScreen(
                 }
             },
             content = {
-                TaskListScreenContent(
-                    //TODO WHAT THIS LINE DO
-                    modifier = Modifier.padding(it),
-                    taskList = taskListViewState.taskList,
-                    loadingState = taskListViewState.loadingState,
-                    selectedTaskList = taskListViewState.selectedTaskList,
-                    taskBackGroundColor = taskBackGroundColor,
-                    descriptionTextStyle = descriptionTextStyle,
-                    navigateToAddNewTask = { noteId ->
-                        taskListStateEvents(TaskListEvents.NavigateToNoteAddEditFragment(noteId = noteId))
-                    },
-                    activeSelectionMode = {
-                        taskListStateEvents(TaskListEvents.AddToSelectionList(note = it))
-                    }
-                )
+                CompositionLocalProvider(
+                    LocalLayoutDirection provides LayoutDirection.Rtl
+                ) {
+                    TaskListScreenContent(
+                        //TODO WHAT THIS LINE DO
+                        modifier = Modifier.padding(it),
+                        taskList = taskListViewState.taskList,
+                        loadingState = taskListViewState.loadingState,
+                        selectedTaskList = taskListViewState.selectedTaskList,
+                        taskBackGroundColor = taskBackGroundColor,
+                        descriptionTextStyle = descriptionTextStyle,
+                        navigateToAddNewTask = { noteId ->
+                            taskListStateEvents(TaskListEvents.NavigateToNoteAddEditFragment(noteId = noteId))
+                        },
+                        activeSelectionMode = {
+                            taskListStateEvents(TaskListEvents.AddToSelectionList(note = it))
+                        }
+                    )
+                }
             },
             floatingActionButton = {
                 if (taskListViewState.taskList.isNotEmpty())
