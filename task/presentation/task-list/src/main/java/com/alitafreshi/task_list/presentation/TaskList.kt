@@ -1,6 +1,9 @@
 package com.alitafreshi.task_list.presentation
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -14,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.IntSize
 import com.alitafreshi.components.util.spacing
 import com.alitafreshi.domain.model.Note
 import com.alitafreshi.task.components.TaskItem
@@ -45,9 +49,9 @@ fun TaskList(
             columns = StaggeredGridCells.Fixed(count = 2),
             contentPadding = PaddingValues(MaterialTheme.spacing.default),
             horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-            verticalItemSpacing = MaterialTheme.spacing.small
+            verticalItemSpacing = MaterialTheme.spacing.small,
         ) {
-            itemsIndexed(items = taskList) { _, note ->
+            itemsIndexed(items = taskList, key = { _, item -> item.id!! }) { _, note ->
                 TaskItem(
                     shape = shape,
                     backgroundColor = backgroundColor,
