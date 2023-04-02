@@ -7,7 +7,7 @@ import com.alitafreshi.components.util.app.AppViewState
 import com.alitafreshi.components.util.app.BaseViewModel
 import com.alitafreshi.data.datasource.local.datastore.AppProtoDataStore
 import com.alitafreshi.data.datasource.local.datastore.AppSettings
-import com.alitafreshi.data.datasource.local.datastore.DataState
+import com.alitafreshi.domain.DataState
 import com.alitafreshi.state_manager.AppStateManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.tafreshiali.ayan_core.util.UIComponent

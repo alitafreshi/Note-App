@@ -36,6 +36,7 @@ import com.alitafreshi.components.DefaultCentralizeTopBar
 import com.alitafreshi.components.util.spacing
 import com.alitafreshi.domain.model.Note
 import com.alitafreshi.resource.R
+import ir.tafreshiali.ayan_core.util.BottomSheetState
 import kotlin.math.roundToInt
 
 @ExperimentalAnimationApi
@@ -121,6 +122,7 @@ fun TaskListScreen(
                     //TODO WHAT THIS LINE DO
                     modifier = Modifier.padding(it),
                     taskList = taskListViewState.taskList,
+                    loadingState = taskListViewState.loadingState,
                     selectedTaskList = taskListViewState.selectedTaskList,
                     taskBackGroundColor = taskBackGroundColor,
                     descriptionTextStyle = descriptionTextStyle,
@@ -178,6 +180,7 @@ fun TaskListScreen(
 @Composable
 private fun TaskListScreenContent(
     modifier: Modifier = Modifier,
+    loadingState: BottomSheetState,
     taskList: List<Note>,
     selectedTaskList: List<Note>,
     taskBackGroundColor: Color,
@@ -192,6 +195,7 @@ private fun TaskListScreenContent(
     ) {
         TaskList(
             taskList = taskList,
+            loadingState = loadingState,
             selectedTaskList = selectedTaskList,
             backgroundColor = taskBackGroundColor,
             descriptionTextStyle = descriptionTextStyle,

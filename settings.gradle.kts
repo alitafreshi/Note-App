@@ -8,6 +8,7 @@ include(":core:resource")
 include(":core:constance")
 include(":core:data")
 include(":core:state-manager")
+include(":core:domain")
 
 //TASK-MODULES
 include(":task")

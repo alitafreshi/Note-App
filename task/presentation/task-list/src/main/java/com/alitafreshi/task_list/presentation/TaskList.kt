@@ -17,6 +17,7 @@ import androidx.compose.ui.text.TextStyle
 import com.alitafreshi.components.util.spacing
 import com.alitafreshi.domain.model.Note
 import com.alitafreshi.task.components.TaskItem
+import ir.tafreshiali.ayan_core.util.BottomSheetState
 
 
 @ExperimentalAnimationApi
@@ -24,6 +25,7 @@ import com.alitafreshi.task.components.TaskItem
 @Composable
 fun TaskList(
     modifier: Modifier = Modifier,
+    loadingState: BottomSheetState,
     taskList: List<Note>,
     selectedTaskList: List<Note>,
     shape: Shape = MaterialTheme.shapes.medium,
@@ -34,7 +36,7 @@ fun TaskList(
     navigateToAddNewTask: (id: Int) -> Unit,
     activeSelectionMode: (Note) -> Unit
 ) {
-    if (taskList.isEmpty()) {
+    if (taskList.isEmpty() && loadingState == BottomSheetState.Idle) {
 
         EmptyTaskList(navigateToAddNewTask = { navigateToAddNewTask(-1) })
     } else {

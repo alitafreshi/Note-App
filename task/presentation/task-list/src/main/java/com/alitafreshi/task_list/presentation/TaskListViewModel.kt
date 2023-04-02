@@ -1,8 +1,10 @@
 package com.alitafreshi.task_list.presentation
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.alitafreshi.components.util.app.BaseViewModel
+import com.alitafreshi.domain.DataState
 import com.alitafreshi.domain.interactors.NoteUseCases
 import com.alitafreshi.state_manager.AppEvents
 import com.alitafreshi.state_manager.AppStateManager
@@ -29,8 +31,23 @@ class TaskListViewModel @Inject constructor(
         when (event) {
 
             is TaskListEvents.RetrieveNoteList -> {
-                noteUseCases.getNotesUseCase().onEach {
-                    setViewState(viewState = getCurrentViewStateOrNew().copy(taskList = it))
+                noteUseCases.getNotesUseCase().onEach { dataState ->
+                    when (dataState) {
+                        is DataState.Data -> dataState.data?.let { noteList ->
+                            setViewState(viewState = getCurrentViewStateOrNew().copy(taskList = noteList))
+                        }
+
+                        is DataState.Error -> Log.d(
+                            "TaskListViewModel",
+                            dataState.errorMessage
+                        )
+
+                        is DataState.Loading -> setViewState(
+                            viewState = getCurrentViewStateOrNew().copy(
+                                loadingState = dataState.bottomSheetState
+                            )
+                        )
+                    }
                 }.launchIn(viewModelScope)
             }
 

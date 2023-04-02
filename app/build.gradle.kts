@@ -147,4 +147,7 @@ dependencies {
     //state manager module
     implementation(project(Modules.stateManager))
 
+    //domain module
+    implementation(project(Modules.domain))
+
 }

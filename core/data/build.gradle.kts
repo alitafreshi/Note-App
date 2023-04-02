@@ -20,4 +20,6 @@ dependencies {
 
     implementation(ayan.Core.ayanCore)
 
+    implementation(project(Modules.domain))
+
 }
