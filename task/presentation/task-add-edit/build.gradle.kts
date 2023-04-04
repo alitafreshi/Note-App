@@ -101,8 +101,6 @@ dependencies {
     //task components module
     implementation(project(Modules.taskComponents))
 
-    implementation(ayan.Core.ayanCore)
-    
     //state manager module
     implementation(project(Modules.stateManager))
 }

@@ -63,5 +63,6 @@ dependencies {
     implementation(Compose.compose_constraint_layout)
     implementation(Compose.compose_viewModel)
 
-    implementation(ayan.Core.ayanCore)
+    //domain module
+    implementation(project(Modules.domain))
 }

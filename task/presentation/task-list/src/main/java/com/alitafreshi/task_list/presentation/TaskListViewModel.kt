@@ -9,7 +9,6 @@ import com.alitafreshi.domain.interactors.NoteUseCases
 import com.alitafreshi.state_manager.AppEvents
 import com.alitafreshi.state_manager.AppStateManager
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ir.tafreshiali.ayan_core.util.UIComponent
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -44,7 +43,7 @@ class TaskListViewModel @Inject constructor(
 
                         is DataState.Loading -> setViewState(
                             viewState = getCurrentViewStateOrNew().copy(
-                                loadingState = dataState.bottomSheetState
+                                loadingState = dataState.loadingState
                             )
                         )
                     }

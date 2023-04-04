@@ -37,10 +37,10 @@ class AppViewModel @Inject constructor(
             }
 
             is AppEvents.UpdateLoadingState -> {
-                Log.d("AppEvents", "AppViewModel = ${event.bottomSheetState}")
+                Log.d("AppEvents", "AppViewModel = ${event.loadingState}")
                 handleSuspendEvent {
                     delay(1000L)
-                    setViewState(viewState = getCurrentViewStateOrNew().copy(loadingState = event.bottomSheetState))
+                    setViewState(viewState = getCurrentViewStateOrNew().copy(loadingState = event.loadingState))
                 }
             }
         }
@@ -64,7 +64,7 @@ class AppViewModel @Inject constructor(
 
                 is DataState.Loading -> setViewState(
                     viewState = getCurrentViewStateOrNew().copy(
-                        loadingState = dataState.bottomSheetState
+                        loadingState = dataState.loadingState
                     )
                 )
             }

@@ -113,9 +113,6 @@ dependencies {
     ksp(Room.roomCompiler)
     implementation(Room.roomKtxExtension)
 
-    //ayan core
-    implementation(ayan.Core.ayanCore)
-
     //JETPACK-NAVIGATION
     implementation(Navigation.navigation_fragments)
     implementation(Navigation.navigation_kotlin_ui)

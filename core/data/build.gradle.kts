@@ -18,8 +18,7 @@ dependencies {
     //hilt annotations
     implementation(Hilt.javaInject)
 
-    implementation(ayan.Core.ayanCore)
-
+    //domain module
     implementation(project(Modules.domain))
 
 }

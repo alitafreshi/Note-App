@@ -60,6 +60,4 @@ dependencies {
 
     //task domain module
     implementation(project(Modules.taskDomain))
-
-    implementation(ayan.Core.ayanCore)
 }

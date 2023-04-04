@@ -17,8 +17,7 @@ dependencies {
     //room
     implementation(Room.roomKtxModules)
 
-    implementation(ayan.Core.ayanCore)
-
+    //domain module
     implementation(project(Modules.domain))
 
 }

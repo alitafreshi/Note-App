@@ -1,9 +1,10 @@
 package com.alitafreshi.components.util.app
 
-import ir.tafreshiali.ayan_core.util.BottomSheetState
+import com.alitafreshi.domain.LoadingState
+
 
 data class AppViewState(
     val theme: String = "",
     val introState: Boolean = false,
-    val loadingState: BottomSheetState = BottomSheetState.Idle
+    val loadingState: LoadingState = LoadingState.Idle
 )

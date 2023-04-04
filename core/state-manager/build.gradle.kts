@@ -85,8 +85,6 @@ dependencies {
     //components module
     implementation(project(Modules.components))
 
-    implementation(ayan.Core.ayanCore)
-
     //data module
     implementation(project(Modules.data))
 }

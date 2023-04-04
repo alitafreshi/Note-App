@@ -34,9 +34,10 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.alitafreshi.components.DefaultCentralizeTopBar
 import com.alitafreshi.components.util.spacing
+import com.alitafreshi.domain.LoadingState
 import com.alitafreshi.domain.model.Note
 import com.alitafreshi.resource.R
-import ir.tafreshiali.ayan_core.util.BottomSheetState
+
 import kotlin.math.roundToInt
 
 @ExperimentalAnimationApi
@@ -184,7 +185,7 @@ fun TaskListScreen(
 @Composable
 private fun TaskListScreenContent(
     modifier: Modifier = Modifier,
-    loadingState: BottomSheetState,
+    loadingState: LoadingState,
     taskList: List<Note>,
     selectedTaskList: List<Note>,
     taskBackGroundColor: Color,
