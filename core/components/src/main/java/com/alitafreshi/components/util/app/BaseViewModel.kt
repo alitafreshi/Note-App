@@ -19,8 +19,8 @@ abstract class BaseViewModel<ViewState, Events, UiEffects> :
 
     private val _viewState: MutableState<ViewState> = mutableStateOf(this.initNewViewState())
 
-    private val _events = MutableSharedFlow<UiEffects>()
-    private val events = _events.asSharedFlow()
+    private val _uiEffects = MutableSharedFlow<UiEffects>()
+    private val uiEffects = _uiEffects.asSharedFlow()
 
     fun getCurrentViewStateOrNew(): ViewState = _viewState.value ?: initNewViewState()
 
@@ -28,11 +28,11 @@ abstract class BaseViewModel<ViewState, Events, UiEffects> :
         _viewState.value = viewState
     }
 
-    fun observeEvents(): SharedFlow<UiEffects> = events
+    fun observeEvents(): SharedFlow<UiEffects> = uiEffects
 
     fun emitSuspendEvent(event: UiEffects) {
         viewModelScope.launch {
-            _events.emit(value = event)
+            _uiEffects.emit(value = event)
         }
     }
 

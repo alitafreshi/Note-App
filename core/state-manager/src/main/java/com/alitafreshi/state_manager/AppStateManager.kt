@@ -9,17 +9,17 @@ import javax.inject.Inject
 
 class AppStateManager @Inject constructor(@ApplicationScope private val applicationScope: CoroutineScope) {
 
-    private val _appEvents = MutableSharedFlow<AppEvents>()
-    val appEvents = _appEvents.asSharedFlow()
+    private val _appUiEffects = MutableSharedFlow<AppUiEffects>()
+    val appUiEffects = _appUiEffects.asSharedFlow()
 
-     fun emitSuspendAppEvent(event: AppEvents) {
+     fun emitSuspendAppUiEffect(uiEffect: AppUiEffects) {
         applicationScope.launch {
-            _appEvents.emit(value = event)
+            _appUiEffects.emit(value = uiEffect)
         }
     }
 
-     fun emitAppEvent(event: AppEvents) {
-        _appEvents.tryEmit(value = event)
+     fun emitAppEvent(event: AppUiEffects) {
+        _appUiEffects.tryEmit(value = event)
     }
 
 

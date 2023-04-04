@@ -22,7 +22,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.alitafreshi.noteapp.R
 import com.alitafreshi.noteapp.databinding.FragmentContainerLayoutBinding
 import com.alitafreshi.noteapp.presentation.ui.theme.NoteAppTheme
-import com.alitafreshi.state_manager.AppEvents
+import com.alitafreshi.state_manager.AppUiEffects
 import com.alitafreshi.state_manager.AppStateManager
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import dagger.hilt.android.AndroidEntryPoint
@@ -74,25 +74,25 @@ class MainActivity : AppCompatActivity() {
 
                         appViewModel.init()
 
-                        applicationStateManager.appEvents.onEach { appEvents ->
-                            when (appEvents) {
+                        applicationStateManager.appUiEffects.onEach { appUiEffects ->
+                            when (appUiEffects) {
 
-                                AppEvents.Navigation.DetectStartGraph -> detectStartDestination()
+                                AppUiEffects.Navigation.DetectStartGraph -> detectStartDestination()
 
-                                is AppEvents.Navigation.Navigate -> findNavController(viewId = R.id.nav_host_fragment).navigate(
-                                    appEvents.deepLink
+                                is AppUiEffects.Navigation.Navigate -> findNavController(viewId = R.id.nav_host_fragment).navigate(
+                                    appUiEffects.deepLink
                                 )
-                                AppEvents.Navigation.NavigateBack -> findNavController(viewId = R.id.nav_host_fragment).popBackStack()
+                                AppUiEffects.Navigation.NavigateBack -> findNavController(viewId = R.id.nav_host_fragment).popBackStack()
 
-                                is AppEvents.Navigation.NavigateWithNavOptions -> TODO()
+                                is AppUiEffects.Navigation.NavigateWithNavOptions -> TODO()
 
-                                is AppEvents.ShowSnackBar -> scaffoldState.snackbarHostState.showSnackbar(
-                                    message = appEvents.message
+                                is AppUiEffects.ShowSnackBar -> scaffoldState.snackbarHostState.showSnackbar(
+                                    message = appUiEffects.message
                                 )
 
-                                is AppEvents.UpdateErrorState -> TODO()
+                                is AppUiEffects.UpdateErrorState -> TODO()
 
-                                is AppEvents.UpdateLoadingState -> TODO()
+                                is AppUiEffects.UpdateLoadingState -> TODO()
                             }
 
                         }.launchIn(scope = this)

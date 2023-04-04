@@ -2,7 +2,7 @@ package com.alitafreshi.task_list.presentation.util
 
 import com.alitafreshi.domain.DataState
 import com.alitafreshi.domain.LoadingState
-import com.alitafreshi.state_manager.AppEvents
+import com.alitafreshi.state_manager.AppUiEffects
 import com.alitafreshi.state_manager.AppStateManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -15,23 +15,23 @@ suspend fun <T> Flow<DataState<T>>.handleAndCatchGeneralStates(
 
     when (dataState) {
 
-        is DataState.Error -> stateManager.emitSuspendAppEvent(
-            event = AppEvents.ShowSnackBar(
+        is DataState.Error -> stateManager.emitSuspendAppUiEffect(
+            uiEffect = AppUiEffects.ShowSnackBar(
                 message = dataState.errorMessage
             )
         )
 
         is DataState.Data -> dataState.data?.let { data -> emit(value = data) }
 
-        is DataState.Loading -> stateManager.emitSuspendAppEvent(
-            event = AppEvents.UpdateLoadingState(
+        is DataState.Loading -> stateManager.emitSuspendAppUiEffect(
+            uiEffect = AppUiEffects.UpdateLoadingState(
                 state = dataState.loadingState == LoadingState.Loading
             )
         )
     }
 }.catch { exception ->
-    stateManager.emitSuspendAppEvent(
-        event = AppEvents.ShowSnackBar(
+    stateManager.emitSuspendAppUiEffect(
+        uiEffect = AppUiEffects.ShowSnackBar(
             message = exception.localizedMessage ?: "An unexpected error occurred"
         )
     )

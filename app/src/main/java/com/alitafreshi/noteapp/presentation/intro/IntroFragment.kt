@@ -30,8 +30,8 @@ class IntroFragment : Fragment() {
             IntroScreen(navigateToMainScreen = {
                 //TODO NAVIGATE TO THE TASK LIST SCREEN AND POP THIS SCREEN FROM THE BACK STACK
                 appViewModel.onTriggerEvent(event = AppEvents.UpdateIntroState(introState = true))
-                applicationStateManager.emitSuspendAppEvent(
-                    event = com.alitafreshi.state_manager.AppEvents.Navigation.Navigate(
+                applicationStateManager.emitSuspendAppUiEffect(
+                    uiEffect = com.alitafreshi.state_manager.AppUiEffects.Navigation.Navigate(
                         deepLink = Uri.parse("https://tafreshiali.ir/taskList")
                     )
                 )

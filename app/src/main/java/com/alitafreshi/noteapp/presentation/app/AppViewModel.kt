@@ -57,7 +57,7 @@ class AppViewModel @Inject constructor(
                         )
                     )
 
-                    applicationStateManager.emitSuspendAppEvent(event = com.alitafreshi.state_manager.AppEvents.Navigation.DetectStartGraph)
+                    applicationStateManager.emitSuspendAppUiEffect(uiEffect = com.alitafreshi.state_manager.AppUiEffects.Navigation.DetectStartGraph)
                 }
 
                 is DataState.Error -> TODO()
