@@ -4,9 +4,9 @@ import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.alitafreshi.components.util.app.BaseViewModel
+import com.alitafreshi.components.util.app.Navigation
 import com.alitafreshi.domain.DataState
 import com.alitafreshi.domain.interactors.NoteUseCases
-import com.alitafreshi.state_manager.AppUiEffects
 import com.alitafreshi.state_manager.AppStateManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -82,7 +82,7 @@ class TaskListViewModel @Inject constructor(
                 )
             }
             is TaskListEvents.NavigateToNoteAddEditFragment -> applicationStateManager.emitSuspendAppUiEffect(
-                uiEffect = AppUiEffects.Navigation.Navigate(
+                uiEffect = Navigation.Navigate(
                     deepLink = Uri.parse("https://tafreshiali.ir/tasks/${event.noteId}")
                 )
             )

@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.alitafreshi.components.util.app.AppEvents
 import com.alitafreshi.components.util.app.AppViewState
 import com.alitafreshi.components.util.app.BaseViewModel
+import com.alitafreshi.components.util.app.Navigation
 import com.alitafreshi.data.datasource.local.datastore.AppProtoDataStore
 import com.alitafreshi.data.datasource.local.datastore.AppSettings
 import com.alitafreshi.domain.DataState
@@ -57,7 +58,7 @@ class AppViewModel @Inject constructor(
                         )
                     )
 
-                    applicationStateManager.emitSuspendAppUiEffect(uiEffect = com.alitafreshi.state_manager.AppUiEffects.Navigation.DetectStartGraph)
+                    applicationStateManager.emitSuspendAppUiEffect(uiEffect = Navigation.DetectStartGraph)
                 }
 
                 is DataState.Error -> TODO()

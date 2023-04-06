@@ -63,6 +63,9 @@ dependencies {
     implementation(Compose.compose_constraint_layout)
     implementation(Compose.compose_viewModel)
 
+    //JETPACK-NAVIGATION
+    implementation(Navigation.navigation_kotlin_ui)
+
     //domain module
     implementation(project(Modules.domain))
 }

@@ -19,6 +19,7 @@ import androidx.constraintlayout.compose.Dimension
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import com.alitafreshi.components.util.app.Navigation
 import com.alitafreshi.noteapp.R
 import com.alitafreshi.noteapp.databinding.FragmentContainerLayoutBinding
 import com.alitafreshi.noteapp.presentation.ui.theme.NoteAppTheme
@@ -77,14 +78,14 @@ class MainActivity : AppCompatActivity() {
                         applicationStateManager.appUiEffects.onEach { appUiEffects ->
                             when (appUiEffects) {
 
-                                AppUiEffects.Navigation.DetectStartGraph -> detectStartDestination()
+                                Navigation.DetectStartGraph -> detectStartDestination()
 
-                                is AppUiEffects.Navigation.Navigate -> findNavController(viewId = R.id.nav_host_fragment).navigate(
+                                is Navigation.Navigate -> findNavController(viewId = R.id.nav_host_fragment).navigate(
                                     appUiEffects.deepLink
                                 )
-                                AppUiEffects.Navigation.NavigateBack -> findNavController(viewId = R.id.nav_host_fragment).popBackStack()
+                                Navigation.NavigateBack -> findNavController(viewId = R.id.nav_host_fragment).popBackStack()
 
-                                is AppUiEffects.Navigation.NavigateWithNavOptions -> TODO()
+                                is Navigation.NavigateWithNavOptions -> TODO()
 
                                 is AppUiEffects.ShowSnackBar -> scaffoldState.snackbarHostState.showSnackbar(
                                     message = appUiEffects.message

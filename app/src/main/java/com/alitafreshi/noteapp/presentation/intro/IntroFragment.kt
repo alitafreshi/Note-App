@@ -8,6 +8,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.alitafreshi.components.util.app.AppEvents
+import com.alitafreshi.components.util.app.Navigation
 import com.alitafreshi.noteapp.presentation.app.AppViewModel
 import com.alitafreshi.state_manager.AppStateManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +32,7 @@ class IntroFragment : Fragment() {
                 //TODO NAVIGATE TO THE TASK LIST SCREEN AND POP THIS SCREEN FROM THE BACK STACK
                 appViewModel.onTriggerEvent(event = AppEvents.UpdateIntroState(introState = true))
                 applicationStateManager.emitSuspendAppUiEffect(
-                    uiEffect = com.alitafreshi.state_manager.AppUiEffects.Navigation.Navigate(
+                    uiEffect = Navigation.Navigate(
                         deepLink = Uri.parse("https://tafreshiali.ir/taskList")
                     )
                 )

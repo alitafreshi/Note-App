@@ -1,6 +1,7 @@
 package com.alitafreshi.state_manager
 
 import com.alitafreshi.data.qualifier.ApplicationScope
+import com.alitafreshi.domain.BaseUiEffects
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -9,16 +10,16 @@ import javax.inject.Inject
 
 class AppStateManager @Inject constructor(@ApplicationScope private val applicationScope: CoroutineScope) {
 
-    private val _appUiEffects = MutableSharedFlow<AppUiEffects>()
+    private val _appUiEffects = MutableSharedFlow<BaseUiEffects>()
     val appUiEffects = _appUiEffects.asSharedFlow()
 
-     fun emitSuspendAppUiEffect(uiEffect: AppUiEffects) {
+    fun emitSuspendAppUiEffect(uiEffect: BaseUiEffects) {
         applicationScope.launch {
             _appUiEffects.emit(value = uiEffect)
         }
     }
 
-     fun emitAppEvent(event: AppUiEffects) {
+    fun emitAppEvent(event: BaseUiEffects) {
         _appUiEffects.tryEmit(value = event)
     }
 
