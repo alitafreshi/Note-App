@@ -1,4 +1,4 @@
-package com.alitafreshi.task_add_edit.view_state
+package com.alitafreshi.task_add_edit.presentation.view_state
 
 data class AdEditViewState(
     val noteId: Int? = null,

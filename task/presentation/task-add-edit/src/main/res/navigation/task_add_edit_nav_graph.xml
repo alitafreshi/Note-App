@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/taskAddEditFragment"
-        android:name="com.alitafreshi.task_add_edit.TaskAddEditFragment"
+        android:name="com.alitafreshi.task_add_edit.presentation.TaskAddEditFragment"
         android:label="TaskAddEditFragment">
         <deepLink
             android:id="@+id/deepLink"
