@@ -11,6 +11,10 @@ object Modules {
     const val data = ":core:data"
     const val domain = ":core:domain"
 
+    //core - local-storage
+    const val protoDatastore = ":core:local-storage:proto-datastore"
+    const val room = ":core:local-storage:room"
+
     //task
     const val taskList = ":task:presentation:task-list"
     const val taskDomain = ":task:domain"

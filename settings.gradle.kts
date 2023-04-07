@@ -9,6 +9,11 @@ include(":core:constance")
 include(":core:data")
 include(":core:state-manager")
 include(":core:domain")
+include(":core:local-storage")
+include(":core:local-storage:proto-datastore")
+include(":core:local-storage:room")
+
+
 
 //TASK-MODULES
 include(":task")

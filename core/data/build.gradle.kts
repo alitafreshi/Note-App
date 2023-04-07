@@ -15,8 +15,12 @@ dependencies {
     implementation(DataStore.preferencesDataStoreCore)
     implementation(DataStore.kotlinCollection)
     implementation(DataStore.kotlinJsonSerialization)
+
     //hilt annotations
     implementation(Hilt.javaInject)
+
+    //room
+    implementation(Room.roomKtxModules)
 
     //domain module
     implementation(project(Modules.domain))
