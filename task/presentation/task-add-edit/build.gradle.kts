@@ -1,10 +1,10 @@
-
 plugins {
     id(Plugins.androidLibrary)
     kotlin(KotlinPlugins.android)
     kotlin(KotlinPlugins.kapt)
     id(Plugins.safeArgsNavigationPlugin)
     id(Plugins.hilt)
+    id(Plugins.googleKspPlugin) version (Plugins.googleKspPluginVersion)
 }
 
 android {
@@ -78,6 +78,11 @@ dependencies {
     implementation(Navigation.navigation_fragments)
     implementation(Navigation.navigation_kotlin_ui)
 
+    //room
+    implementation(Room.room)
+    ksp(Room.roomCompiler)
+    implementation(Room.roomKtxExtension)
+
     //Hilt - Core
     implementation(Hilt.hiltAndroid)
     kapt(Hilt.hiltCompiler)
@@ -97,6 +102,8 @@ dependencies {
 
     //task domain module
     implementation(project(Modules.taskDomain))
+
+    implementation(project(Modules.taskData))
 
     //task components module
     implementation(project(Modules.taskComponents))

@@ -1,4 +1,4 @@
-package com.alitafreshi.task_add_edit
+package com.alitafreshi.task_add_edit.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +13,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.alitafreshi.components.util.spacing
-import com.alitafreshi.task_add_edit.view_event.AdEditEvents
+import com.alitafreshi.task_add_edit.presentation.view_event.AdEditEvents
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

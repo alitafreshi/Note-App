@@ -31,12 +31,6 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideSharedPreference(app: BaseApplication): SharedPreferences =
-        app.getSharedPreferences("preferences_app_db", Context.MODE_PRIVATE)
-
-
-    @Singleton
-    @Provides
     fun provideAppRoomDatabase(app: BaseApplication): NoteDatabase =
         Room.databaseBuilder(app, NoteDatabase::class.java, APP_ROOM_DATABASE).build()
 

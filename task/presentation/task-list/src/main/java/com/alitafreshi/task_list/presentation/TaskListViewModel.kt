@@ -4,9 +4,11 @@ import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.alitafreshi.components.util.app.BaseViewModel
-import com.alitafreshi.components.util.app.Navigation
 import com.alitafreshi.domain.DataState
-import com.alitafreshi.domain.interactors.NoteUseCases
+import com.alitafreshi.domain.interactors.DeleteNoteUseCase
+import com.alitafreshi.domain.interactors.GetNotesUseCase
+import com.alitafreshi.domain.interactors.RestoreDeletedNotesUseCase
+import com.alitafreshi.state_manager.AppUiEffects
 import com.alitafreshi.state_manager.AppStateManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -15,8 +17,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TaskListViewModel @Inject constructor(
-    private val noteUseCases: NoteUseCases,
-    private var applicationStateManager: AppStateManager
+    private val getNotesUseCase: GetNotesUseCase,
+    private val restoreDeletedNotesUseCase: RestoreDeletedNotesUseCase,
+    private val deleteNoteUseCase: DeleteNoteUseCase,
+    private val applicationStateManager: AppStateManager
 ) : BaseViewModel<TaskListViewState, TaskListEvents, Unit>() {
 
 
@@ -30,7 +34,7 @@ class TaskListViewModel @Inject constructor(
         when (event) {
 
             is TaskListEvents.RetrieveNoteList -> {
-                noteUseCases.getNotesUseCase().onEach { dataState ->
+                getNotesUseCase().onEach { dataState ->
                     when (dataState) {
                         is DataState.Data -> dataState.data?.let { noteList ->
                             setViewState(viewState = getCurrentViewStateOrNew().copy(taskList = noteList))
@@ -51,14 +55,14 @@ class TaskListViewModel @Inject constructor(
             }
 
             is TaskListEvents.DeleteNotes -> handleSuspendEvent {
-                noteUseCases.deleteNoteUseCase(
+                deleteNoteUseCase(
                     notes = event.deletedNotes
                 )
                 setViewState(viewState = getCurrentViewStateOrNew().copy(selectedTaskList = emptyList()))
             }
 
             is TaskListEvents.RestoreNote -> handleSuspendEvent {
-                noteUseCases.restoreDeletedNotesUseCase(
+                restoreDeletedNotesUseCase(
                     notes = event.restoredNotes
                 )
             }
@@ -82,7 +86,7 @@ class TaskListViewModel @Inject constructor(
                 )
             }
             is TaskListEvents.NavigateToNoteAddEditFragment -> applicationStateManager.emitSuspendAppUiEffect(
-                uiEffect = Navigation.Navigate(
+                uiEffect = AppUiEffects.Navigation.Navigate(
                     deepLink = Uri.parse("https://tafreshiali.ir/tasks/${event.noteId}")
                 )
             )

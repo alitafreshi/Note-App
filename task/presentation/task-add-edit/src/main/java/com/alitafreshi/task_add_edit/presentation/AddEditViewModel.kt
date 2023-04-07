@@ -1,15 +1,15 @@
-package com.alitafreshi.task_add_edit
+package com.alitafreshi.task_add_edit.presentation
 
 import androidx.lifecycle.SavedStateHandle
 import com.alitafreshi.components.util.app.BaseViewModel
-import com.alitafreshi.components.util.app.Navigation
-import com.alitafreshi.domain.interactors.NoteUseCases
+import com.alitafreshi.domain.interactors.GetNoteByIdUseCase
+import com.alitafreshi.domain.interactors.InsertNewNoteUseCase
 import com.alitafreshi.domain.model.InvalidNoteException
 import com.alitafreshi.domain.model.Note
 import com.alitafreshi.state_manager.AppUiEffects
 import com.alitafreshi.state_manager.AppStateManager
-import com.alitafreshi.task_add_edit.view_event.AdEditEvents
-import com.alitafreshi.task_add_edit.view_state.AdEditViewState
+import com.alitafreshi.task_add_edit.presentation.view_event.AdEditEvents
+import com.alitafreshi.task_add_edit.presentation.view_state.AdEditViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import saman.zamani.persiandate.PersianDate
 import saman.zamani.persiandate.PersianDateFormat
@@ -18,7 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddEditViewModel @Inject constructor(
-    private val noteUseCases: NoteUseCases,
+    private val getNoteByIdUseCase: GetNoteByIdUseCase,
+    private val insertNewNoteUseCase: InsertNewNoteUseCase,
     private val applicationStateManager: AppStateManager,
     savedStateHandle: SavedStateHandle
 ) : BaseViewModel<AdEditViewState, AdEditEvents, Unit>() {
@@ -83,7 +84,7 @@ class AddEditViewModel @Inject constructor(
                         val pdate = PersianDate()
                         val pdformater1 = PersianDateFormat("Y/m/d")
 
-                        noteUseCases.insertNewNoteUseCase(
+                        insertNewNoteUseCase(
 
                             //TODO Color should Be completed Later on
 
@@ -96,7 +97,7 @@ class AddEditViewModel @Inject constructor(
 
                             )
                         )
-                        applicationStateManager.emitSuspendAppUiEffect(uiEffect = Navigation.NavigateBack)
+                        applicationStateManager.emitSuspendAppUiEffect(uiEffect = AppUiEffects.Navigation.NavigateBack)
                     } catch (e: InvalidNoteException) {
                         applicationStateManager.emitSuspendAppUiEffect(
                             uiEffect = AppUiEffects.ShowSnackBar(
@@ -109,7 +110,7 @@ class AddEditViewModel @Inject constructor(
 
             is AdEditEvents.GetTaskById -> {
                 handleSuspendEvent {
-                    noteUseCases.getNoteByIdUseCase(id = event.taskId)?.also { note ->
+                    getNoteByIdUseCase(id = event.taskId)?.also { note ->
                         setViewState(
                             viewState = getCurrentViewStateOrNew().copy(
                                 noteId = note.id,

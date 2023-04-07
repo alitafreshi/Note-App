@@ -1,4 +1,4 @@
-package com.alitafreshi.task_add_edit
+package com.alitafreshi.task_add_edit.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -18,8 +18,8 @@ import com.alitafreshi.components.util.noRippleClickable
 import com.alitafreshi.components.util.spacing
 import com.alitafreshi.resource.R
 import com.alitafreshi.task.components.TransparentHintTextField
-import com.alitafreshi.task_add_edit.view_event.AdEditEvents
-import com.alitafreshi.task_add_edit.view_state.TaskAdEditTextFieldState
+import com.alitafreshi.task_add_edit.presentation.view_event.AdEditEvents
+import com.alitafreshi.task_add_edit.presentation.view_state.TaskAdEditTextFieldState
 
 @Composable
 fun TaskAdEditScreen(
