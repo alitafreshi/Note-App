@@ -6,9 +6,9 @@ import com.alitafreshi.components.util.app.AppEvents
 import com.alitafreshi.components.util.app.AppViewState
 import com.alitafreshi.components.util.app.BaseViewModel
 import com.alitafreshi.components.util.app.Navigation
-import com.alitafreshi.data.datasource.local.datastore.AppProtoDataStore
-import com.alitafreshi.data.datasource.local.datastore.AppSettings
 import com.alitafreshi.domain.DataState
+import com.alitafreshi.proto_datastore.AppProtoDataStore
+import com.alitafreshi.proto_datastore.AppSettings
 import com.alitafreshi.state_manager.AppStateManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay

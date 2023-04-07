@@ -2,6 +2,7 @@ package com.alitafreshi.task_add_edit.presentation
 
 import androidx.lifecycle.SavedStateHandle
 import com.alitafreshi.components.util.app.BaseViewModel
+import com.alitafreshi.components.util.app.Navigation
 import com.alitafreshi.domain.interactors.GetNoteByIdUseCase
 import com.alitafreshi.domain.interactors.InsertNewNoteUseCase
 import com.alitafreshi.domain.model.InvalidNoteException
@@ -97,7 +98,7 @@ class AddEditViewModel @Inject constructor(
 
                             )
                         )
-                        applicationStateManager.emitSuspendAppUiEffect(uiEffect = AppUiEffects.Navigation.NavigateBack)
+                        applicationStateManager.emitSuspendAppUiEffect(uiEffect = Navigation.NavigateBack)
                     } catch (e: InvalidNoteException) {
                         applicationStateManager.emitSuspendAppUiEffect(
                             uiEffect = AppUiEffects.ShowSnackBar(

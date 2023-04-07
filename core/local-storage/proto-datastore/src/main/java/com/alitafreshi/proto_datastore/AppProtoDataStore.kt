@@ -1,4 +1,4 @@
-package com.alitafreshi.data.datasource.local.datastore
+package com.alitafreshi.proto_datastore
 
 
 import com.alitafreshi.domain.DataState

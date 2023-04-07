@@ -1,10 +1,8 @@
 package com.alitafreshi.noteapp.di
 
 import android.content.Context
-import android.content.SharedPreferences
 import androidx.room.Room
 import com.alitafreshi.constance.Constance.APP_ROOM_DATABASE
-import com.alitafreshi.data.datasource.local.datastore.*
 import com.alitafreshi.data.datasource.local.room.NoteDatabase
 import com.alitafreshi.data.qualifier.ApplicationScope
 import com.alitafreshi.data.qualifier.IoDispatcher

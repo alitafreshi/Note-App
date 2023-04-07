@@ -7,6 +7,7 @@ import androidx.room.Upsert
 import com.alitafreshi.data.datasource.local.room.model.Note
 import kotlinx.coroutines.flow.Flow
 
+
 @Dao
 interface NoteDao {
     @Query("SELECT * FROM note")

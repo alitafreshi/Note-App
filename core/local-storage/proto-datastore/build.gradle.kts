@@ -15,4 +15,10 @@ dependencies {
     implementation(DataStore.preferencesDataStoreCore)
     implementation(DataStore.kotlinCollection)
     implementation(DataStore.kotlinJsonSerialization)
+
+    //domain module
+    implementation(project(Modules.domain))
+
+    //data module
+    implementation(project(Modules.data))
 }

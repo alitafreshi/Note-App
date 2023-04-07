@@ -5,8 +5,11 @@ import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
 import androidx.datastore.dataStoreFile
 import com.alitafreshi.constance.Constance
-import com.alitafreshi.data.datasource.local.datastore.*
 import com.alitafreshi.data.qualifier.IoDispatcher
+import com.alitafreshi.proto_datastore.AppProtoDataStore
+import com.alitafreshi.proto_datastore.AppProtoDataStoreImpl
+import com.alitafreshi.proto_datastore.AppSettings
+import com.alitafreshi.proto_datastore.GenericProtoDataStoreSerializer
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

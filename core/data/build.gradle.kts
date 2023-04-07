@@ -10,17 +10,13 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 dependencies {
-
-    //proto data store
-    implementation(DataStore.preferencesDataStoreCore)
-    implementation(DataStore.kotlinCollection)
-    implementation(DataStore.kotlinJsonSerialization)
-
     //hilt annotations
     implementation(Hilt.javaInject)
 
     //room
     implementation(Room.roomKtxModules)
+
+    implementation(Kotlin.kotlinCoroutines)
 
     //domain module
     implementation(project(Modules.domain))

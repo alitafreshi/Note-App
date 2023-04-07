@@ -49,7 +49,7 @@ dependencies {
     androidTestImplementation(Espresso.espresso)
 
     //room
-    implementation(Room.room)
+    /*implementation(Room.room)
     ksp(Room.roomCompiler)
-    implementation(Room.roomKtxExtension)
+    implementation(Room.roomKtxExtension)*/
 }
