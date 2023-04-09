@@ -144,6 +144,9 @@ dependencies {
     //local-storage-protoDatastore
     implementation(project(Modules.protoDatastore))
 
+    //local-storage-room
+    implementation(project(Modules.room))
+
     //state manager module
     implementation(project(Modules.stateManager))
 

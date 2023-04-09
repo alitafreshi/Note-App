@@ -1,8 +1,6 @@
 plugins {
     id(Plugins.javaLibrary)
     id(KotlinPlugins.kotlin)
-    kotlin(KotlinPlugins.serialization)
-    id(Plugins.googleKspPlugin) version (Plugins.googleKspPluginVersion)
 }
 
 java {
@@ -12,13 +10,4 @@ java {
 dependencies {
     //hilt annotations
     implementation(Hilt.javaInject)
-
-    //room
-    implementation(Room.roomKtxModules)
-
-    implementation(Kotlin.kotlinCoroutines)
-
-    //domain module
-    implementation(project(Modules.domain))
-
 }
