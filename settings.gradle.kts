@@ -12,6 +12,8 @@ include(":core:domain")
 include(":core:local-storage")
 include(":core:local-storage:proto-datastore")
 include(":core:local-storage:room")
+include(":core:local-storage:room-db")
+
 
 
 

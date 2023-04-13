@@ -1,12 +1,13 @@
 package com.alitafreshi.task_add_edit.presentation
 
+import android.provider.ContactsContract
 import androidx.lifecycle.SavedStateHandle
 import com.alitafreshi.components.util.app.BaseViewModel
 import com.alitafreshi.components.util.app.Navigation
 import com.alitafreshi.domain.interactors.GetNoteByIdUseCase
 import com.alitafreshi.domain.interactors.InsertNewNoteUseCase
-import com.alitafreshi.domain.model.InvalidNoteException
-import com.alitafreshi.domain.model.Note
+import com.alitafreshi.room_db.task.model.InvalidNoteException
+import com.alitafreshi.room_db.task.model.Note
 import com.alitafreshi.state_manager.AppUiEffects
 import com.alitafreshi.state_manager.AppStateManager
 import com.alitafreshi.task_add_edit.presentation.view_event.AdEditEvents

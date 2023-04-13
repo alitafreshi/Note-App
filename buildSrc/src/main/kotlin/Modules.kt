@@ -14,6 +14,7 @@ object Modules {
     //core - local-storage
     const val protoDatastore = ":core:local-storage:proto-datastore"
     const val room = ":core:local-storage:room"
+    const val roomDb = ":core:local-storage:room-db"
 
     //task
     const val taskList = ":task:presentation:task-list"

@@ -7,7 +7,7 @@
         <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleJvm" value="Android Studio default JDK" />
+        <option name="gradleJvm" value="Android Studio java home" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -21,6 +21,7 @@
             <option value="$PROJECT_DIR$/core/local-storage" />
             <option value="$PROJECT_DIR$/core/local-storage/proto-datastore" />
             <option value="$PROJECT_DIR$/core/local-storage/room" />
+            <option value="$PROJECT_DIR$/core/local-storage/room-db" />
             <option value="$PROJECT_DIR$/core/resource" />
             <option value="$PROJECT_DIR$/core/state-manager" />
             <option value="$PROJECT_DIR$/task" />

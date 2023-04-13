@@ -53,9 +53,7 @@ dependencies {
     ksp(Room.roomCompiler)
     implementation(Room.roomKtxExtension)
 
-    //task - data - module
-    implementation(project(Modules.taskData))
+    //room - db - module
+    implementation(project(Modules.roomDb))
 
-    //task domain - module
-    implementation(project(Modules.taskDomain))
 }

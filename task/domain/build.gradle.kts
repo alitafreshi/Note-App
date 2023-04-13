@@ -20,4 +20,7 @@ dependencies {
     //domain module
     implementation(project(Modules.domain))
 
+    implementation(project(Modules.roomDb))
+
+
 }

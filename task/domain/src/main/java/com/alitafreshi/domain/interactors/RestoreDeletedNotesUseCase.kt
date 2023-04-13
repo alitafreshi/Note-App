@@ -1,8 +1,9 @@
 package com.alitafreshi.domain.interactors
 
-import com.alitafreshi.domain.model.InvalidNoteException
-import com.alitafreshi.domain.model.Note
+
 import com.alitafreshi.domain.repository.NoteRepository
+import com.alitafreshi.room_db.task.model.InvalidNoteException
+import com.alitafreshi.room_db.task.model.Note
 
 class RestoreDeletedNotesUseCase(private val noteRepository: NoteRepository) {
 

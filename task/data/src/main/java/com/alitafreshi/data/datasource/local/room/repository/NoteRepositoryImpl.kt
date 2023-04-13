@@ -1,8 +1,9 @@
 package com.alitafreshi.data.datasource.local.room.repository
 
-import com.alitafreshi.data.datasource.local.room.NoteDao
-import com.alitafreshi.domain.model.Note
+
 import com.alitafreshi.domain.repository.NoteRepository
+import com.alitafreshi.room_db.task.NoteDao
+import com.alitafreshi.room_db.task.model.Note
 import kotlinx.coroutines.flow.Flow
 
 class NoteRepositoryImpl(private val noteDao: NoteDao) : NoteRepository {

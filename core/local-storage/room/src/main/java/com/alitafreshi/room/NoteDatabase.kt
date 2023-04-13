@@ -2,8 +2,9 @@ package com.alitafreshi.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.alitafreshi.data.datasource.local.room.NoteDao
-import com.alitafreshi.domain.model.Note
+import com.alitafreshi.room_db.task.NoteDao
+import com.alitafreshi.room_db.task.model.Note
+
 
 @Database(
     entities = [Note::class],

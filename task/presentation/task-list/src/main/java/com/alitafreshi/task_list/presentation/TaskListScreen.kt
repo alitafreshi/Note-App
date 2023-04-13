@@ -35,8 +35,8 @@ import androidx.compose.ui.unit.dp
 import com.alitafreshi.components.DefaultCentralizeTopBar
 import com.alitafreshi.components.util.spacing
 import com.alitafreshi.domain.LoadingState
-import com.alitafreshi.domain.model.Note
 import com.alitafreshi.resource.R
+import com.alitafreshi.room_db.task.model.Note
 
 import kotlin.math.roundToInt
 

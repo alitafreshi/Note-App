@@ -1,6 +1,7 @@
 plugins {
     id(Plugins.javaLibrary)
     id(KotlinPlugins.kotlin)
+    kotlin(KotlinPlugins.serialization)
 }
 
 java {
@@ -9,12 +10,10 @@ java {
 }
 
 dependencies {
+
     //kotlinCoroutines
     implementation(Kotlin.kotlinCoroutines)
 
-    //task domain - module
-    implementation(project(Modules.taskDomain))
-
-    //room - db - module
-    implementation(project(Modules.roomDb))
+    //room
+    implementation(Room.roomKtxModules)
 }

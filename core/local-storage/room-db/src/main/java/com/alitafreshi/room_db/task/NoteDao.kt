@@ -1,7 +1,7 @@
-package com.alitafreshi.data.datasource.local.room
+package com.alitafreshi.room_db.task
 
 import androidx.room.*
-import com.alitafreshi.domain.model.Note
+import com.alitafreshi.room_db.task.model.Note
 import kotlinx.coroutines.flow.Flow
 
 @Dao

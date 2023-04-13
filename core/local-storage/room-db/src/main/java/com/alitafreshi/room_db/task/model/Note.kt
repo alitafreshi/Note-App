@@ -1,4 +1,4 @@
-package com.alitafreshi.domain.model
+package com.alitafreshi.room_db.task.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

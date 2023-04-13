@@ -2,11 +2,10 @@ package com.alitafreshi.domain.interactors
 
 import com.alitafreshi.domain.DataState
 import com.alitafreshi.domain.LoadingState
-import com.alitafreshi.domain.model.Note
 import com.alitafreshi.domain.repository.NoteRepository
 import com.alitafreshi.domain.util.NoteOrder
 import com.alitafreshi.domain.util.OrderType
-
+import com.alitafreshi.room_db.task.model.Note
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onStart

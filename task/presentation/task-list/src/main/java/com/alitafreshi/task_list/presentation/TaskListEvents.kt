@@ -1,6 +1,6 @@
 package com.alitafreshi.task_list.presentation
 
-import com.alitafreshi.domain.model.Note
+import com.alitafreshi.room_db.task.model.Note
 
 
 sealed class TaskListEvents {

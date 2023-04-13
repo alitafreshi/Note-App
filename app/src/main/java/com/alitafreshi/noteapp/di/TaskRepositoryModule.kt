@@ -3,7 +3,6 @@ package com.alitafreshi.noteapp.di
 import com.alitafreshi.data.datasource.local.room.repository.NoteRepositoryImpl
 import com.alitafreshi.domain.repository.NoteRepository
 import com.alitafreshi.room.NoteAppDatabase
-import com.alitafreshi.room.NoteDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

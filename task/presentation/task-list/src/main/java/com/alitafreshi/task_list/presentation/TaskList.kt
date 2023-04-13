@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import com.alitafreshi.components.util.spacing
 import com.alitafreshi.domain.LoadingState
-import com.alitafreshi.domain.model.Note
+import com.alitafreshi.room_db.task.model.Note
 import com.alitafreshi.task.components.TaskItem
 
 

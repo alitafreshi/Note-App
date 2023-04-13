@@ -1,9 +1,9 @@
 package com.alitafreshi.task_list.presentation
 
 import com.alitafreshi.domain.LoadingState
-import com.alitafreshi.domain.model.Note
 import com.alitafreshi.domain.util.NoteOrder
 import com.alitafreshi.domain.util.OrderType
+import com.alitafreshi.room_db.task.model.Note
 
 
 data class TaskListViewState(

@@ -1,6 +1,6 @@
 package com.alitafreshi.domain.repository
 
-import com.alitafreshi.domain.model.Note
+import com.alitafreshi.room_db.task.model.Note
 import kotlinx.coroutines.flow.Flow
 
 interface NoteRepository {

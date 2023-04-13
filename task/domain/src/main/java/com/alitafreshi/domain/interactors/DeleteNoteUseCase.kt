@@ -1,7 +1,7 @@
 package com.alitafreshi.domain.interactors
 
-import com.alitafreshi.domain.model.Note
 import com.alitafreshi.domain.repository.NoteRepository
+import com.alitafreshi.room_db.task.model.Note
 
 class DeleteNoteUseCase(private val noteRepository: NoteRepository) {
 

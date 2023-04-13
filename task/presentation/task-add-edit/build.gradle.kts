@@ -113,4 +113,7 @@ dependencies {
 
     //domain module
     implementation(project(Modules.domain))
+
+    //room - db - module
+    implementation(project(Modules.roomDb))
 }
