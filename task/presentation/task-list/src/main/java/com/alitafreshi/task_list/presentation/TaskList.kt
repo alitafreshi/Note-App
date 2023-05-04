@@ -58,7 +58,6 @@ fun TaskList(
                     descriptionTextStyle = descriptionTextStyle,
                     noteDate = note.date,
                     dateTextStyle = dateTextStyle,
-                    noteColor = note.color,
                     isInSelectionMode = selectedTaskList.isNotEmpty(),
                     isSelected = selectedTaskList.isNotEmpty() && selectedTaskList.contains(note),
                     onItemClick = {

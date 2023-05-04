@@ -1,6 +1,5 @@
 package com.alitafreshi.task_add_edit.presentation
 
-import android.provider.ContactsContract
 import androidx.lifecycle.SavedStateHandle
 import com.alitafreshi.components.util.app.BaseViewModel
 import com.alitafreshi.components.util.app.Navigation
@@ -8,8 +7,8 @@ import com.alitafreshi.domain.interactors.GetNoteByIdUseCase
 import com.alitafreshi.domain.interactors.InsertNewNoteUseCase
 import com.alitafreshi.room_db.task.model.InvalidNoteException
 import com.alitafreshi.room_db.task.model.Note
-import com.alitafreshi.state_manager.AppUiEffects
 import com.alitafreshi.state_manager.AppStateManager
+import com.alitafreshi.state_manager.AppUiEffects
 import com.alitafreshi.task_add_edit.presentation.view_event.AdEditEvents
 import com.alitafreshi.task_add_edit.presentation.view_state.AdEditViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -94,9 +93,7 @@ class AddEditViewModel @Inject constructor(
                                 id = getCurrentViewStateOrNew().noteId,
                                 title = getCurrentViewStateOrNew().taskAdEditTitleTextFieldState.text,
                                 description = getCurrentViewStateOrNew().taskAdEditDescriptionTextFieldState.text,
-                                date = pdformater1.format(pdate),
-                                color = 0
-
+                                date = pdformater1.format(pdate)
                             )
                         )
                         applicationStateManager.emitSuspendAppUiEffect(uiEffect = Navigation.NavigateBack)

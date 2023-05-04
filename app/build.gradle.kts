@@ -123,6 +123,11 @@ dependencies {
     //lottie animation
     implementation(Lottie.lottie)
 
+    //retrofit
+    implementation(Retrofit.retrofit)
+    implementation(Retrofit.gson)
+    implementation(Retrofit.gson_convertor)
+
     //components module
     implementation(project(Modules.components))
 

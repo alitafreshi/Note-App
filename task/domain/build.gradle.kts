@@ -22,5 +22,10 @@ dependencies {
 
     implementation(project(Modules.roomDb))
 
+    //retrofit
+    implementation(Retrofit.retrofit)
+    implementation(Retrofit.gson)
+    implementation(Retrofit.gson_convertor)
+
 
 }

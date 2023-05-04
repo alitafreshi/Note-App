@@ -10,8 +10,7 @@ data class Note(
     val title: String,
     //TODO Later on we should save the whole text object with it styles like samsung notes
     val description: String,
-    val date: String,
-    val color: Int
+    val date: String
 )
 
 class InvalidNoteException(message: String) : Exception(message)

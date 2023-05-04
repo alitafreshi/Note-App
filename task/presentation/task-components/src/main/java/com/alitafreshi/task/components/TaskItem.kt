@@ -33,7 +33,6 @@ fun TaskItem(
     descriptionTextStyle: TextStyle = MaterialTheme.typography.subtitle1,
     noteDate: String,
     dateTextStyle: TextStyle = MaterialTheme.typography.caption,
-    noteColor: Int,
     isInSelectionMode: Boolean = false,
     isSelected: Boolean = false,
     onItemClick: () -> Unit,
