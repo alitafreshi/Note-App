@@ -1,6 +1,6 @@
 package com.alitafreshi.noteapp.di
 
-import com.alitafreshi.data.datasource.local.room.repository.NoteRepositoryImpl
+import com.alitafreshi.data.datasource.local.repository.NoteRepositoryImpl
 import com.alitafreshi.domain.repository.NoteRepository
 import com.alitafreshi.room.NoteAppDatabase
 import dagger.Module

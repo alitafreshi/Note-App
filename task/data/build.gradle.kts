@@ -12,14 +12,19 @@ dependencies {
     //kotlinCoroutines
     implementation(Kotlin.kotlinCoroutines)
 
+    //retrofit
+    implementation(Retrofit.retrofit)
+    implementation(Retrofit.gson)
+    implementation(Retrofit.gson_convertor)
+
+
     //task domain - module
     implementation(project(Modules.taskDomain))
 
     //room - db - module
     implementation(project(Modules.roomDb))
 
-    //retrofit
-    implementation(Retrofit.retrofit)
-    implementation(Retrofit.gson)
-    implementation(Retrofit.gson_convertor)
+    //core domain module
+    implementation(project(Modules.domain))
+
 }

@@ -17,15 +17,18 @@ dependencies {
     //room
     implementation(Room.roomKtxModules)
 
-    //domain module
-    implementation(project(Modules.domain))
-
-    implementation(project(Modules.roomDb))
-
     //retrofit
     implementation(Retrofit.retrofit)
     implementation(Retrofit.gson)
     implementation(Retrofit.gson_convertor)
 
+    //domain module
+    implementation(project(Modules.domain))
+
+    //roomDb Module
+    implementation(project(Modules.roomDb))
+
+    //constance module
+    implementation(project(Modules.constance))
 
 }

@@ -1,4 +1,4 @@
-package com.alitafreshi.data.datasource.local.room.repository
+package com.alitafreshi.data.datasource.local.repository
 
 
 import com.alitafreshi.domain.repository.NoteRepository
