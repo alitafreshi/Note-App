@@ -6,14 +6,15 @@ import androidx.lifecycle.viewModelScope
 import com.alitafreshi.components.util.app.BaseViewModel
 import com.alitafreshi.components.util.app.Navigation
 import com.alitafreshi.domain.DataState
+import com.alitafreshi.domain.LoadingState
 import com.alitafreshi.domain.interactors.DeleteNoteUseCase
 import com.alitafreshi.domain.interactors.GetNotesUseCase
 import com.alitafreshi.domain.interactors.RestoreDeletedNotesUseCase
-import com.alitafreshi.state_manager.AppUiEffects
 import com.alitafreshi.state_manager.AppStateManager
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,11 +32,80 @@ class TaskListViewModel @Inject constructor(
 
     override fun initNewViewState(): TaskListViewState = TaskListViewState()
 
+
     override fun onTriggerEvent(event: TaskListEvents) {
         when (event) {
 
             is TaskListEvents.RetrieveNoteList -> {
-                getNotesUseCase().onEach { dataState ->
+                viewModelScope.launch {
+
+                    val remoteResponseFlow = flow {
+                        delay(2000L)
+                        emit(DataState.Loading(loadingState = LoadingState.Loading))
+                        delay(1000L)
+                        emit(DataState.Loading(loadingState = LoadingState.Idle))
+                        delay(3000L)
+                        emit(
+                            DataState.Data(
+                                data = listOf(
+                                    ("RemoteNote1"),
+                                    ("RemoteNote2"),
+                                    ("RemoteNote3"),
+                                    ("RemoteNote4"),
+                                    ("RemoteNote5"),
+                                    ("RemoteNote6")
+                                )
+                            )
+                        )
+
+                    }
+
+                    val localStorageFlow = flow {
+                        emit(DataState.Loading(loadingState = LoadingState.Loading))
+                        delay(1000L)
+                        emit(DataState.Loading(loadingState = LoadingState.Idle))
+                        emit(
+                            DataState.Data(
+                                listOf(
+                                    ("localNote1"),
+                                    ("localNote2"),
+                                    ("localNote3"),
+                                    ("localNote4"),
+                                    ("localNote5"),
+                                    ("localNote6")
+                                )
+                            )
+
+                        )
+                    }
+
+                    localStorageFlow.flatMapConcat { localDataState ->
+
+                        remoteResponseFlow.transform { remoteDataState ->
+
+                            when {
+                                remoteDataState is DataState.Error || localDataState is DataState.Error -> {
+                                    emit(remoteDataState)
+                                }
+
+                                remoteDataState is DataState.Data && localDataState is DataState.Data -> {
+                                    emit(DataState.Loading(loadingState = LoadingState.Idle))
+                                    val combinedData =
+                                        (remoteDataState as? DataState.Data)?.data ?: emptyList()
+
+                                    emit(
+                                        DataState.Data(data = localDataState.data?.plus(combinedData))
+                                    )
+                                }
+                            }
+                        }
+                    }.onStart { emit(DataState.Loading(loadingState = LoadingState.Loading)) }
+                        .distinctUntilChanged().collect { value ->
+                            Log.d("remoteResponseFlow", "dataState is $value")
+                        }
+                }
+
+                /*getNotesUseCase().onEach { dataState ->
                     when (dataState) {
                         is DataState.Data -> dataState.data?.let { noteList ->
                             setViewState(viewState = getCurrentViewStateOrNew().copy(taskList = noteList))
@@ -52,7 +122,7 @@ class TaskListViewModel @Inject constructor(
                             )
                         )
                     }
-                }.launchIn(viewModelScope)
+                }.launchIn(viewModelScope)*/
             }
 
             is TaskListEvents.DeleteNotes -> handleSuspendEvent {
