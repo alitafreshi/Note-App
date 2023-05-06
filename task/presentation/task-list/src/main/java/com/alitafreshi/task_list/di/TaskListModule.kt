@@ -1,7 +1,9 @@
 package com.alitafreshi.task_list.di
 
 import com.alitafreshi.domain.interactors.*
+import com.alitafreshi.domain.interactors.remote.GetRemoteNotesByUserId
 import com.alitafreshi.domain.repository.NoteRepository
+import com.alitafreshi.domain.repository.remote.NoteRemoteRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,10 +15,22 @@ import dagger.hilt.android.scopes.ViewModelScoped
 @InstallIn(ViewModelComponent::class)
 object TaskListModule {
 
+
     @ViewModelScoped
     @Provides
-    fun provideGetNoteUseCase(noteRepository: NoteRepository): GetNotesUseCase =
-        GetNotesUseCase(noteRepository = noteRepository)
+    fun provideGetNoteByUserId(noteRemoteRepository: NoteRemoteRepository): GetRemoteNotesByUserId =
+        GetRemoteNotesByUserId(noteRemoteRepository = noteRemoteRepository)
+
+    @ViewModelScoped
+    @Provides
+    fun provideGetNoteUseCase(
+        noteRepository: NoteRepository,
+        getRemoteNotesByUserId: GetRemoteNotesByUserId
+    ): GetNotesUseCase =
+        GetNotesUseCase(
+            noteRepository = noteRepository,
+            getRemoteNotesByUserId = getRemoteNotesByUserId
+        )
 
 
     @ViewModelScoped
