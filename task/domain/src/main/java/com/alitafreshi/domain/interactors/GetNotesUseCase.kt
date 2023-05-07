@@ -15,51 +15,60 @@ class GetNotesUseCase(
     private val getRemoteNotesByUserId: GetRemoteNotesByUserId
 ) {
 
-
     @OptIn(FlowPreview::class)
-    suspend fun invoke(noteOrder: NoteOrder = NoteOrder.Date(orderType = OrderType.Descending)): Flow<DataState<List<Note>>> {
-        val remoteNotesFlow = getRemoteNotesByUserId()
-        val localNotesFlow = noteRepository.getNotes()
+    suspend operator fun invoke(noteOrder: NoteOrder = NoteOrder.Date(orderType = OrderType.Descending)): Flow<DataState<List<Note>>> =
+        noteRepository.getNotes().flatMapConcat { localNoteList ->
+            getRemoteNotesByUserId().transform { remoteDataState ->
+                when {
 
-        return remoteNotesFlow.flatMapConcat { remoteNotesState ->
-            localNotesFlow.transform { localNotesState ->
-                when (remoteNotesState) {
-                    is DataState.Error -> {
-                        emit(DataState.Error(remoteNotesState.errorMessage))
+                    remoteDataState is DataState.Error -> {
+                        emit(remoteDataState)
                     }
-                    is DataState.Loading -> {
-                        emit(DataState.Loading(remoteNotesState.loadingState))
-                    }
-                    is DataState.Data -> {
-                        val noteList =
-                            remoteNotesState.data.orEmpty() + localNotesState
 
-                        emit(DataState.Data(data = noteList))
-                        emit(DataState.Loading(loadingState = LoadingState.Idle))
+                    remoteDataState is DataState.Data -> {
+                        remoteDataState.data?.let { remoteNoteList ->
+                            val insertedNoteIds = noteRepository.insertNoteList(remoteNoteList)
+                            if (insertedNoteIds.isNotEmpty())
+                                emit(DataState.Data(localNoteList))
+                        }
+
                     }
+
+                    localNoteList.isNotEmpty() -> {
+                        emit(DataState.Data(localNoteList))
+                    }
+
                 }
             }
         }.onStart { emit(DataState.Loading(loadingState = LoadingState.Loading)) }
-    }
+            .distinctUntilChanged()
 
 
-    /*suspend operator fun invoke(noteOrder: NoteOrder = NoteOrder.Date(orderType = OrderType.Descending)): Flow<DataState<List<Note>>> =
-        noteRepository.getNotes()
-            .combine(noteRemoteRepository.getNotesByUserId().map { baseResponse ->
-                baseResponse.response.map { noteDto ->
-                    Note(
-                        id = noteDto.noteId,
-                        title = noteDto.title,
-                        description = noteDto.description,
-                        date = noteDto.date
-                    )
-                }
-            }) { localNotes, remoteNotes ->
-                localNotes + remoteNotes
-            }.transform { noteList ->
-                emit(DataState.Data(data = noteList))
-                emit(DataState.Loading(loadingState = LoadingState.Idle))
-            }.onStart { emit(DataState.Loading(loadingState = LoadingState.Loading)) }*/
+    /*   @OptIn(FlowPreview::class)
+       suspend fun invoke(noteOrder: NoteOrder = NoteOrder.Date(orderType = OrderType.Descending)): Flow<DataState<List<Note>>> {
+           val remoteNotesFlow = getRemoteNotesByUserId()
+           val localNotesFlow = noteRepository.getNotes()
+
+           return remoteNotesFlow.flatMapConcat { remoteNotesState ->
+               localNotesFlow.transform { localNotesState ->
+                   when (remoteNotesState) {
+                       is DataState.Error -> {
+                           emit(DataState.Error(remoteNotesState.errorMessage))
+                       }
+                       is DataState.Loading -> {
+                           emit(DataState.Loading(remoteNotesState.loadingState))
+                       }
+                       is DataState.Data -> {
+                           val noteList =
+                               remoteNotesState.data.orEmpty() + localNotesState
+
+                           emit(DataState.Data(data = noteList))
+                           emit(DataState.Loading(loadingState = LoadingState.Idle))
+                       }
+                   }
+               }
+           }.onStart { emit(DataState.Loading(loadingState = LoadingState.Loading)) }
+       }*/
 
 
 }

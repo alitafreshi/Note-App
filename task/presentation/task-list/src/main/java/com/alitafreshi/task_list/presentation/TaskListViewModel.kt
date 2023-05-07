@@ -10,7 +10,10 @@ import com.alitafreshi.domain.LoadingState
 import com.alitafreshi.domain.interactors.DeleteNoteUseCase
 import com.alitafreshi.domain.interactors.GetNotesUseCase
 import com.alitafreshi.domain.interactors.RestoreDeletedNotesUseCase
+import com.alitafreshi.room_db.task.model.InvalidNoteException
+import com.alitafreshi.room_db.task.model.Note
 import com.alitafreshi.state_manager.AppStateManager
+import com.alitafreshi.task_list.presentation.util.handleAndCatchGeneralStates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
@@ -37,74 +40,13 @@ class TaskListViewModel @Inject constructor(
         when (event) {
 
             is TaskListEvents.RetrieveNoteList -> {
-                viewModelScope.launch {
+                handleSuspendEvent {
+                    getNotesUseCase().handleAndCatchGeneralStates(stateManager = applicationStateManager)
+                        .onEach { noteList ->
+                            Log.d("RetrieveNoteList", "NoteList is $noteList")
 
-                    val remoteResponseFlow = flow {
-                        delay(2000L)
-                        emit(DataState.Loading(loadingState = LoadingState.Loading))
-                        delay(1000L)
-                        emit(DataState.Loading(loadingState = LoadingState.Idle))
-                        delay(3000L)
-                        emit(
-                            DataState.Data(
-                                data = listOf(
-                                    ("RemoteNote1"),
-                                    ("RemoteNote2"),
-                                    ("RemoteNote3"),
-                                    ("RemoteNote4"),
-                                    ("RemoteNote5"),
-                                    ("RemoteNote6")
-                                )
-                            )
-                        )
-
-                    }
-
-                    val localStorageFlow = flow {
-                        emit(DataState.Loading(loadingState = LoadingState.Loading))
-                        delay(1000L)
-                        emit(DataState.Loading(loadingState = LoadingState.Idle))
-                        emit(
-                            DataState.Data(
-                                listOf(
-                                    ("localNote1"),
-                                    ("localNote2"),
-                                    ("localNote3"),
-                                    ("localNote4"),
-                                    ("localNote5"),
-                                    ("localNote6")
-                                )
-                            )
-
-                        )
-                    }
-
-                    localStorageFlow.flatMapConcat { localDataState ->
-
-                        remoteResponseFlow.transform { remoteDataState ->
-
-                            when {
-                                remoteDataState is DataState.Error || localDataState is DataState.Error -> {
-                                    emit(remoteDataState)
-                                }
-
-                                remoteDataState is DataState.Data && localDataState is DataState.Data -> {
-                                    emit(DataState.Loading(loadingState = LoadingState.Idle))
-                                    val combinedData =
-                                        (remoteDataState as? DataState.Data)?.data ?: emptyList()
-
-                                    emit(
-                                        DataState.Data(data = localDataState.data?.plus(combinedData))
-                                    )
-                                }
-                            }
-                        }
-                    }.onStart { emit(DataState.Loading(loadingState = LoadingState.Loading)) }
-                        .distinctUntilChanged().collect { value ->
-                            Log.d("remoteResponseFlow", "dataState is $value")
-                        }
+                        }.launchIn(viewModelScope)
                 }
-
                 /*getNotesUseCase().onEach { dataState ->
                     when (dataState) {
                         is DataState.Data -> dataState.data?.let { noteList ->
@@ -161,6 +103,86 @@ class TaskListViewModel @Inject constructor(
                     deepLink = Uri.parse("https://tafreshiali.ir/tasks/${event.noteId}")
                 )
             )
+        }
+    }
+
+    private fun flowSample() {
+        viewModelScope.launch {
+
+            val remoteResponseFlow = flow<DataState<List<Note>>> {
+                delay(1000L)
+                emit(DataState.Loading(loadingState = LoadingState.Loading))
+                delay(500L)
+                emit(DataState.Loading(loadingState = LoadingState.Idle))
+                delay(500L)
+                throw InvalidNoteException("SomeThing Went Wrong")
+
+                /*     emit(
+                           DataState.Data(
+                               data = listOf(
+                                   ("RemoteNote1"),
+                                   ("RemoteNote2"),
+                                   ("RemoteNote3"),
+                                   ("RemoteNote4"),
+                                   ("RemoteNote5"),
+                                   ("RemoteNote6")
+                               )
+                           )
+                       )*/
+
+            }
+
+            val localStorageFlow = flow {
+                emit(DataState.Loading(loadingState = LoadingState.Loading))
+                delay(4000L)
+                emit(DataState.Loading(loadingState = LoadingState.Idle))
+                emit(
+                    DataState.Data(
+                        listOf(
+                            ("localNote1"),
+                            ("localNote2"),
+                            ("localNote3"),
+                            ("localNote4"),
+                            ("localNote5"),
+                            ("localNote6")
+                        )
+                    )
+
+                )
+            }
+
+            localStorageFlow.flatMapConcat { localDataState ->
+
+                remoteResponseFlow.transform { remoteDataState ->
+
+                    when {
+                        remoteDataState is DataState.Error || localDataState is DataState.Error -> {
+                            emit(remoteDataState)
+                        }
+
+                        remoteDataState is DataState.Data && localDataState is DataState.Data -> {
+                            emit(DataState.Loading(loadingState = LoadingState.Idle))
+                            val combinedData =
+                                (remoteDataState as? DataState.Data)?.data ?: emptyList()
+
+                            emit(
+                                DataState.Data(data = localDataState.data?.plus(combinedData))
+                            )
+                        }
+                    }
+                }
+            }.onStart { emit(DataState.Loading(loadingState = LoadingState.Loading)) }
+                .distinctUntilChanged()
+                .catch {
+                    emit(
+                        DataState.Error(
+                            errorMessage = it.localizedMessage ?: "Unknown error occurred"
+                        )
+                    )
+                }
+                .collect { value ->
+                    Log.d("finalResultFlow", "dataState is $value")
+                }
         }
     }
 }

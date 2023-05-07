@@ -1,6 +1,7 @@
 package com.alitafreshi.noteapp.presentation.app
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -87,13 +88,20 @@ class MainActivity : AppCompatActivity() {
 
                                 is Navigation.NavigateWithNavOptions -> TODO()
 
-                                is AppUiEffects.ShowSnackBar -> scaffoldState.snackbarHostState.showSnackbar(
-                                    message = appUiEffects.message
+                                is AppUiEffects.ShowSnackBar -> {
+                                    scaffoldState.snackbarHostState.showSnackbar(
+                                        message = appUiEffects.message
+                                    )
+                                    Log.d("MESSAGE", appUiEffects.message)
+                                }
+
+                                is AppUiEffects.UpdateErrorState -> scaffoldState.snackbarHostState.showSnackbar(
+                                    message = "error happened"
                                 )
 
-                                is AppUiEffects.UpdateErrorState -> TODO()
-
-                                is AppUiEffects.UpdateLoadingState -> TODO()
+                                is AppUiEffects.UpdateLoadingState -> scaffoldState.snackbarHostState.showSnackbar(
+                                    message = if (appUiEffects.state) "in loading" else "IDLE"
+                                )
                             }
 
                         }.launchIn(scope = this)
