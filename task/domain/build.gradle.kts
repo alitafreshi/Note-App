@@ -31,4 +31,8 @@ dependencies {
     //constance module
     implementation(project(Modules.constance))
 
+    implementation("androidx.annotation:annotation-jvm:1.6.0")
+
+    implementation(project(Modules.data))
+
 }

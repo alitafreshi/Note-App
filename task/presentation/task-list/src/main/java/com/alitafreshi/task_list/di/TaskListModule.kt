@@ -1,5 +1,6 @@
 package com.alitafreshi.task_list.di
 
+import com.alitafreshi.data.qualifier.IoDispatcher
 import com.alitafreshi.domain.interactors.*
 import com.alitafreshi.domain.interactors.remote.GetRemoteNotesByUserId
 import com.alitafreshi.domain.repository.NoteRepository
@@ -9,6 +10,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
+import kotlinx.coroutines.CoroutineDispatcher
 
 
 @Module
@@ -18,8 +20,8 @@ object TaskListModule {
 
     @ViewModelScoped
     @Provides
-    fun provideGetNoteByUserId(noteRemoteRepository: NoteRemoteRepository): GetRemoteNotesByUserId =
-        GetRemoteNotesByUserId(noteRemoteRepository = noteRemoteRepository)
+    fun provideGetNoteByUserId(noteRemoteRepository: NoteRemoteRepository,@IoDispatcher ioDispatcher: CoroutineDispatcher): GetRemoteNotesByUserId =
+        GetRemoteNotesByUserId(noteRemoteRepository = noteRemoteRepository,ioDispatcher=ioDispatcher)
 
     @ViewModelScoped
     @Provides

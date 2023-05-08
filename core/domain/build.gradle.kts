@@ -13,4 +13,5 @@ dependencies{
     implementation(Retrofit.retrofit)
     implementation(Retrofit.gson)
     implementation(Retrofit.gson_convertor)
+    implementation("androidx.annotation:annotation-jvm:+")
 }

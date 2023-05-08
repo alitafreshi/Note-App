@@ -27,4 +27,7 @@ dependencies {
     //core domain module
     implementation(project(Modules.domain))
 
+    implementation("androidx.annotation:annotation-jvm:+")
+
+
 }

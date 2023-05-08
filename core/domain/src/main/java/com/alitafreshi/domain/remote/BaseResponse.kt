@@ -1,13 +1,15 @@
 package com.alitafreshi.domain.remote
 
+import androidx.annotation.Keep
+
 import com.google.gson.annotations.SerializedName
 
-data class BaseResponse<T>(
+@Keep
+open class BaseResponse<T>(
 
     @SerializedName("response")
     val response: T,
-
     @SerializedName("status")
-    val status: BaseResponseStatus
+    val status: BaseResponseStatus?
 
 )

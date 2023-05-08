@@ -114,4 +114,6 @@ dependencies {
 
     //room - db - module
     implementation(project(Modules.roomDb))
+
+    implementation(project(Modules.data))
 }

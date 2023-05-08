@@ -160,5 +160,7 @@ dependencies {
 
     //room - db - module
     implementation(project(Modules.roomDb))
+    implementation("androidx.annotation:annotation-jvm:+")
+
 
 }

@@ -47,24 +47,6 @@ class TaskListViewModel @Inject constructor(
 
                         }.launchIn(viewModelScope)
                 }
-                /*getNotesUseCase().onEach { dataState ->
-                    when (dataState) {
-                        is DataState.Data -> dataState.data?.let { noteList ->
-                            setViewState(viewState = getCurrentViewStateOrNew().copy(taskList = noteList))
-                        }
-
-                        is DataState.Error -> Log.d(
-                            "TaskListViewModel",
-                            dataState.errorMessage
-                        )
-
-                        is DataState.Loading -> setViewState(
-                            viewState = getCurrentViewStateOrNew().copy(
-                                loadingState = dataState.loadingState
-                            )
-                        )
-                    }
-                }.launchIn(viewModelScope)*/
             }
 
             is TaskListEvents.DeleteNotes -> handleSuspendEvent {
