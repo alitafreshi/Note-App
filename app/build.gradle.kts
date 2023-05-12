@@ -123,10 +123,12 @@ dependencies {
     //lottie animation
     implementation(Lottie.lottie)
 
-    //retrofit
-    implementation(Retrofit.retrofit)
-    implementation(Retrofit.gson)
-    implementation(Retrofit.gson_convertor)
+    //ktor client
+    implementation(Ktor.ktor_client_core)
+    implementation(Ktor.ktor_client_okHttp)
+    implementation(Ktor.ktor_client_logging)
+    implementation(Ktor.ktor_client_gson)
+    implementation(Ktor.ktor_client_content_negotiation)
 
     //components module
     implementation(project(Modules.components))

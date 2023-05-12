@@ -10,8 +10,6 @@ java {
 
 dependencies{
     //retrofit
-    implementation(Retrofit.retrofit)
-    implementation(Retrofit.gson)
-    implementation(Retrofit.gson_convertor)
+    implementation(Ktor.ktor_client_gson)
     implementation("androidx.annotation:annotation-jvm:+")
 }

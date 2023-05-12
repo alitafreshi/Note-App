@@ -1,16 +1,16 @@
 package com.alitafreshi.noteapp.di
 
 import com.alitafreshi.constance.Constance.APP_BASE_URL
-import com.alitafreshi.domain.remote.BaseResponse
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import io.ktor.client.*
+import io.ktor.client.engine.okhttp.*
+import io.ktor.client.plugins.*
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.plugins.logging.*
+import io.ktor.serialization.gson.*
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -19,25 +19,35 @@ object RemoteModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder().build()
+    fun provideKtorClient(): HttpClient = HttpClient(OkHttp) {
+        expectSuccess = true
 
-    @Provides
-    @Singleton
-    fun provideGson(): Gson = Gson()
+        install(Logging) {
+            logger = Logger.ANDROID
+            level = LogLevel.ALL
+        }
 
-    @Provides
-    @Singleton
-    fun provideGsonConverterFactory(gson: Gson): GsonConverterFactory =
-        GsonConverterFactory.create(gson)
+        install(ContentNegotiation) {
+            gson(block = {
+                setPrettyPrinting()
 
-    @Singleton
-    @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient,gsonConverterFactory: GsonConverterFactory): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(APP_BASE_URL)
-            .client(okHttpClient)
-            .addConverterFactory(gsonConverterFactory)
-            .build()
+            })
+        }
+
+        install(HttpTimeout) {
+            requestTimeoutMillis = 2000
+        }
+
+        defaultRequest {
+            url(APP_BASE_URL)
+
+        }
+
+        engine {
+            config {
+                followRedirects(true)
+            }
+        }
     }
-
 }
+

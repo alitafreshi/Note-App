@@ -17,10 +17,9 @@ dependencies {
     //room
     implementation(Room.roomKtxModules)
 
-    //retrofit
-    implementation(Retrofit.retrofit)
-    implementation(Retrofit.gson)
-    implementation(Retrofit.gson_convertor)
+    //ktor client
+    implementation(Ktor.ktor_client_core)
+    implementation(Ktor.ktor_client_gson)
 
     //domain module
     implementation(project(Modules.domain))

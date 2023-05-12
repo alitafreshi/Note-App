@@ -12,10 +12,10 @@ dependencies {
     //kotlinCoroutines
     implementation(Kotlin.kotlinCoroutines)
 
-    //retrofit
-    implementation(Retrofit.retrofit)
-    implementation(Retrofit.gson)
-    implementation(Retrofit.gson_convertor)
+    //ktor client
+    implementation(Ktor.ktor_client_core)
+    implementation(Ktor.ktor_client_gson)
+
 
 
     //task domain - module
@@ -26,6 +26,9 @@ dependencies {
 
     //core domain module
     implementation(project(Modules.domain))
+
+    //constance module
+    implementation(project(Modules.constance))
 
     implementation("androidx.annotation:annotation-jvm:+")
 
