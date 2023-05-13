@@ -7,6 +7,7 @@ import com.alitafreshi.domain.remote.BaseResponse
 import com.alitafreshi.domain.repository.remote.NoteRemoteRepository
 import com.alitafreshi.room_db.task.model.Note
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -19,6 +20,7 @@ class GetRemoteNotesByUserId(
 
     suspend operator fun invoke(): Flow<DataState<List<Note>>> =
         noteRemoteRepository.getNotesByUserId().handleRequestState().map { dataState ->
+            delay(5000)
             when (dataState) {
                 is DataState.Error -> {
                     DataState.Error(dataState.errorMessage)
