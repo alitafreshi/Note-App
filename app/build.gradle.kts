@@ -129,6 +129,7 @@ dependencies {
     implementation(Ktor.ktor_client_logging)
     implementation(Ktor.ktor_client_gson)
     implementation(Ktor.ktor_client_content_negotiation)
+    implementation(Ktor.ktor_client_custom_logging)
 
     //components module
     implementation(project(Modules.components))

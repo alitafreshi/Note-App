@@ -43,7 +43,8 @@ class TaskListViewModel @Inject constructor(
                 handleSuspendEvent {
                     getNotesUseCase().handleAndCatchGeneralStates(stateManager = applicationStateManager)
                         .onEach { noteList ->
-                            Log.d("RetrieveNoteList", "NoteList is $noteList")
+                            //Log.d("RetrieveNoteList", "NoteList is $noteList")
+                            setViewState(viewState = getCurrentViewStateOrNew().copy(taskList = noteList))
 
                         }.launchIn(viewModelScope)
                 }

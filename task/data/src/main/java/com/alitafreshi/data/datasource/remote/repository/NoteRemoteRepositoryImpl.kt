@@ -1,12 +1,12 @@
 package com.alitafreshi.data.datasource.remote.repository
 
 import com.alitafreshi.constance.Constance.APP_BASE_URL
+import com.alitafreshi.constance.Constance.NOTE_FEATURE_BASE_URL
 import com.alitafreshi.domain.model.NoteDto
 import com.alitafreshi.domain.remote.BaseResponse
 import com.alitafreshi.domain.repository.remote.NoteRemoteRepository
 import io.ktor.client.*
 import io.ktor.client.request.*
-import io.ktor.client.statement.*
 import io.ktor.http.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -15,47 +15,19 @@ import kotlinx.coroutines.flow.flow
 class NoteRemoteRepositoryImpl(private val httpClient: HttpClient) :
     NoteRemoteRepository {
 
-    /* override suspend fun getNotesByUserId(userId: Long): Flow<Call<BaseResponse<List<NoteDto>>>> =
-        flow {
-            emit(noteRemoteService.getNotesByUserId())
-        }
-
-
-    override suspend fun insertNewNote(note: NoteDto): Flow<Response<BaseResponse<NoteDto>>> =
-        flow {
-            emit(noteRemoteService.insertNewNote(note = note))
-        }
-
-
-    override suspend fun updateNote(
-        noteId: Long,
-        note: NoteDto
-    ): Flow<Response<BaseResponse<NoteDto>>> = flow {
-        emit(noteRemoteService.updateNote(noteId = noteId, note = note))
-    }
-
-
-    override suspend fun removeNote(noteId: Long): Flow<Response<BaseResponse<String>>> = flow {
-        emit(
-            noteRemoteService.removeNote(noteId = noteId)
-        )
-    }*/
-
 
     override suspend fun getNotesByUserId(userId: Long): Flow<BaseResponse<List<NoteDto>>> =
         flow {
-            val x = sendRequest(httpClient=httpClient, requestConfig = {
-                method= HttpMethod.Get
+            emit(httpClient.prepareGet {
                 url {
-                    appendEncodedPathSegments(APP_BASE_URL,"noteList","$userId")
+                    appendEncodedPathSegments(NOTE_FEATURE_BASE_URL, "noteList", "$userId")
 
                 }
-            }).body<BaseResponse<List<NoteDto>>>()
-            emit(x)
+            }.body())
         }
 
 
-    override suspend fun insertNewNote(note: NoteDto): Flow<HttpResponse<BaseResponse<NoteDto>>> {
+    /*override suspend fun insertNewNote(note: NoteDto): Flow<HttpResponse<BaseResponse<NoteDto>>> {
         TODO("Not yet implemented")
     }
 
@@ -68,11 +40,6 @@ class NoteRemoteRepositoryImpl(private val httpClient: HttpClient) :
 
     override suspend fun removeNote(noteId: Long): Flow<HttpResponse<BaseResponse<String>>> {
 
-    }
-
-    suspend fun sendRequest(
-        httpClient: HttpClient,
-        requestConfig: HttpRequestBuilder.() -> Unit
-    ): HttpStatement = httpClient.prepareRequest(block = requestConfig)
+    }*/
 
 }

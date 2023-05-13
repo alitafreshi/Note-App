@@ -6,10 +6,8 @@ import com.google.gson.annotations.SerializedName
 
 @Keep
 open class BaseResponse<T>(
-
     @SerializedName("response")
     val response: T,
     @SerializedName("status")
-    val status: BaseResponseStatus?
-
+    val status: BaseResponseStatus
 )
