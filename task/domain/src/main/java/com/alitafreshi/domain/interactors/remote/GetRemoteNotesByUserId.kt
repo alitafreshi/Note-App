@@ -20,7 +20,6 @@ class GetRemoteNotesByUserId(
 
     suspend operator fun invoke(): Flow<DataState<List<Note>>> =
         noteRemoteRepository.getNotesByUserId().handleRequestState().map { dataState ->
-            delay(5000)
             when (dataState) {
                 is DataState.Error -> {
                     DataState.Error(dataState.errorMessage)

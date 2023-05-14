@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 
 class NoteRepositoryImpl(private val noteDao: NoteDao) : NoteRepository {
 
-    override fun getNotes(): Flow<List<Note>> = noteDao.getAllNotes().distinctUntilChanged()
+    override fun getNotes(): List<Note> = noteDao.getAllNotes()
 
     override suspend fun getNoteById(id: Int): Note? = noteDao.getNoteById(id = id)
 

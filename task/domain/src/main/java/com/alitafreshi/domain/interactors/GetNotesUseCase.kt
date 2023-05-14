@@ -18,33 +18,19 @@ class GetNotesUseCase(
 
     @OptIn(FlowPreview::class)
     suspend operator fun invoke(noteOrder: NoteOrder = NoteOrder.Date(orderType = OrderType.Descending)): Flow<DataState<List<Note>>> =
+        flow {
 
-        noteRepository.getNotes()
-            .combine(getRemoteNotesByUserId()) { localNoteList, remoteDataState ->
+            val localNotes = noteRepository.getNotes()
 
-                when {
-                    remoteDataState is DataState.Error -> {
-                        remoteDataState
-                    }
+            emit(DataState.Data(data = localNotes))
 
-                    remoteDataState is DataState.Data -> {
-                        remoteDataState.data?.let { remoteNoteList ->
-                            val insertedNoteIds = noteRepository.insertNoteList(remoteNoteList)
-                            if (insertedNoteIds.isNotEmpty()) {
-                                println("Emitted Remote Notes Second")
-                                DataState.Data(remoteNoteList)
-                            } else {
-                                DataState.Data(localNoteList)
-                            }
-                        } ?: DataState.Data(localNoteList)
-                    }
-                    else -> {
-                        println("Emitted Local Notes First")
-                        DataState.Data(localNoteList)
-                    }
-                }
-            }.onStart { emit(DataState.Loading(loadingState = LoadingState.Loading)) }
-            .distinctUntilChanged()
+            getRemoteNotesByUserId().collect {
+
+            }
+
+
+
+        }.onStart { emit(DataState.Loading(loadingState = LoadingState.Loading)) }
 
 
 /*    @OptIn(FlowPreview::class)
