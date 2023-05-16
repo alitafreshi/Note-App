@@ -27,6 +27,8 @@ dependencies {
     //core domain module
     implementation(project(Modules.domain))
 
+    implementation(project(Modules.data))
+
     //constance module
     implementation(project(Modules.constance))
 
