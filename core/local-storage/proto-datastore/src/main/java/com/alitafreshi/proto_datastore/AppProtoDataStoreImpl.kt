@@ -1,13 +1,11 @@
 package com.alitafreshi.proto_datastore
 
+
 import androidx.datastore.core.DataStore
 import com.alitafreshi.data.qualifier.IoDispatcher
-import com.alitafreshi.domain.DataState
-import com.alitafreshi.domain.LoadingState
-
-
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 
 class AppProtoDataStoreImpl<T>(
     private val dataStore: DataStore<T>,
@@ -18,14 +16,5 @@ class AppProtoDataStoreImpl<T>(
         dataStore.updateData { savedObj }
     }
 
-    override fun getValue(): Flow<DataState<T>> =
-        dataStore.data // Use dataStore.data directly as a flow
-            .transform { value ->
-                emit(DataState.Data(value))
-                emit(DataState.Loading(loadingState = LoadingState.Idle))
-            }// Emit DataState.Data and DataState.Loading elements for each value emitted by dataStore.data
-            .flowOn(ioDispatcher)
-            .onStart { emit(DataState.Loading(loadingState = LoadingState.Loading)) } // Emit Loading state when the flow starts
-            .catch { emit(DataState.Error(errorMessage = "Cant Read Value From ProtoDataStore")) } // Catch any exceptions thrown during the flow and emit an error state
-
+    override fun getValue(): Flow<T> = dataStore.data.flowOn(ioDispatcher)
 }

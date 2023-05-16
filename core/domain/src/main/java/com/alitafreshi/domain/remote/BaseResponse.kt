@@ -1,7 +1,6 @@
 package com.alitafreshi.domain.remote
 
 import androidx.annotation.Keep
-
 import com.google.gson.annotations.SerializedName
 
 @Keep
@@ -11,3 +10,5 @@ open class BaseResponse<T>(
     @SerializedName("status")
     val status: BaseResponseStatus
 )
+
+class UnExpectedApiResponseException(status: BaseResponseStatus) : Exception(status.description)

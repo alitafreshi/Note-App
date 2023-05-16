@@ -20,19 +20,22 @@ object TaskListModule {
 
     @ViewModelScoped
     @Provides
-    fun provideGetNoteByUserId(noteRemoteRepository: NoteRemoteRepository,@IoDispatcher ioDispatcher: CoroutineDispatcher): GetRemoteNotesByUserId =
-        GetRemoteNotesByUserId(noteRemoteRepository = noteRemoteRepository,ioDispatcher=ioDispatcher)
+    fun provideGetNoteByUserId(
+        noteRemoteRepository: NoteRemoteRepository,
+        noteRepository: NoteRepository,
+        @IoDispatcher ioDispatcher: CoroutineDispatcher
+    ): GetRemoteNotesByUserId =
+        GetRemoteNotesByUserId(
+            noteRemoteRepository = noteRemoteRepository,
+            noteRepository = noteRepository,
+            ioDispatcher = ioDispatcher
+        )
 
     @ViewModelScoped
     @Provides
     fun provideGetNoteUseCase(
-        noteRepository: NoteRepository,
-        getRemoteNotesByUserId: GetRemoteNotesByUserId
-    ): GetNotesUseCase =
-        GetNotesUseCase(
-            noteRepository = noteRepository,
-            getRemoteNotesByUserId = getRemoteNotesByUserId
-        )
+        noteRepository: NoteRepository
+    ): GetNotesUseCase = GetNotesUseCase(noteRepository = noteRepository)
 
 
     @ViewModelScoped

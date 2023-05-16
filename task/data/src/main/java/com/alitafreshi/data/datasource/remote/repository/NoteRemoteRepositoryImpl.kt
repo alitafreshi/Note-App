@@ -1,6 +1,5 @@
 package com.alitafreshi.data.datasource.remote.repository
 
-import com.alitafreshi.constance.Constance.APP_BASE_URL
 import com.alitafreshi.constance.Constance.NOTE_FEATURE_BASE_URL
 import com.alitafreshi.domain.model.NoteDto
 import com.alitafreshi.domain.remote.BaseResponse
@@ -8,6 +7,7 @@ import com.alitafreshi.domain.repository.remote.NoteRemoteRepository
 import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.http.*
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

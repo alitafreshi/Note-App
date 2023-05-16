@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface NoteDao {
 
     @Query("SELECT * FROM note")
-    fun getAllNotes(): List<Note>
+    fun getAllNotes(): Flow<List<Note>>
 
     @Query("SELECT * FROM note WHERE id = :id")
     suspend fun getNoteById(id: Int): Note?
@@ -20,6 +20,9 @@ interface NoteDao {
     suspend fun insertNewNoteList(notes: List<Note>): List<Long>
 
     @Delete
-    suspend fun deleteNote(notes: List<Note>):Int
+    suspend fun deleteNote(notes: List<Note>): Int
+
+    @Query("DELETE FROM note")
+    suspend fun clearAllNotes()
 
 }

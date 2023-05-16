@@ -1,16 +1,14 @@
 package com.alitafreshi.domain
 
-sealed class DataState<T> {
+sealed interface DataState<out T> {
 
     data class Error<T>(
         val errorMessage: String
-    ) : DataState<T>()
+    ) : DataState<T>
 
     data class Data<T>(
         val data: T? = null
-    ) : DataState<T>()
+    ) : DataState<T>
 
-    data class Loading<T>(
-        val loadingState: LoadingState = LoadingState.Idle
-    ) : DataState<T>()
+    object Loading : DataState<Nothing>
 }
