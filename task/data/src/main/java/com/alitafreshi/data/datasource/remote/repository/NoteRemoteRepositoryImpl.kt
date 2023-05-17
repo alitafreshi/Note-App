@@ -18,6 +18,7 @@ class NoteRemoteRepositoryImpl(private val httpClient: HttpClient) :
 
     override suspend fun getNotesByUserId(userId: Long): Flow<BaseResponse<List<NoteDto>>> =
         flow {
+            delay(5000)
             emit(httpClient.prepareGet {
                 url {
                     appendEncodedPathSegments(NOTE_FEATURE_BASE_URL, "noteList", "$userId")

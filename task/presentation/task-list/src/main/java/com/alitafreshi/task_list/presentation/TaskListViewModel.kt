@@ -38,10 +38,6 @@ class TaskListViewModel @Inject constructor(
 
             is TaskListEvents.RetrieveNoteList -> {
                 handleSuspendEvent {
-                    getRemoteNotesByUserId().launchIn(viewModelScope)
-                }
-
-                handleSuspendEvent {
                     getNotesUseCase().asDataState()
                         .handleAndCatchGeneralStates(stateManager = applicationStateManager)
                         .onEach { noteList ->

@@ -4,6 +4,7 @@ import com.alitafreshi.data.qualifier.IoDispatcher
 import com.alitafreshi.domain.interactors.*
 import com.alitafreshi.domain.interactors.remote.GetRemoteNotesByUserId
 import com.alitafreshi.domain.repository.NoteRepository
+import com.alitafreshi.domain.repository.NoteSynchronizerRepository
 import com.alitafreshi.domain.repository.remote.NoteRemoteRepository
 import dagger.Module
 import dagger.Provides
@@ -34,8 +35,8 @@ object TaskListModule {
     @ViewModelScoped
     @Provides
     fun provideGetNoteUseCase(
-        noteRepository: NoteRepository
-    ): GetNotesUseCase = GetNotesUseCase(noteRepository = noteRepository)
+        noteSynchronizerRepository: NoteSynchronizerRepository
+    ): GetNotesUseCase = GetNotesUseCase(noteSynchronizerRepository = noteSynchronizerRepository)
 
 
     @ViewModelScoped
