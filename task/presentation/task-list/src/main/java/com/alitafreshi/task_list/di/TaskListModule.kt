@@ -3,7 +3,7 @@ package com.alitafreshi.task_list.di
 import com.alitafreshi.data.qualifier.IoDispatcher
 import com.alitafreshi.domain.interactors.*
 import com.alitafreshi.domain.interactors.remote.GetRemoteNotesByUserId
-import com.alitafreshi.domain.repository.NoteRepository
+import com.alitafreshi.domain.repository.local.NoteLocalRepository
 import com.alitafreshi.domain.repository.NoteSynchronizerRepository
 import com.alitafreshi.domain.repository.remote.NoteRemoteRepository
 import dagger.Module
@@ -23,7 +23,7 @@ object TaskListModule {
     @Provides
     fun provideGetNoteByUserId(
         noteRemoteRepository: NoteRemoteRepository,
-        noteRepository: NoteRepository,
+        noteRepository: NoteLocalRepository,
         @IoDispatcher ioDispatcher: CoroutineDispatcher
     ): GetRemoteNotesByUserId =
         GetRemoteNotesByUserId(
@@ -41,11 +41,11 @@ object TaskListModule {
 
     @ViewModelScoped
     @Provides
-    fun provideDeleteNoteUseCase(noteRepository: NoteRepository): DeleteNoteUseCase =
+    fun provideDeleteNoteUseCase(noteRepository: NoteLocalRepository): DeleteNoteUseCase =
         DeleteNoteUseCase(noteRepository = noteRepository)
 
     @ViewModelScoped
     @Provides
-    fun provideRestoreDeletedNotesUseCase(noteRepository: NoteRepository): RestoreDeletedNotesUseCase =
+    fun provideRestoreDeletedNotesUseCase(noteRepository: NoteLocalRepository): RestoreDeletedNotesUseCase =
         RestoreDeletedNotesUseCase(noteRepository = noteRepository)
 }

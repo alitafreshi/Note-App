@@ -1,10 +1,10 @@
 package com.alitafreshi.noteapp.di
 
 import com.alitafreshi.data.datasource.NoteSynchronizerRepositoryImpl
-import com.alitafreshi.data.datasource.local.repository.NoteRepositoryImpl
+import com.alitafreshi.data.datasource.local.repository.NoteLocalRepositoryImpl
 import com.alitafreshi.data.datasource.remote.repository.NoteRemoteRepositoryImpl
 import com.alitafreshi.data.qualifier.IoDispatcher
-import com.alitafreshi.domain.repository.NoteRepository
+import com.alitafreshi.domain.repository.local.NoteLocalRepository
 import com.alitafreshi.domain.repository.NoteSynchronizerRepository
 import com.alitafreshi.domain.repository.remote.NoteRemoteRepository
 import com.alitafreshi.room.NoteAppDatabase
@@ -27,13 +27,13 @@ object TaskRepositoryModule {
 
     @ViewModelScoped
     @Provides
-    fun provideNoteRepository(db: NoteAppDatabase): NoteRepository =
-        NoteRepositoryImpl(noteDao = db.noteDao())
+    fun provideNoteRepository(db: NoteAppDatabase): NoteLocalRepository =
+        NoteLocalRepositoryImpl(noteDao = db.noteDao())
 
     @ViewModelScoped
     @Provides
     fun provideNoteSynchronizerRepository(
-        noteRepository: NoteRepository,
+        noteRepository: NoteLocalRepository,
         noteRemoteRepository: NoteRemoteRepository,
         @IoDispatcher ioDispatcher: CoroutineDispatcher
     ): NoteSynchronizerRepository =

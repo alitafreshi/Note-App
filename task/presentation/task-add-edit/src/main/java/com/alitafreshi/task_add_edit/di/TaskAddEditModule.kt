@@ -2,7 +2,7 @@ package com.alitafreshi.task_add_edit.di
 
 import com.alitafreshi.domain.interactors.GetNoteByIdUseCase
 import com.alitafreshi.domain.interactors.InsertNewNoteUseCase
-import com.alitafreshi.domain.repository.NoteRepository
+import com.alitafreshi.domain.repository.local.NoteLocalRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,13 +16,13 @@ object TaskAddEditModule {
 
     @ViewModelScoped
     @Provides
-    fun provideGetNoteUseCaseById(noteRepository: NoteRepository): GetNoteByIdUseCase =
+    fun provideGetNoteUseCaseById(noteRepository: NoteLocalRepository): GetNoteByIdUseCase =
         GetNoteByIdUseCase(noteRepository = noteRepository)
 
 
     @ViewModelScoped
     @Provides
-    fun provideInsertNewNoteUseCase(noteRepository: NoteRepository): InsertNewNoteUseCase =
+    fun provideInsertNewNoteUseCase(noteRepository: NoteLocalRepository): InsertNewNoteUseCase =
         InsertNewNoteUseCase(noteRepository = noteRepository)
 
 }

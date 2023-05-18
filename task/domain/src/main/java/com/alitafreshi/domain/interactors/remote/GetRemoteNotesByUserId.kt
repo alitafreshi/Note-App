@@ -4,7 +4,7 @@ import com.alitafreshi.data.qualifier.IoDispatcher
 import com.alitafreshi.domain.model.toNoteList
 import com.alitafreshi.domain.remote.BaseResponse
 import com.alitafreshi.domain.remote.UnExpectedApiResponseException
-import com.alitafreshi.domain.repository.NoteRepository
+import com.alitafreshi.domain.repository.local.NoteLocalRepository
 import com.alitafreshi.domain.repository.remote.NoteRemoteRepository
 import com.alitafreshi.room_db.task.model.Note
 import kotlinx.coroutines.CoroutineDispatcher
@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.transform
 
 class GetRemoteNotesByUserId(
     private val noteRemoteRepository: NoteRemoteRepository,
-    private val noteRepository: NoteRepository,
+    private val noteRepository: NoteLocalRepository,
     @IoDispatcher val ioDispatcher: CoroutineDispatcher
 ) {
 
