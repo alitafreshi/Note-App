@@ -19,7 +19,6 @@ import javax.inject.Inject
 @HiltViewModel
 class TaskListViewModel @Inject constructor(
     private val getNotesUseCase: GetNotesUseCase,
-    private val getRemoteNotesByUserId: GetRemoteNotesByUserId,
     private val restoreDeletedNotesUseCase: RestoreDeletedNotesUseCase,
     private val deleteNoteUseCase: DeleteNoteUseCase,
     private val applicationStateManager: AppStateManager

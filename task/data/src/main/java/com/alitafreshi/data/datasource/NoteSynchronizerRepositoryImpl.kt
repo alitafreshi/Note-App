@@ -7,14 +7,9 @@ import com.alitafreshi.domain.repository.NoteRepository
 import com.alitafreshi.domain.repository.NoteSynchronizerRepository
 import com.alitafreshi.domain.repository.remote.NoteRemoteRepository
 import com.alitafreshi.room_db.task.model.Note
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
+import kotlin.coroutines.suspendCoroutine
 
 class NoteSynchronizerRepositoryImpl(
     private val noteRepository: NoteRepository,
@@ -22,17 +17,16 @@ class NoteSynchronizerRepositoryImpl(
     @IoDispatcher val ioDispatcher: CoroutineDispatcher
 ) : NoteSynchronizerRepository {
 
-    override suspend fun getSyncedNoteList(): Flow<List<Note>> =
-       withContext(context = ioDispatcher) {
+    override suspend fun getSyncedNoteList(): Flow<List<Note>> {
 
-            launch {
-                noteRemoteRepository.getNotesByUserId().handleRequestState()
-                    .map { noteList ->
-                        noteRepository.clearAllNotes()
-                        noteRepository.insertNoteList(notes = noteList.toNoteList())
-                    }.flowOn(ioDispatcher).launchIn(this)
-            }
-
-            noteRepository.getNotes()
+    CoroutineScope(ioDispatcher).launch {
+            noteRemoteRepository.getNotesByUserId().handleRequestState()
+                .map { noteList ->
+                    noteRepository.clearAllNotes()
+                    noteRepository.insertNoteList(notes = noteList.toNoteList())
+                }.flowOn(ioDispatcher).launchIn(this)
         }
+
+        return noteRepository.getNotes()
+    }
 }
