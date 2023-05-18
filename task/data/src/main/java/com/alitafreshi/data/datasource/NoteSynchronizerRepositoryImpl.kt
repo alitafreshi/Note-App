@@ -15,17 +15,16 @@ class NoteSynchronizerRepositoryImpl(
     private val noteRemoteRepository: NoteRemoteRepository,
     @IoDispatcher val ioDispatcher: CoroutineDispatcher
 ) : NoteSynchronizerRepository {
+    override suspend fun getSyncedNoteList(): Flow<List<Note>> = flow {
+        val localNotes = noteRepository.getNotes()
 
-    override suspend fun getSyncedNoteList(): Flow<List<Note>> {
+        emit(localNotes)
 
-    CoroutineScope(ioDispatcher).launch {
-            noteRemoteRepository.getNotesByUserId().handleRequestState()
-                .map { noteList ->
-                    noteRepository.clearAllNotes()
-                    noteRepository.insertNoteList(notes = noteList.toNoteList())
-                }.flowOn(ioDispatcher).launchIn(this)
-        }
+        val remoteNotes = noteRemoteRepository.getNotesByUserId().handleRequestState().toNoteList()
+        noteRepository.clearAllNotes()
+        noteRepository.insertNoteList(notes = remoteNotes)
 
-        return noteRepository.getNotes()
-    }
+        emit(localNotes)
+
+    }.flowOn(ioDispatcher)
 }

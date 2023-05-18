@@ -23,12 +23,10 @@ object TaskListModule {
     @Provides
     fun provideGetNoteByUserId(
         noteRemoteRepository: NoteRemoteRepository,
-        noteRepository: NoteLocalRepository,
         @IoDispatcher ioDispatcher: CoroutineDispatcher
     ): GetRemoteNotesByUserId =
         GetRemoteNotesByUserId(
             noteRemoteRepository = noteRemoteRepository,
-            noteRepository = noteRepository,
             ioDispatcher = ioDispatcher
         )
 
