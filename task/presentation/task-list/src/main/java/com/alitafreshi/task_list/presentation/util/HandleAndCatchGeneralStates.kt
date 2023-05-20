@@ -6,7 +6,7 @@ import com.alitafreshi.state_manager.AppUiEffects
 import kotlinx.coroutines.flow.*
 
 /** using for the logics that needs to be handel different states in activity / application level */
-suspend fun <T> Flow<DataState<T>>.handleAndCatchGeneralStates(
+fun <T> Flow<DataState<T>>.handleAndCatchGeneralStates(
     stateManager: AppStateManager
 ): Flow<T> = transform { dataState ->
 

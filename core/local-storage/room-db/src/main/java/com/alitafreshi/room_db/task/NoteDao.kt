@@ -7,10 +7,13 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface NoteDao {
 
-    @Query("SELECT * FROM note WHERE isRemoved = :isRemoved")
-    fun getAllNotes(isRemoved: Boolean = false): Flow<List<Note>>
+    @Query("SELECT * FROM note WHERE isRemoved = 0 AND localId IS NOT NULL")
+    fun getAllNotes(): Flow<List<Note>>
 
-    @Query("SELECT * FROM note WHERE id = :id")
+    @Query("SELECT * FROM note WHERE isRemoved = 1 AND localId IS NOT NULL AND remoteId IS NOT NULL")
+    suspend fun getAllRemovedNotes(): List<Note>
+
+    @Query("SELECT * FROM note WHERE localId = :id")
     suspend fun getNoteById(id: Int): Note?
 
     @Upsert

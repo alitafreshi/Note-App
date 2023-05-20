@@ -5,8 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Note(
-    @PrimaryKey
-    val id: Int? = null,
+    @PrimaryKey(autoGenerate = true)
+    val localId: Int? = null,
+    val remoteId: Int? = null,
     val title: String,
     //TODO Later on we should save the whole text object with it styles like samsung notes
     val description: String,

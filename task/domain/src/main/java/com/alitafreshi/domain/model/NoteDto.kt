@@ -19,14 +19,14 @@ data class NoteDto(
 )
 
 fun NoteDto.toNote(): Note =
-    Note(id = noteId, title = title, description = description, date = date)
+    Note(remoteId = noteId, title = title, description = description, date = date)
 
 fun List<NoteDto>.toNoteList(): List<Note> = buildList {
     this@toNoteList.forEach { add(it.toNote()) }
 }
 
 fun Note.toNoteDto(): NoteDto = NoteDto(
-    noteId = id ?: 0,
+    noteId = remoteId ?: 0,
     title = title,
     description = description,
     date = date,

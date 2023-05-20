@@ -9,6 +9,6 @@ import kotlinx.coroutines.flow.Flow
 class GetNotesUseCase(
     private val noteSynchronizerRepository: NoteSynchronizerRepository
 ) {
-    suspend operator fun invoke(noteOrder: NoteOrder = NoteOrder.Date(orderType = OrderType.Descending)): Flow<List<Note>> =
+     suspend operator fun invoke(noteOrder: NoteOrder = NoteOrder.Date(orderType = OrderType.Descending)): Flow<List<Note>> =
         noteSynchronizerRepository.getSyncedNoteList()
 }

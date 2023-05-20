@@ -2,6 +2,8 @@ package com.alitafreshi.data.datasource
 
 import com.alitafreshi.data.qualifier.IoDispatcher
 import com.alitafreshi.domain.interactors.remote.handleFlowRequestState
+import com.alitafreshi.domain.interactors.remote.handleRequestState
+import com.alitafreshi.domain.model.toNote
 import com.alitafreshi.domain.model.toNoteDto
 import com.alitafreshi.domain.model.toNoteList
 import com.alitafreshi.domain.repository.local.NoteLocalRepository
@@ -38,22 +40,43 @@ class NoteSynchronizerRepositoryImpl(
                  *
                  * Important Note : Step 1 And 2 Are The same Thing
                  *
+                 * 3 - check if any local notes contains isRemoved True We should remove it from remote and then remove it from the cache completely
+                 *
                  *
                  * */
 
                 val unSyncedLocalNotes =
-                    localNoteList.filter { cachedNote -> cachedNote.id == null && !cachedNote.isRemoved }
+                    localNoteList.filter { cachedNote -> cachedNote.remoteId == null && !cachedNote.isRemoved }
 
                 if (unSyncedLocalNotes.isNotEmpty()) {
+                    val syncedNotes = mutableListOf<Note>()
                     unSyncedLocalNotes.forEach {
-                        noteRemoteRepository.insertNewNote(note = it.toNoteDto())
+                        val remoteNote = noteRemoteRepository.insertNewNote(note = it.toNoteDto())
+                            .handleRequestState()
+                        syncedNotes.add(remoteNote.toNote())
                     }
+                    noteRepository.insertNoteList(notes = syncedNotes)
                 }
 
+                val removedLocalNotes = noteRepository.getRemovedNotes()
+                if (removedLocalNotes.isNotEmpty()) {
+                    val removedNotesFromRemote = mutableListOf<Note>()
+                    removedLocalNotes.forEach { localRemovedNote ->
+                        localRemovedNote.remoteId?.let { removedNoteId ->
+                            val response = noteRemoteRepository.removeNote(noteId = removedNoteId)
+                                .handleRequestState()
+                            if (!response.isNullOrEmpty()) {
+                                removedNotesFromRemote.add(localRemovedNote)
+                            }
+                        }
+                    }
+                    if (removedNotesFromRemote.isNotEmpty()) {
+                        noteRepository.deleteNotes(notes = removedNotesFromRemote)
+                    }
+                }
             }
 
             localNoteList
 
-
-        }
+        }.flowOn(ioDispatcher)
 }

@@ -19,12 +19,19 @@ class NoteRemoteRepositoryImpl(private val httpClient: HttpClient) :
             }
         }.body()
 
-    override suspend fun insertNewNote(note: NoteDto): Flow<BaseResponse<NoteDto>> =
+    override suspend fun insertNewNote(note: NoteDto): BaseResponse<NoteDto> =
         httpClient.preparePost {
             url {
                 appendEncodedPathSegments(NOTE_FEATURE_BASE_URL, "newNote")
             }
             setBody(note)
         }.body()
+
+    override suspend fun removeNote(noteId: Int): BaseResponse<String?> = httpClient.prepareDelete {
+        url {
+            appendEncodedPathSegments(NOTE_FEATURE_BASE_URL, "deleteNote", "$noteId")
+        }
+    }.body()
+
 
 }

@@ -7,7 +7,6 @@ import com.alitafreshi.components.util.app.Navigation
 import com.alitafreshi.domain.interactors.DeleteNoteUseCase
 import com.alitafreshi.domain.interactors.GetNotesUseCase
 import com.alitafreshi.domain.interactors.RestoreDeletedNotesUseCase
-import com.alitafreshi.domain.interactors.remote.GetRemoteNotesByUserId
 import com.alitafreshi.state_manager.AppStateManager
 import com.alitafreshi.task_list.presentation.util.asDataState
 import com.alitafreshi.task_list.presentation.util.handleAndCatchGeneralStates
