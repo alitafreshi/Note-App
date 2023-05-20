@@ -8,14 +8,15 @@ import com.alitafreshi.domain.repository.remote.NoteRemoteRepository
 import com.alitafreshi.room_db.task.model.Note
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.transform
 
 class GetRemoteNotesByUserId(
     private val noteRemoteRepository: NoteRemoteRepository,
     @IoDispatcher val ioDispatcher: CoroutineDispatcher
 ) {
-    suspend operator fun invoke(): List<Note> =
-        noteRemoteRepository.getNotesByUserId().handleRequestState().toNoteList()
+    suspend operator fun invoke(): Flow<List<Note>> =
+        noteRemoteRepository.getNotesByUserId().handleFlowRequestState().map { it.toNoteList() }
 }
 
 inline fun <reified T> Flow<BaseResponse<T>>.handleFlowRequestState(successStatusCode: Int = 200): Flow<T> =

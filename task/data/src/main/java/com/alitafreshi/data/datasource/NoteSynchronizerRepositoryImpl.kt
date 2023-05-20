@@ -2,6 +2,7 @@ package com.alitafreshi.data.datasource
 
 import com.alitafreshi.data.qualifier.IoDispatcher
 import com.alitafreshi.domain.interactors.remote.handleFlowRequestState
+import com.alitafreshi.domain.model.toNoteDto
 import com.alitafreshi.domain.model.toNoteList
 import com.alitafreshi.domain.repository.local.NoteLocalRepository
 import com.alitafreshi.domain.repository.NoteSynchronizerRepository
@@ -28,7 +29,8 @@ class NoteSynchronizerRepositoryImpl(
             }
 
             if (localNoteList.isNotEmpty() && remoteNotes.isNotEmpty()) {
-                /**COMPARE LOCAL AND REMOTE NOTE WITH EACH OTHER AND  FLOW THIS STEPS :
+
+                /** COMPARE LOCAL AND REMOTE NOTE WITH EACH OTHER AND  FLOW THIS STEPS :
                  *
                  * 1 - if any localNote ID is Null And The IsRemoved Flag Is False We should send it to the remote and get remote notes again and update the cache
                  *
@@ -39,6 +41,14 @@ class NoteSynchronizerRepositoryImpl(
                  *
                  * */
 
+                val unSyncedLocalNotes =
+                    localNoteList.filter { cachedNote -> cachedNote.id == null && !cachedNote.isRemoved }
+
+                if (unSyncedLocalNotes.isNotEmpty()) {
+                    unSyncedLocalNotes.forEach {
+                        noteRemoteRepository.insertNewNote(note = it.toNoteDto())
+                    }
+                }
 
             }
 

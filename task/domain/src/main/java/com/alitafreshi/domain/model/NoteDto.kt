@@ -25,3 +25,15 @@ fun List<NoteDto>.toNoteList(): List<Note> = buildList {
     this@toNoteList.forEach { add(it.toNote()) }
 }
 
+fun Note.toNoteDto(): NoteDto = NoteDto(
+    noteId = id ?: 0,
+    title = title,
+    description = description,
+    date = date,
+    user = UserDto(userId = 10, phoneNumber = "0926544258279")
+)
+
+fun List<Note>.toNoteDto(): List<NoteDto> = buildList {
+    this@toNoteDto.forEach { add(it.toNoteDto()) }
+}
+
