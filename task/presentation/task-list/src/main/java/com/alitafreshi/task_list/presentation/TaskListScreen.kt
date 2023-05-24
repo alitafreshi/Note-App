@@ -187,7 +187,7 @@ private fun TaskListScreenContent(
     modifier: Modifier = Modifier,
     loadingState: LoadingState,
     taskList: List<Note>,
-    selectedTaskList: List<Note>,
+    selectedTaskList: List<Int>,
     taskBackGroundColor: Color,
     descriptionTextStyle: TextStyle = MaterialTheme.typography.subtitle1,
     navigateToAddNewTask: (id: Int) -> Unit,

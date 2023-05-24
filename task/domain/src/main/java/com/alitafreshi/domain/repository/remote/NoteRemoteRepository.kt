@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface NoteRemoteRepository {
-    suspend fun getNotesByUserId(userId: Long = 1): Flow<BaseResponse<List<NoteDto>>>
+     fun getNotesByUserId(userId: Long = 1): Flow<BaseResponse<List<NoteDto>>>
 
     suspend fun insertNewNote(note: NoteDto): BaseResponse<NoteDto>
 

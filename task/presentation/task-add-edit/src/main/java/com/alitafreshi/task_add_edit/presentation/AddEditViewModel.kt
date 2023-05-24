@@ -90,7 +90,7 @@ class AddEditViewModel @Inject constructor(
                             //TODO Color should Be completed Later on
 
                             note = Note(
-                                id = getCurrentViewStateOrNew().noteId,
+                                localId = getCurrentViewStateOrNew().noteId,
                                 title = getCurrentViewStateOrNew().taskAdEditTitleTextFieldState.text,
                                 description = getCurrentViewStateOrNew().taskAdEditDescriptionTextFieldState.text,
                                 date = pdformater1.format(pdate)
@@ -112,7 +112,7 @@ class AddEditViewModel @Inject constructor(
                     getNoteByIdUseCase(id = event.taskId)?.also { note ->
                         setViewState(
                             viewState = getCurrentViewStateOrNew().copy(
-                                noteId = note.id,
+                                noteId = note.localId,
                                 taskAdEditTitleTextFieldState = getCurrentViewStateOrNew().taskAdEditTitleTextFieldState.copy(
                                     text = note.title,
                                     isHintEnabled = false
@@ -123,11 +123,9 @@ class AddEditViewModel @Inject constructor(
                                 )
                             )
                         )
-
                     }
                 }
             }
         }
     }
-
 }

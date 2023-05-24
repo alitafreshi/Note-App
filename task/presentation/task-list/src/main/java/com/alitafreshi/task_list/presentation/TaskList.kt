@@ -28,7 +28,7 @@ fun TaskList(
     modifier: Modifier = Modifier,
     loadingState: LoadingState,
     taskList: List<Note>,
-    selectedTaskList: List<Note>,
+    selectedTaskList: List<Int>,
     shape: Shape = MaterialTheme.shapes.medium,
     backgroundColor: Color = MaterialTheme.colors.surface,
     titleTextStyle: TextStyle = MaterialTheme.typography.subtitle1,
@@ -48,7 +48,7 @@ fun TaskList(
             horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
             verticalItemSpacing = MaterialTheme.spacing.small,
         ) {
-            itemsIndexed(items = taskList, key = { _, item -> item.id!! }) { _, note ->
+            itemsIndexed(items = taskList, key = { _, item -> item.localId!! }) { _, note ->
                 TaskItem(
                     shape = shape,
                     backgroundColor = backgroundColor,
@@ -59,10 +59,10 @@ fun TaskList(
                     noteDate = note.date,
                     dateTextStyle = dateTextStyle,
                     isInSelectionMode = selectedTaskList.isNotEmpty(),
-                    isSelected = selectedTaskList.isNotEmpty() && selectedTaskList.contains(note),
+                    isSelected = selectedTaskList.isNotEmpty() && selectedTaskList.contains(note.localId),
                     onItemClick = {
                         if (selectedTaskList.isEmpty())
-                            navigateToAddNewTask(note.id ?: -1)
+                            navigateToAddNewTask(note.localId ?: -1)
                         else
                             activeSelectionMode(note)
                     },

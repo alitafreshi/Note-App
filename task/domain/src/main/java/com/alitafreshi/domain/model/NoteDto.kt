@@ -30,7 +30,7 @@ fun Note.toNoteDto(): NoteDto = NoteDto(
     title = title,
     description = description,
     date = date,
-    user = UserDto(userId = 10, phoneNumber = "0926544258279")
+    user = UserDto(userId = 1, phoneNumber = "0926544258279")
 )
 
 fun List<Note>.toNoteDto(): List<NoteDto> = buildList {

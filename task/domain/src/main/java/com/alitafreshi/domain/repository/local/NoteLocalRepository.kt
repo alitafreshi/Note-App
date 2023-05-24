@@ -9,6 +9,7 @@ interface NoteLocalRepository {
     suspend fun getNoteById(id: Int): Note?
     suspend fun insertNote(note: Note)
     suspend fun insertNoteList(notes: List<Note>): List<Long>
-    suspend fun deleteNotes(notes: List<Note>): Int
+    suspend fun updateRemoveStatus(notesId: List<Int>)
+    suspend fun deleteNotes(notes: List<Note>)
     suspend fun clearAllNotes()
 }

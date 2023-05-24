@@ -15,7 +15,7 @@ class GetRemoteNotesByUserId(
     private val noteRemoteRepository: NoteRemoteRepository,
     @IoDispatcher val ioDispatcher: CoroutineDispatcher
 ) {
-    suspend operator fun invoke(): Flow<List<Note>> =
+    operator fun invoke(): Flow<List<Note>> =
         noteRemoteRepository.getNotesByUserId().handleFlowRequestState().map { it.toNoteList() }
 }
 

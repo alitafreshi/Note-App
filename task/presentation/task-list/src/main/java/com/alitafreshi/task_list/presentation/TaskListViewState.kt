@@ -8,7 +8,7 @@ import com.alitafreshi.room_db.task.model.Note
 
 data class TaskListViewState(
     val taskList: List<Note> = emptyList(),
-    val selectedTaskList: List<Note> = emptyList(),
+    val selectedTaskList: List<Int> = emptyList(),
     val noteOrder: NoteOrder = NoteOrder.Date(OrderType.Descending),
     val isAddButtonVisible: Boolean = true,
     val loadingState: LoadingState = LoadingState.Idle

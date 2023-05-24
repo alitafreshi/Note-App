@@ -61,15 +61,17 @@ class TaskListViewModel @Inject constructor(
 
             is TaskListEvents.AddToSelectionList -> {
                 val selectedTasksList = getCurrentViewStateOrNew().selectedTaskList.toMutableList()
-
-                if (getCurrentViewStateOrNew().selectedTaskList.isNotEmpty() && getCurrentViewStateOrNew().selectedTaskList.contains(
-                        event.note
-                    )
-                ) {
-                    selectedTasksList.remove(event.note)
-                } else {
-                    selectedTasksList.add(event.note)
+                event.note.localId?.let { noteId ->
+                    if (getCurrentViewStateOrNew().selectedTaskList.isNotEmpty() && getCurrentViewStateOrNew().selectedTaskList.contains(
+                            noteId
+                        )
+                    ) {
+                        selectedTasksList.remove(noteId)
+                    } else {
+                        selectedTasksList.add(noteId)
+                    }
                 }
+
                 setViewState(
                     viewState =
                     getCurrentViewStateOrNew().copy(

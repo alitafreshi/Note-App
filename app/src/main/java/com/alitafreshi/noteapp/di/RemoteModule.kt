@@ -41,7 +41,7 @@ object RemoteModule {
         }
 
         install(HttpTimeout) {
-            requestTimeoutMillis = 2000
+            requestTimeoutMillis = 4000
         }
 
         defaultRequest {

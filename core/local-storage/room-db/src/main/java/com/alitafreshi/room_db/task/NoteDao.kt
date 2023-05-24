@@ -22,8 +22,11 @@ interface NoteDao {
     @Upsert
     suspend fun insertNewNoteList(notes: List<Note>): List<Long>
 
+    @Query("UPDATE Note SET isRemoved = 1 WHERE localId IN (:notesId)")
+    suspend fun updateRemoveStatus(notesId: List<Int>)
+
     @Delete
-    suspend fun deleteNote(notes: List<Note>): Int
+    suspend fun deleteNotes(notes: List<Note>)
 
     @Query("DELETE FROM note")
     suspend fun clearAllNotes()

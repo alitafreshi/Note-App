@@ -21,8 +21,14 @@ class NoteLocalRepositoryImpl(private val noteDao: NoteDao) : NoteLocalRepositor
     override suspend fun insertNoteList(notes: List<Note>) =
         noteDao.insertNewNoteList(notes = notes)
 
+    override suspend fun updateRemoveStatus(notesId: List<Int>) {
+        noteDao.updateRemoveStatus(notesId = notesId)
+    }
 
-    override suspend fun deleteNotes(notes: List<Note>) = noteDao.deleteNote(notes = notes)
+    override suspend fun deleteNotes(notes: List<Note>) {
+        noteDao.deleteNotes(notes = notes)
+    }
+
     override suspend fun clearAllNotes() {
         noteDao.clearAllNotes()
     }

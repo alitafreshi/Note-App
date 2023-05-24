@@ -4,7 +4,7 @@ import com.alitafreshi.room_db.task.model.Note
 
 
 sealed class TaskListEvents {
-    data class DeleteNotes(val deletedNotes: List<Note>) : TaskListEvents()
+    data class DeleteNotes(val deletedNotes: List<Int>) : TaskListEvents()
     data class RestoreNote(val restoredNotes: List<Note>) : TaskListEvents()
     object RetrieveNoteList : TaskListEvents()
     data class AddToSelectionList(val note: Note) : TaskListEvents()
