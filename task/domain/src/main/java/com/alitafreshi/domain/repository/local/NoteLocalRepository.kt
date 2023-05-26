@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface NoteLocalRepository {
     fun getNotes(): Flow<List<Note>>
+    suspend fun getUnSyncedNotes(): List<Note>
     suspend fun getRemovedNotes(): List<Note>
     suspend fun getNoteById(id: Int): Note?
     suspend fun insertNote(note: Note)

@@ -21,17 +21,6 @@ object RemoteModule {
     @Singleton
     @Provides
     fun provideKtorClient(): HttpClient = HttpClient(OkHttp) {
-        expectSuccess = true
-
-        /*install(Logging) {
-            logger = Logger.ANDROID
-            level = LogLevel.ALL
-            filter { request ->
-                request.url.host.contains(APP_BASE_URL)
-            }
-
-        }*/
-
         install(ContentNegotiation) {
             gson(block = {
                 setPrettyPrinting()

@@ -31,14 +31,10 @@ inline fun <reified T> Flow<BaseResponse<T>>.handleFlowRequestState(successStatu
         }
     }
 
-inline fun <reified T> BaseResponse<T>.handleRequestState(successStatusCode: Int = 200): T =
+inline fun <reified T> BaseResponse<T>.handleRequestState(successStatusCode: Int = 200): T? =
     when (this.status.code) {
-        successStatusCode -> {
-            this.response
-        }
-        else -> {
-            throw (UnExpectedApiResponseException(status = this.status))
-        }
+        successStatusCode -> this.response
+        else -> null
     }
 
 
